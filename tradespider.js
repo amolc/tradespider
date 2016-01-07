@@ -15,26 +15,36 @@ var five_minute = {
         'User-Agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36'
     }
 };
-var today = new Date();
-console.log(today.getTime());
+
 // One Minute Cron
-// var oneMinuteCron = cron.job('0 * * * * *', function(){
-//   request(one_minute, function (error, response, html) {
-//     if (!error && response.statusCode == 200) {
-//       console.log('----------- ONE MINUTE SUMMARY ----------');
-//       var $ = cheerio.load(html);
-//       var parsedResults = [];
-//       $('div #techStudiesInnerWrap').each(function(i, element){
-//         console.log($(this).children('.summary').text());
-//         console.log($(this).children('.summaryTableLine').children('span').eq(0).text() + ' ' + $(this).children('.summaryTableLine').children('span').eq(1).children('span').text());
-//         console.log($(this).children('.summaryTableLine').next().children('span').eq(0).text() + ' '+ $(this).children('.summaryTableLine').next().children('span').eq(1).children('span').text());
-//       });
-//     }
-//   });
-// });
+var oneMinuteCron = cron.job('0 * * * * *', function(){
+  request(one_minute, function (error, response, html) {
+    if (!error && response.statusCode == 200) {
+      console.log('----------- ONE MINUTE SUMMARY ----------');
+      var $ = cheerio.load(html);
+      var parsedResults = [];
+      $('div #techStudiesInnerWrap').each(function(i, element){
+        console.log($(this).children('.summary').text());
+
+        if($(this).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
+          console.log($(this).children('.summaryTableLine').children('span').eq(0).text() + ' ' + $(this).children('.summaryTableLine').children('span').eq(1).children('span').text());
+        }else if($(this).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
+          console.log($(this).children('.summaryTableLine').children('span').eq(0).text() + ' ' + $(this).children('.summaryTableLine').children('span').eq(1).children('b').text());
+        }
+
+        if($(this).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
+          console.log($(this).children('.summaryTableLine').next().children('span').eq(0).text() + ' '+ $(this).children('.summaryTableLine').next().children('span').eq(1).children('span').text());
+        }else if($(this).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
+          console.log($(this).children('.summaryTableLine').next().children('span').eq(0).text() + ' '+ $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text());
+        }
+
+      });
+    }
+  });
+});
 
 // Five Minute Cron
-var fiveMinuteCron = cron.job('0 5 * * * *', function(){
+var fiveMinuteCron = cron.job('0 */5 * * * *', function(){
   request(five_minute, function (error, response, html) {
     var stoday = new Date();
     console.log(stoday.getTime());
@@ -44,6 +54,7 @@ var fiveMinuteCron = cron.job('0 5 * * * *', function(){
       var parsedResults = [];
       $('div #techStudiesInnerWrap').each(function(i, element){
         console.log($(this).children('.summary').text());
+
         if($(this).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
           console.log($(this).children('.summaryTableLine').children('span').eq(0).text() + ' ' + $(this).children('.summaryTableLine').children('span').eq(1).children('span').text());
         }else if($(this).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
@@ -60,5 +71,5 @@ var fiveMinuteCron = cron.job('0 5 * * * *', function(){
   });
 });
 
-// oneMinuteCron.start();
+oneMinuteCron.start();
 fiveMinuteCron.start();
