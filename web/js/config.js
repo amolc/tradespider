@@ -1,4 +1,4 @@
-var instance = "local";
+var instance = "dev";
 
 if (instance == "dev"){
 	var baseURL="http://188.166.216.245:5555/api/";
