@@ -4,10 +4,11 @@ var http = require("http").createServer(app);
 // var io = require("./socket/socket");
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-var CRUD = require('mysql-crud');
 var request = require('request');
 var cheerio = require('cheerio');
 var cron = require('cron');
+var CRUD = require('mysql-crud');
+
 // var neuron = require('neuron');
 
 var dbConnection = mysql.createPool({
@@ -16,6 +17,8 @@ var dbConnection = mysql.createPool({
   password : '10gXWOqeaf',
   host :'apps.fountaintechies.com',
 });
+var dax_1 = CRUD(dbConnection, 'dax_1');
+var dax_5 = CRUD(dbConnection, 'dax_5');
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use('/', express.static(__dirname + '/web'));
@@ -39,6 +42,7 @@ var five_minute = {
 
 // One Minute Cron
 var oneMinuteCron = cron.job('0 * * * * *', function(){
+  var time = new Date().getTime();
 
   request(one_minute, function (error, response, html) {
     if (!error && response.statusCode == 200) {
@@ -65,6 +69,15 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
         }
       });
       console.log(oneMinuteData);
+      dax_1.create({
+        'summary': oneMinuteData.summary,
+        'moving_averages': oneMinuteData.moving_averages,
+        'technical_indicators': oneMinuteData.technical_indicators,
+        'created_on': time
+      }, function (err, rows) {
+        console.log(err);
+        console.log(rows);
+      });
     }
   });
 
@@ -93,13 +106,21 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
         }
       });
       console.log(fiveMinuteData);
+      dax_5.create({
+        'summary': fiveMinuteData.summary,
+        'moving_averages': fiveMinuteData.moving_averages,
+        'technical_indicators': fiveMinuteData.technical_indicators,
+        'created_on': time
+      }, function (err, rows) {
+        console.log(err);
+        console.log(rows);
+      });
     }
   });
 
 });
 
 oneMinuteCron.start();
-
 
 http.listen(5555);
 console.log("listening to port 5555");
