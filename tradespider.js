@@ -41,13 +41,8 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
       });
     }
   });
-});
 
-// Five Minute Cron
-var fiveMinuteCron = cron.job('0 */5 * * * *', function(){
   request(five_minute, function (error, response, html) {
-    var stoday = new Date();
-    console.log(stoday.getTime());
     if (!error && response.statusCode == 200) {
       console.log('----------- FIVE MINUTE SUMMARY ----------');
       var $ = cheerio.load(html);
@@ -69,7 +64,7 @@ var fiveMinuteCron = cron.job('0 */5 * * * *', function(){
       });
     }
   });
+
 });
 
 oneMinuteCron.start();
-fiveMinuteCron.start();
