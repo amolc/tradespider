@@ -1,14 +1,13 @@
 var express = require('express');
 var app = express();
 var http = require("http").createServer(app);
-// var io = require("./socket/socket");
+var io = require("./socket");
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var request = require('request');
 var cheerio = require('cheerio');
 var cron = require('cron');
 var CRUD = require('mysql-crud');
-
 // var neuron = require('neuron');
 
 var dbConnection = mysql.createPool({
@@ -126,7 +125,8 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
 
 });
 
-oneMinuteCron.start();
+// oneMinuteCron.start();
 
 http.listen(5555);
 console.log("listening to port 5555");
+io.attach(http);
