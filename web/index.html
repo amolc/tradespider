@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ng-app="tradespider">
 
 <head>
 
@@ -31,7 +31,7 @@
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" data-ng-controller="daxController">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -387,7 +387,9 @@
     </div>
 
     <!-- jQuery -->
+    <script src="lib/angular.js"></script>
     <script src="js/jquery.js"></script>
+    <script src="controller.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
