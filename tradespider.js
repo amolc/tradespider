@@ -75,8 +75,11 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
         'technical_indicators': oneMinuteData.technical_indicators,
         'created_on': time
       }, function (err, rows) {
-        console.log(err);
-        console.log(rows);
+        if(rows.affectedRows == 1){
+          console.log('Row added to DB');
+        }else {
+          console.log(err);
+        }
       });
     }
   });
@@ -112,8 +115,11 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
         'technical_indicators': fiveMinuteData.technical_indicators,
         'created_on': time
       }, function (err, rows) {
-        console.log(err);
-        console.log(rows);
+        if(rows.affectedRows == 1){
+          console.log('Row added to DB');
+        }else {
+          console.log(err);
+        }
       });
     }
   });
