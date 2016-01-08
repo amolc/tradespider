@@ -2,7 +2,7 @@
   "name": "tradespider",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "tradespider.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/ftechiesnitin/tradespider#readme",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "cheerio": "^0.19.0",
     "cron": "^1.1.0",
+    "express": "^4.13.3",
+    "mysql": "^2.10.0",
+    "mysql-crud": "^0.1.4",
     "request": "^2.67.0"
   }
 }
