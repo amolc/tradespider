@@ -16,7 +16,7 @@ io.on('connection', function(socket){
     console.log('New user Connected');
     console.log(user_data);
 
-    dbConnection.query('SELECT * FROM dax_1 ORDER BY id DESC LIMIT 1; SELECT * FROM dax_5 ORDER BY id DESC LIMIT 1', function(err, results) {
+    dbConnection.query('SELECT * FROM dax_1 ORDER BY id DESC; SELECT * FROM dax_5 ORDER BY id DESC', function(err, results) {
       if(err){
         // echo globally (all clients) that a person has connected
         socket.emit('error', {
@@ -29,9 +29,6 @@ io.on('connection', function(socket){
           'dax_5': results[1]
         });
       }
-      console.log(err);
-      // `results` is an array with one element for every statement in the query:
-      console.log(results); // [{1: 1}]
     });
   });
 

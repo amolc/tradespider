@@ -53,10 +53,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#login">LOGIN</a>
+                        <a href="index.html">1 MINUTE</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">SIGNUP</a>
+                        <a href="tags.html">5 MINUTE</a>
                     </li>
                 </ul>
             </div>
@@ -98,55 +98,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="active">
+                    <tr class="active" data-ng-repeat="dax_1 in dax_1s | orderBy: 'id' : 'reverse'">
                         <th>
-                            11:00PM
+                            {{dax_1.created_on | date: 'h:mm a'}}
                         </th>
                         <td>
-                            Classic
+                            <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_1.summary === 'buy'">{{dax_1.summary | uppercase}}</button>
+                            <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_1.summary === 'strong buy'">{{dax_1.summary | uppercase}}</button>
+                            <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_1.summary === 'sell'">{{dax_1.summary | uppercase}}</button>
+                            <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_1.summary === 'strong sell'">{{dax_1.summary | uppercase}}</button>
+                            <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_1.summary === 'neutral'">{{dax_1.summary | uppercase}}</button>
                         </td>
                         <td>
-                            9835.86
+                            <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_1.moving_averages === 'buy'">{{dax_1.moving_averages | uppercase}}</button>
+                            <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_1.moving_averages === 'strong buy'">{{dax_1.moving_averages | uppercase}}</button>
+                            <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_1.moving_averages === 'sell'">{{dax_1.moving_averages | uppercase}}</button>
+                            <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_1.moving_averages === 'strong sell'">{{dax_1.moving_averages | uppercase}}</button>
+                            <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_1.moving_averages === 'neutral'">{{dax_1.moving_averages | uppercase}}</button>
                         </td>
                         <td>
-                            9835.86
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="container">
-            <h4>5 MINUTE</h4>
-           <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            TIME
-                        </th>
-                        <th>
-                            SUMMARY
-                        </th>
-                        <th>
-                            MOVING AVERAGES
-                        </th>
-                        <th>
-                            TECHNICAL INDICATORS
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="active">
-                        <th>
-                            11:00PM
-                        </th>
-                        <td>
-                            Classic
-                        </td>
-                        <td>
-                            9835.86
-                        </td>
-                        <td>
-                            9835.86
+                            <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_1.technical_indicators === 'buy'">{{dax_1.technical_indicators | uppercase}}</button>
+                            <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_1.technical_indicators === 'strong buy'">{{dax_1.technical_indicators | uppercase}}</button>
+                            <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_1.technical_indicators === 'sell'">{{dax_1.technical_indicators | uppercase}}</button>
+                            <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_1.technical_indicators === 'strong sell'">{{dax_1.technical_indicators | uppercase}}</button>
+                            <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_1.technical_indicators === 'neutral'">{{dax_1.technical_indicators | uppercase}}</button>
                         </td>
                     </tr>
                 </tbody>
@@ -169,6 +144,7 @@
 
     <!-- JS Library -->
     <script src="lib/angular.js"></script>
+    <script src="lib/angular-ui-router.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
     <script src="lib/angular-socket-io/socket.min.js"></script>
     <script src="js/config.js"></script>

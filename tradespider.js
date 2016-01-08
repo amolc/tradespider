@@ -8,7 +8,8 @@ var request = require('request');
 var cheerio = require('cheerio');
 var cron = require('cron');
 var CRUD = require('mysql-crud');
-// var neuron = require('neuron');
+var neuron = require('neuron');
+var manager = new neuron.JobManager();
 
 var dbConnection = mysql.createPool({
   database : 'tradespider',
@@ -26,14 +27,14 @@ app.use('/', express.static(__dirname + '/web'));
 // });
 
 var one_minute = {
-   url : 'http://www.investing.com/indices/germany-30-technical?period=60',
+   url : 'http://www.investing.com/indices/us-30-technical?period=60',
    headers:  {
        'User-Agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36'
    }
 };
 
 var five_minute = {
-    url : 'http://www.investing.com/indices/germany-30-technical?period=300',
+    url : 'http://www.investing.com/indices/us-30-technical?period=300',
     headers:  {
         'User-Agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36'
     }
@@ -49,7 +50,7 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
       var $ = cheerio.load(html);
       var oneMinuteData = {};
       $('div #techStudiesInnerWrap').each(function(i, element){
-
+        oneMinuteData.created_on = time;
         // Summary Info
         oneMinuteData.summary = $(this).children('.summary').children('span').text();
 
@@ -67,19 +68,8 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
           oneMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
         }
       });
-      console.log(oneMinuteData);
-      dax_1.create({
-        'summary': oneMinuteData.summary,
-        'moving_averages': oneMinuteData.moving_averages,
-        'technical_indicators': oneMinuteData.technical_indicators,
-        'created_on': time
-      }, function (err, rows) {
-        if(rows.affectedRows == 1){
-          console.log('Row added to DB');
-        }else {
-          console.log(err);
-        }
-      });
+      io.emit('one minute report', oneMinuteData);
+      manager.enqueue('add-one-minute-dax', oneMinuteData);
     }
   });
 
@@ -89,7 +79,7 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
       var $ = cheerio.load(html);
       var fiveMinuteData = {};
       $('div #techStudiesInnerWrap').each(function(i, element){
-
+        fiveMinuteData.created_on = time;
         // Summary Info
         fiveMinuteData.summary = $(this).children('.summary').children('span').text();
 
@@ -107,25 +97,48 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
           fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
         }
       });
-      console.log(fiveMinuteData);
-      dax_5.create({
-        'summary': fiveMinuteData.summary,
-        'moving_averages': fiveMinuteData.moving_averages,
-        'technical_indicators': fiveMinuteData.technical_indicators,
-        'created_on': time
-      }, function (err, rows) {
-        if(rows.affectedRows == 1){
-          console.log('Row added to DB');
-        }else {
-          console.log(err);
-        }
-      });
+      io.emit('five minute report', fiveMinuteData);
+      manager.enqueue('add-five-minute-dax', fiveMinuteData);
     }
   });
 
 });
 
-// oneMinuteCron.start();
+manager.addJob('add-one-minute-dax', {
+  work: function (data) {
+    dax_1.create({
+      'summary': data.summary.toLowerCase(),
+      'moving_averages': data.moving_averages.toLowerCase(),
+      'technical_indicators': data.technical_indicators.toLowerCase(),
+      'created_on': data.created_on
+    }, function (err, rows) {
+      if(rows.affectedRows == 1){
+        console.log('Row added to DB');
+      }else {
+        console.log(err);
+      }
+    });
+  }
+});
+
+manager.addJob('add-five-minute-dax', {
+  work: function (data) {
+    dax_5.create({
+      'summary': data.summary.toLowerCase(),
+      'moving_averages': data.moving_averages.toLowerCase(),
+      'technical_indicators': data.technical_indicators.toLowerCase(),
+      'created_on': data.created_on
+    }, function (err, rows) {
+      if(rows.affectedRows == 1){
+        console.log('Row added to DB');
+      }else {
+        console.log(err);
+      }
+    });
+  }
+});
+
+oneMinuteCron.start();
 
 http.listen(5555);
 console.log("listening to port 5555");

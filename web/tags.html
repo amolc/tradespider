@@ -53,10 +53,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#login">LOGIN</a>
+                        <a href="index.html">1 MINUTE</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">SIGNUP</a>
+                        <a href="tags.html">5 MINUTE</a>
                     </li>
                 </ul>
             </div>
@@ -66,13 +66,90 @@
     </nav>
 
     <!-- Header -->
-    <section style="margin-top: 90px;">
-    <div class="container">
-        <button type="button" class="btn btn-success btn-xs">Buy</button>
-        <button type="button" class="btn btn-success btn-xs">Strong Buy</button>
-        <button type="button" class="btn btn-danger btn-xs">Sell</button>
-        <button type="button" class="btn btn-danger btn-xs">Strong Sell</button>
-        <button type="button" class="btn btn-default btn-xs">Nutral</button>
-    </div>     
-    </section>
-       
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-text">
+                        <span class="name">Technical Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <h4>5 MINUTE</h4>
+           <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            TIME
+                        </th>
+                        <th>
+                            SUMMARY
+                        </th>
+                        <th>
+                            MOVING AVERAGES
+                        </th>
+                        <th>
+                            TECHNICAL INDICATORS
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr class="active"  data-ng-repeat="dax_5 in dax_5s | orderBy: 'id' : 'reverse'">
+                      <th>
+                          {{dax_5.created_on | date: 'h:mm a'}}
+                      </th>
+                      <td>
+                          <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.summary === 'buy'">{{dax_5.summary | uppercase}}</button>
+                          <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.summary === 'strong buy'">{{dax_5.summary | uppercase}}</button>
+                          <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.summary === 'sell'">{{dax_5.summary | uppercase}}</button>
+                          <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.summary === 'strong sell'">{{dax_5.summary | uppercase}}</button>
+                          <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.summary === 'neutral'">{{dax_5.summary | uppercase}}</button>
+                      </td>
+                      <td>
+                          <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.moving_averages === 'buy'">{{dax_5.moving_averages | uppercase}}</button>
+                          <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.moving_averages === 'strong buy'">{{dax_5.moving_averages | uppercase}}</button>
+                          <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.moving_averages === 'sell'">{{dax_5.moving_averages | uppercase}}</button>
+                          <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.moving_averages === 'strong sell'">{{dax_5.moving_averages | uppercase}}</button>
+                          <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.moving_averages === 'neutral'">{{dax_5.moving_averages | uppercase}}</button>
+                      </td>
+                      <td>
+                          <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.technical_indicators === 'buy'">{{dax_5.technical_indicators | uppercase}}</button>
+                          <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.technical_indicators === 'strong buy'">{{dax_5.technical_indicators | uppercase}}</button>
+                          <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'sell'">{{dax_5.technical_indicators | uppercase}}</button>
+                          <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'strong sell'">{{dax_5.technical_indicators | uppercase}}</button>
+                          <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.technical_indicators === 'neutral'">{{dax_5.technical_indicators | uppercase}}</button>
+                      </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+    <footer class="text-center">
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Tradealert 2016
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JS Library -->
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-ui-router.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+    <script src="lib/angular-socket-io/socket.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/controller.js"></script>
+
+</body>
+
+</html>
