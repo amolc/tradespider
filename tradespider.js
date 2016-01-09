@@ -69,7 +69,19 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
         }
       });
       io.emit('one minute report', oneMinuteData);
-      manager.enqueue('add-one-minute-dax', oneMinuteData);
+      dax_1.create({
+        'summary': oneMinuteData.summary.toLowerCase(),
+        'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
+        'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
+        'created_on': oneMinuteData.created_on
+      }, function (err, rows) {
+        console.log('115',err);
+        if(rows.affectedRows == 1){
+          console.log('Row added to DB');
+        }else {
+          console.log(err);
+        }
+      });
     }
   });
 
@@ -98,49 +110,25 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
         }
       });
       io.emit('five minute report', fiveMinuteData);
-      manager.enqueue('add-five-minute-dax', fiveMinuteData);
+      dax_5.create({
+        'summary': fiveMinuteData.summary.toLowerCase(),
+        'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
+        'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
+        'created_on': fiveMinuteData.created_on
+      }, function (err, rows) {
+        console.log('133',err);
+        if(rows.affectedRows == 1){
+          console.log('Row added to DB');
+        }else {
+          console.log(err);
+        }
+      });
     }
   });
 
 });
 
-manager.addJob('add-one-minute-dax', {
-  work: function (data) {
-    dax_1.create({
-      'summary': data.summary.toLowerCase(),
-      'moving_averages': data.moving_averages.toLowerCase(),
-      'technical_indicators': data.technical_indicators.toLowerCase(),
-      'created_on': data.created_on
-    }, function (err, rows) {
-      console.log('115',err);
-      if(rows.affectedRows == 1){
-        console.log('Row added to DB');
-      }else {
-        console.log(err);
-      }
-    });
-  }
-});
-
-manager.addJob('add-five-minute-dax', {
-  work: function (data) {
-    dax_5.create({
-      'summary': data.summary.toLowerCase(),
-      'moving_averages': data.moving_averages.toLowerCase(),
-      'technical_indicators': data.technical_indicators.toLowerCase(),
-      'created_on': data.created_on
-    }, function (err, rows) {
-      console.log('133',err);
-      if(rows.affectedRows == 1){
-        console.log('Row added to DB');
-      }else {
-        console.log(err);
-      }
-    });
-  }
-});
-
-// oneMinuteCron.start();
+oneMinuteCron.start();
 
 http.listen(5555);
 console.log("listening to port 5555");
