@@ -160,7 +160,7 @@ var oneMinuteCron = cron.job('0 * * * * *', function(){
 });
 
 // Five Minute Cron
-var fiveMinuteCron = cron.job('0 0/5 * * * *', function(){
+var fiveMinuteCron = cron.job('0 */5 * * * *', function(){
   var time = new Date().getTime();
 
   request(five_minute_dax, function (error, response, html) {
@@ -248,7 +248,7 @@ var fiveMinuteCron = cron.job('0 0/5 * * * *', function(){
 });
 
 // Fifteen Minute Cron
-var fifteenMinuteCron = cron.job('0 0/15 * * * *', function(){
+var fifteenMinuteCron = cron.job('0 */15 * * * *', function(){
   var time = new Date().getTime();
 
   request(fifteen_minute_dax, function (error, response, html) {
