@@ -6,29 +6,64 @@ var dbConnection = mysql.createConnection({
   user : 'ftdev',
   password : '10gXWOqeaf',
   host :'apps.fountaintechies.com',
-  multipleStatements: true
+  // multipleStatements: true
 });
+
+function dax(page, callback) {
+  var query;
+  if(page.page == "period60"){
+    query = 'SELECT * FROM dax_1 ORDER BY id DESC';
+  }else if(page.page == "period300"){
+    query = 'SELECT * FROM dax_5 ORDER BY id DESC';
+  }else if(page.page == "period1500"){
+    query = 'SELECT * FROM dax_15 ORDER BY id DESC';
+  }
+  dbConnection.query(query, function(err, results) {
+    if(err){
+      // echo globally (all clients) that a person has connected
+      console.log(err);
+    }else {
+      // echo globally (all clients) that a person has connected
+      callback(results);
+    }
+  });
+}
+
+function dow(page, callback) {
+  var query;
+  if(page.page == "period60"){
+    query = 'SELECT * FROM dow_1 ORDER BY id DESC';
+  }else if(page.page == "period300"){
+    query = 'SELECT * FROM dow_5 ORDER BY id DESC';
+  }else if(page.page == "period1500"){
+    query = 'SELECT * FROM dow_15 ORDER BY id DESC';
+  }
+  dbConnection.query(query, function(err, results) {
+    if(err){
+      // echo globally (all clients) that a person has connected
+      console.log(err);
+    }else {
+      // echo globally (all clients) that a person has connected
+      callback(results);
+    }
+  });
+}
 
 io.on('connection', function(socket){
 
-  // when the client emits 'add user', this listens and executes
-  socket.on('add user', function (user_data) {
-    console.log('New user Connected');
-    console.log(user_data);
+  socket.on('get dax data', function (page) {
+    dax(page, function (result) {
+      socket.emit('dax data', {
+        'dax': result,
+      });
+    });
+  });
 
-    dbConnection.query('SELECT * FROM dax_1 ORDER BY id DESC; SELECT * FROM dax_5 ORDER BY id DESC', function(err, results) {
-      if(err){
-        // echo globally (all clients) that a person has connected
-        socket.emit('error', {
-          usernames: user_list
-        });
-      }else {
-        // echo globally (all clients) that a person has connected
-        socket.emit('dax data', {
-          'dax_1': results[0],
-          'dax_5': results[1]
-        });
-      }
+  socket.on('get dow data', function (page) {
+    dow(page, function (result) {
+      socket.emit('dow data', {
+        'dow': result,
+      });
     });
   });
 

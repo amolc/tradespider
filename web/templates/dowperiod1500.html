@@ -1,0 +1,46 @@
+<table class="table"  data-ng-init="dowData('period1500')">
+     <thead>
+         <tr>
+             <th>
+                 TIME
+             </th>
+             <th>
+                 SUMMARY
+             </th>
+             <th>
+                 MOVING AVERAGES
+             </th>
+             <th>
+                 TECHNICAL INDICATORS
+             </th>
+         </tr>
+     </thead>
+     <tbody>
+         <tr class="active" data-ng-repeat="dow_15 in dows | orderBy: 'id' : 'reverse'">
+             <th>
+                 {{dow_15.created_on | date: 'h:mm a'}}
+             </th>
+             <td>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dow_15.summary === 'buy'">{{dow_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dow_15.summary === 'strong buy'">{{dow_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dow_15.summary === 'sell'">{{dow_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dow_15.summary === 'strong sell'">{{dow_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-default btn-xs" data-ng-if="dow_15.summary === 'neutral'">{{dow_15.summary | uppercase}}</button>
+             </td>
+             <td>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dow_15.moving_averages === 'buy'">{{dow_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dow_15.moving_averages === 'strong buy'">{{dow_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dow_15.moving_averages === 'sell'">{{dow_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dow_15.moving_averages === 'strong sell'">{{dow_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-default btn-xs" data-ng-if="dow_15.moving_averages === 'neutral'">{{dow_15.moving_averages | uppercase}}</button>
+             </td>
+             <td>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dow_15.technical_indicators === 'buy'">{{dow_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dow_15.technical_indicators === 'strong buy'">{{dow_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dow_15.technical_indicators === 'sell'">{{dow_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dow_15.technical_indicators === 'strong sell'">{{dow_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-default btn-xs" data-ng-if="dow_15.technical_indicators === 'neutral'">{{dow_15.technical_indicators | uppercase}}</button>
+             </td>
+         </tr>
+     </tbody>
+ </table>

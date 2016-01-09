@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="tradespider">
+<html lang="en">
 
 <head>
 
@@ -30,7 +30,7 @@
 
 </head>
 
-<body id="page-top" class="index" data-ng-controller="daxController">
+<body id="page-top" class="index" data-ng-app="tradespider">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -50,10 +50,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a ui-sref="60" >1 MINUTE</a>
+                        <a ui-sref="dax.daxperiod60" >DAX</a>
                     </li>
                     <li>
-                        <a ui-sref="300">5 MINUTE</a>
+                        <a ui-sref="dow.dowperiod60">DOW</a>
                     </li>
                 </ul>
             </div>
