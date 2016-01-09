@@ -1,6 +1,13 @@
-<section>
+<section style="margin-top:100px;">
     <div class="container">
-        <h4>5 MINUTE</h4>
+        <ul class="tabs nav navbar-nav navbar-left">
+            <li>
+                <a ui-sref="60">DOX</a>
+            </li>
+            <li>
+                <a ui-sref="300" class="active">DOW</a>
+            </li>
+        </ul>
        <table class="table">
             <thead>
                 <tr>
@@ -47,5 +54,20 @@
               </tr>
             </tbody>
         </table>
+        <div class="page-nation">
+            <ul class="pagination pagination-large">
+            <li class="disabled"><span><</span></li>
+            <li class="active"><span>Today</span></li>
+            <li><a href="#">Tomorrow</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">8</a></li>
+            <li><a href="#">9</a></li>
+            <li class="disabled"><span>...</span></li><li>
+            <li><a rel="next" href="#">></a></li>
+            </ul>
+        </div>
     </div>
   </section>
