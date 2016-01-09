@@ -56,17 +56,24 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   	});
     return mySocket;
 })
-.controller('daxController', function ($scope, socket) {
+.controller('daxController', function ($scope, $state, socket) {
 
   $scope.daxData = function (page) {
       socket.emit('get dax data', {'page': page});
   };
 
   socket.on('dax data', function(data){
-    $scope.daxs = data.dax;
+    if($state.current.name === 'dax.daxperiod60'){
+      $scope.dax_1s = data.dax;
+    }else if($state.current.name === 'dax.daxperiod300'){
+      $scope.dax_5s = data.dax;
+    }else if($state.current.name === 'dax.daxperiod1500'){
+      $scope.dax_15s = data.dax;
+    }
   });
 
   socket.on('one minute dax report', function(oneData){
+    console.log(oneData);
     $scope.daxs.push({
       'created_on': oneData.created_on,
       'summary': oneData.summary.toLowerCase(),
@@ -76,6 +83,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   });
 
   socket.on('five minute dax report', function(fiveData){
+    console.log(fiveData);
     $scope.daxs.push({
       'created_on': fiveData.created_on,
       'summary': fiveData.summary.toLowerCase(),
@@ -85,6 +93,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   });
 
   socket.on('fifteen minute dax report', function(fifteenData){
+    console.log(fifteenData);
     $scope.daxs.push({
       'created_on': fifteenData.created_on,
       'summary': fifteenData.summary.toLowerCase(),
@@ -95,18 +104,24 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 
 })
 
-.controller('dowController', function ($scope, socket) {
+.controller('dowController', function ($scope, $state, socket) {
 
   $scope.dowData = function (page) {
       socket.emit('get dow data', {'page': page});
   };
 
   socket.on('dow data', function(data){
-    $scope.dows = data.dow;
+    if($state.current.name === 'dow.dowperiod60'){
+      $scope.dow_1s = data.dow;
+    }else if($state.current.name === 'dow.dowperiod300'){
+      $scope.dow_5s = data.dow;
+    }else if($state.current.name === 'dow.dowperiod1500'){
+      $scope.dow_15s = data.dow;
+    }
   });
 
   socket.on('one minute dow report', function(oneData){
-    $scope.dows.push({
+    $scope.dow_1s.push({
       'created_on': oneData.created_on,
       'summary': oneData.summary.toLowerCase(),
       'moving_averages': oneData.moving_averages.toLowerCase(),
@@ -115,7 +130,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   });
 
   socket.on('five minute dow report', function(fiveData){
-    $scope.dows.push({
+    $scope.dow_5s.push({
       'created_on': fiveData.created_on,
       'summary': fiveData.summary.toLowerCase(),
       'moving_averages': fiveData.moving_averages.toLowerCase(),
@@ -124,7 +139,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   });
 
   socket.on('fifteen minute dow report', function(fifteenData){
-    $scope.dows.push({
+    $scope.dow_15s.push({
       'created_on': fifteenData.created_on,
       'summary': fifteenData.summary.toLowerCase(),
       'moving_averages': fifteenData.moving_averages.toLowerCase(),
