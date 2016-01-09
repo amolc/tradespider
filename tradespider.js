@@ -140,7 +140,7 @@ manager.addJob('add-five-minute-dax', {
   }
 });
 
-oneMinuteCron.start();
+// oneMinuteCron.start();
 
 http.listen(5555);
 console.log("listening to port 5555");

@@ -3,21 +3,19 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 
   $stateProvider
 
-  .state('home', {
-    url: "/home",
-    cache:false,
-    templateUrl: "templates/index.html",
+  .state('60', {
+    url: "/60",
+    templateUrl: "templates/period_60.html",
     controller: 'daxController',
   })
 
-  .state('dax_5', {
-    url: "/dax_5",
-    cache: false,
-    templateUrl: "templates/tags.html",
+  .state('300', {
+    url: "/300",
+    templateUrl: "templates/period_300.html",
     controller: 'daxController'
   });
 
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/60');
 
 })
 // SOCKET Config for the DEVELOPMENT instance
