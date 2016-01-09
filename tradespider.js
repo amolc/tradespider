@@ -336,11 +336,11 @@ var fifteenMinuteCron = cron.job('0 0/15 * * * *', function(){
 });
 
 //One Minute Cron Start
-// oneMinuteCron.start();
+oneMinuteCron.start();
 //Five Minute Cron Start
-// fiveMinuteCron.start();
+fiveMinuteCron.start();
 //Fifteen Minute Cron Start
-// fifteenMinuteCron.start();
+fifteenMinuteCron.start();
 
 http.listen(5555);
 console.log("listening to port 5555");
