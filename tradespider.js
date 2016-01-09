@@ -112,6 +112,7 @@ manager.addJob('add-one-minute-dax', {
       'technical_indicators': data.technical_indicators.toLowerCase(),
       'created_on': data.created_on
     }, function (err, rows) {
+      console.log('115',err);
       if(rows.affectedRows == 1){
         console.log('Row added to DB');
       }else {
@@ -129,6 +130,7 @@ manager.addJob('add-five-minute-dax', {
       'technical_indicators': data.technical_indicators.toLowerCase(),
       'created_on': data.created_on
     }, function (err, rows) {
+      console.log('133',err);
       if(rows.affectedRows == 1){
         console.log('Row added to DB');
       }else {
