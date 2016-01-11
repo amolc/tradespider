@@ -13,6 +13,9 @@
              <th>
                  TECHNICAL INDICATORS
              </th>
+             <th>
+                 VALUE
+             </th>
          </tr>
      </thead>
      <tbody>
@@ -40,6 +43,9 @@
                  <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'sell'">{{dax_5.technical_indicators | uppercase}}</button>
                  <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'strong sell'">{{dax_5.technical_indicators | uppercase}}</button>
                  <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.technical_indicators === 'neutral'">{{dax_5.technical_indicators | uppercase}}</button>
+             </td>
+             <td>
+                 <button type="button" class="btn btn-info btn-sm" data-ng-if="dax_5.value">{{dax_5.value}}</button>
              </td>
          </tr>
      </tbody>

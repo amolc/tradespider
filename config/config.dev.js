@@ -13,6 +13,8 @@ config.connection = mysql.createPool({
   host :'apps.fountaintechies.com',
 });
 
+config.summary_div = 'div #techStudiesInnerWrap';
+
 // DOW LINK
 config.one_minute_dow = {
    url : 'http://www.investing.com/indices/us-30-technical?period=60',

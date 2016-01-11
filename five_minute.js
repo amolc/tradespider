@@ -24,25 +24,26 @@ var five_minute = {
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         var fiveMinuteData = {};
-        $('div #techStudiesInnerWrap').each(function(i, element){
-          fiveMinuteData.created_on = time;
-          // Summary Info
-          fiveMinuteData.summary = $(this).children('.summary').children('span').text();
 
-          // Moving Averages Info
-          if($(this).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
-            fiveMinuteData.moving_averages = $(this).children('.summaryTableLine').children('span').eq(1).children('span').text();
-          }else if($(this).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
-            fiveMinuteData.moving_averages = $(this).children('.summaryTableLine').children('span').eq(1).children('b').text();
-          }
+        fiveMinuteData.created_on = time;
+        // Summary Info
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
 
-          // Technical Indicators Info
-          if($(this).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
-            fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
-          }else if($(this).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
-            fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
-          }
-        });
+        // Moving Averages Info
+        if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+        }
+
+        // Technical Indicators Info
+        if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+        }
+
+        fiveMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
 
         io.emit('five minute dax-report', fiveMinuteData);
 
@@ -50,6 +51,7 @@ var five_minute = {
           'summary': fiveMinuteData.summary.toLowerCase(),
           'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
+          'value': fiveMinuteData.value,
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
           console.log('FIVE MINUTE DAX 55:',err);
@@ -71,25 +73,26 @@ var five_minute = {
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         var fiveMinuteData = {};
-        $('div #techStudiesInnerWrap').each(function(i, element){
-          fiveMinuteData.created_on = time;
-          // Summary Info
-          fiveMinuteData.summary = $(this).children('.summary').children('span').text();
 
-          // Moving Averages Info
-          if($(this).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
-            fiveMinuteData.moving_averages = $(this).children('.summaryTableLine').children('span').eq(1).children('span').text();
-          }else if($(this).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
-            fiveMinuteData.moving_averages = $(this).children('.summaryTableLine').children('span').eq(1).children('b').text();
-          }
+        fiveMinuteData.created_on = time;
+        // Summary Info
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
 
-          // Technical Indicators Info
-          if($(this).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
-            fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
-          }else if($(this).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
-            fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
-          }
-        });
+        // Moving Averages Info
+        if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+        }
+
+        // Technical Indicators Info
+        if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+        }
+
+        fiveMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
 
         io.emit('five minute dow-report', fiveMinuteData);
 
@@ -97,6 +100,7 @@ var five_minute = {
           'summary': fiveMinuteData.summary.toLowerCase(),
           'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
+          'value': fiveMinuteData.value,
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
           console.log('FIVE MINUTE DOW 102:',err);
@@ -118,25 +122,26 @@ var five_minute = {
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         var fiveMinuteData = {};
-        $('div #techStudiesInnerWrap').each(function(i, element){
-          fiveMinuteData.created_on = time;
-          // Summary Info
-          fiveMinuteData.summary = $(this).children('.summary').children('span').text();
 
-          // Moving Averages Info
-          if($(this).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
-            fiveMinuteData.moving_averages = $(this).children('.summaryTableLine').children('span').eq(1).children('span').text();
-          }else if($(this).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
-            fiveMinuteData.moving_averages = $(this).children('.summaryTableLine').children('span').eq(1).children('b').text();
-          }
+        fiveMinuteData.created_on = time;
+        // Summary Info
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
 
-          // Technical Indicators Info
-          if($(this).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
-            fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
-          }else if($(this).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
-            fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
-          }
-        });
+        // Moving Averages Info
+        if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+        }
+
+        // Technical Indicators Info
+        if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+        }
+
+        fiveMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
 
         io.emit('five minute seng-report', fiveMinuteData);
 
@@ -144,6 +149,7 @@ var five_minute = {
           'summary': fiveMinuteData.summary.toLowerCase(),
           'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
+          'value': fiveMinuteData.value,
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
           console.log('FIVE MINUTE SENG 149:',err);

@@ -101,7 +101,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': oneData.created_on,
         'summary': oneData.summary.toLowerCase(),
         'moving_averages': oneData.moving_averages.toLowerCase(),
-        'technical_indicators': oneData.technical_indicators.toLowerCase()
+        'technical_indicators': oneData.technical_indicators.toLowerCase(),
+        'value': oneData.value
       });
     }
   });
@@ -112,7 +113,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': fiveData.created_on,
         'summary': fiveData.summary.toLowerCase(),
         'moving_averages': fiveData.moving_averages.toLowerCase(),
-        'technical_indicators': fiveData.technical_indicators.toLowerCase()
+        'technical_indicators': fiveData.technical_indicators.toLowerCase(),
+        'value': fiveData.value
       });
     }
   });
@@ -123,7 +125,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary.toLowerCase(),
         'moving_averages': fifteenData.moving_averages.toLowerCase(),
-        'technical_indicators': fifteenData.technical_indicators.toLowerCase()
+        'technical_indicators': fifteenData.technical_indicators.toLowerCase(),
+        'value': fifteenData.value
       });
     }
   });
@@ -152,7 +155,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': oneData.created_on,
         'summary': oneData.summary.toLowerCase(),
         'moving_averages': oneData.moving_averages.toLowerCase(),
-        'technical_indicators': oneData.technical_indicators.toLowerCase()
+        'technical_indicators': oneData.technical_indicators.toLowerCase(),
+        'value': oneData.value
       });
     }
   });
@@ -163,7 +167,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': fiveData.created_on,
         'summary': fiveData.summary.toLowerCase(),
         'moving_averages': fiveData.moving_averages.toLowerCase(),
-        'technical_indicators': fiveData.technical_indicators.toLowerCase()
+        'technical_indicators': fiveData.technical_indicators.toLowerCase(),
+        'value': fiveData.value
       });
     }
   });
@@ -174,7 +179,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary.toLowerCase(),
         'moving_averages': fifteenData.moving_averages.toLowerCase(),
-        'technical_indicators': fifteenData.technical_indicators.toLowerCase()
+        'technical_indicators': fifteenData.technical_indicators.toLowerCase(),
+        'value': fifteenData.value
       });
     }
   });
@@ -203,7 +209,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': oneData.created_on,
         'summary': oneData.summary.toLowerCase(),
         'moving_averages': oneData.moving_averages.toLowerCase(),
-        'technical_indicators': oneData.technical_indicators.toLowerCase()
+        'technical_indicators': oneData.technical_indicators.toLowerCase(),
+        'value': oneData.value
       });
     }
   });
@@ -214,7 +221,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': fiveData.created_on,
         'summary': fiveData.summary.toLowerCase(),
         'moving_averages': fiveData.moving_averages.toLowerCase(),
-        'technical_indicators': fiveData.technical_indicators.toLowerCase()
+        'technical_indicators': fiveData.technical_indicators.toLowerCase(),
+        'value': fiveData.value
       });
     }
   });
@@ -225,7 +233,8 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary.toLowerCase(),
         'moving_averages': fifteenData.moving_averages.toLowerCase(),
-        'technical_indicators': fifteenData.technical_indicators.toLowerCase()
+        'technical_indicators': fifteenData.technical_indicators.toLowerCase(),
+        'value': fifteenData.value
       });
     }
   });
