@@ -42,21 +42,23 @@ var one_minute = {
           }else if($(this).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
             oneMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
-        });console.log('1 Minute DAX');
-        io.emit('one minute dax report', oneMinuteData);
-        // dax_1.create({
-        //   'summary': oneMinuteData.summary.toLowerCase(),
-        //   'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-        //   'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-        //   'created_on': oneMinuteData.created_on
-        // }, function (err, rows) {
-        //   console.log('ONE MINUTE DAX 52:',err);
-        //   if(rows.affectedRows == 1){
-        //     console.log('ONE MINUTE DAX DB 54');
-        //   }else {
-        //     console.log(err);
-        //   }
-        // });
+        });
+
+        io.emit('one minute dax-report', oneMinuteData);
+
+        dax_1.create({
+          'summary': oneMinuteData.summary.toLowerCase(),
+          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
+          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
+          'created_on': oneMinuteData.created_on
+        }, function (err, rows) {
+          console.log('ONE MINUTE DAX 55:',err);
+          if(rows.affectedRows == 1){
+            console.log('ONE MINUTE DAX DB 57');
+          }else {
+            console.log(err);
+          }
+        });
       }
     });
 
@@ -87,21 +89,23 @@ var one_minute = {
           }else if($(this).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
             oneMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
-        });console.log('1 Minute DOW');
-        io.emit('one minute seng report', oneMinuteData);
-        // dow_1.create({
-        //   'summary': oneMinuteData.summary.toLowerCase(),
-        //   'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-        //   'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-        //   'created_on': oneMinuteData.created_on
-        // }, function (err, rows) {
-        //   console.log('ONE MINUTE DOW 97:',err);
-        //   if(rows.affectedRows == 1){
-        //     console.log('ONE MINUTE DOW DB 99');
-        //   }else {
-        //     console.log(err);
-        //   }
-        // });
+        });
+
+        io.emit('one minute dow-report', oneMinuteData);
+
+        dow_1.create({
+          'summary': oneMinuteData.summary.toLowerCase(),
+          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
+          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
+          'created_on': oneMinuteData.created_on
+        }, function (err, rows) {
+          console.log('ONE MINUTE DOW 102:',err);
+          if(rows.affectedRows == 1){
+            console.log('ONE MINUTE DOW DB 104');
+          }else {
+            console.log(err);
+          }
+        });
       }
     });
 
@@ -133,21 +137,22 @@ var one_minute = {
             oneMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
         });
-        io.emit('one minute seng report', oneMinuteData);
-        console.log('1 Minute SENG');
-        // seng_1.create({
-        //   'summary': oneMinuteData.summary.toLowerCase(),
-        //   'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-        //   'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-        //   'created_on': oneMinuteData.created_on
-        // }, function (err, rows) {
-        //   console.log('ONE MINUTE SENG 142:',err);
-        //   if(rows.affectedRows == 1){
-        //     console.log('ONE MINUTE SENG DB 144');
-        //   }else {
-        //     console.log(err);
-        //   }
-        // });
+
+        io.emit('one minute seng-report', oneMinuteData);
+
+        seng_1.create({
+          'summary': oneMinuteData.summary.toLowerCase(),
+          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
+          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
+          'created_on': oneMinuteData.created_on
+        }, function (err, rows) {
+          console.log('ONE MINUTE SENG 149:',err);
+          if(rows.affectedRows == 1){
+            console.log('ONE MINUTE SENG DB 151');
+          }else {
+            console.log(err);
+          }
+        });
       }
     });
   },

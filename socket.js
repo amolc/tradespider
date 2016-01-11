@@ -44,8 +44,28 @@ function dow(page, callback) {
   });
 }
 
-io.on('connection', function(socket){
+function seng(page, callback) {
+  var query;
+  if(page.page == "period60"){
+    query = 'SELECT * FROM seng_1 ORDER BY id DESC';
+  }else if(page.page == "period300"){
+    query = 'SELECT * FROM seng_5 ORDER BY id DESC';
+  }else if(page.page == "period1500"){
+    query = 'SELECT * FROM seng_15 ORDER BY id DESC';
+  }
+  db.query(query, function(err, results) {
+    if(err){
+      // echo globally (all clients) that a person has connected
+      console.log(err);
+    }else {
+      // echo globally (all clients) that a person has connected
+      callback(results);
+    }
+  });
+}
 
+io.on('connection', function(socket){
+  //DAX DATA SOCKET
   socket.on('get dax data', function (page) {
     dax(page, function (result) {
       socket.emit('dax data', {
@@ -54,6 +74,7 @@ io.on('connection', function(socket){
     });
   });
 
+  //DOW DATA SOCKET
   socket.on('get dow data', function (page) {
     dow(page, function (result) {
       socket.emit('dow data', {
@@ -61,6 +82,16 @@ io.on('connection', function(socket){
       });
     });
   });
+
+  //SENG DATA SOCKET
+  socket.on('get seng data', function (page) {
+    seng(page, function (result) {
+      socket.emit('seng data', {
+        'seng': result,
+      });
+    });
+  });
+
 
 });
 module.exports = io;

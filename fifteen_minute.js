@@ -43,16 +43,18 @@ var fifteen_minute = {
             fifteenMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
         });
-        io.emit('fifteen minute dax report', fifteenMinuteData);
+
+        io.emit('fifteen minute dax-report', fifteenMinuteData);
+
         dax_15.create({
           'summary': fifteenMinuteData.summary.toLowerCase(),
           'moving_averages': fifteenMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fifteenMinuteData.technical_indicators.toLowerCase(),
           'created_on': fifteenMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIFTEEN MINUTE DAX 52:',err);
+          console.log('FIFTEEN MINUTE DAX 55:',err);
           if(rows.affectedRows == 1){
-            console.log('FIFTEEN MINUTE DAX DB 54');
+            console.log('FIFTEEN MINUTE DAX DB 57');
           }else {
             console.log(err);
           }
@@ -88,16 +90,18 @@ var fifteen_minute = {
             fifteenMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
         });
-        io.emit('fifteen minute dow report', fifteenMinuteData);
+
+        io.emit('fifteen minute dow-report', fifteenMinuteData);
+
         dow_15.create({
           'summary': fifteenMinuteData.summary.toLowerCase(),
           'moving_averages': fifteenMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fifteenMinuteData.technical_indicators.toLowerCase(),
           'created_on': fifteenMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIFTEEN MINUTE DOW 97:',err);
+          console.log('FIFTEEN MINUTE DOW 102:',err);
           if(rows.affectedRows == 1){
-            console.log('FIFTEEN MINUTE DOW DB 99');
+            console.log('FIFTEEN MINUTE DOW DB 104');
           }else {
             console.log(err);
           }
@@ -133,16 +137,18 @@ var fifteen_minute = {
             fifteenMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
         });
-        io.emit('fifteen minute seng report', fifteenMinuteData);
+
+        io.emit('fifteen minute seng-report', fifteenMinuteData);
+
         seng_15.create({
           'summary': fifteenMinuteData.summary.toLowerCase(),
           'moving_averages': fifteenMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fifteenMinuteData.technical_indicators.toLowerCase(),
           'created_on': fifteenMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIFTEEN MINUTE DAX 142:',err);
+          console.log('FIFTEEN MINUTE DAX 149:',err);
           if(rows.affectedRows == 1){
-            console.log('FIFTEEN MINUTE DAX DB 144');
+            console.log('FIFTEEN MINUTE DAX DB 151');
           }else {
             console.log(err);
           }

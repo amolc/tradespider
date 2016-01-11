@@ -43,16 +43,18 @@ var five_minute = {
             fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
         });
-        io.emit('five minute dax report', fiveMinuteData);
+
+        io.emit('five minute dax-report', fiveMinuteData);
+
         dax_5.create({
           'summary': fiveMinuteData.summary.toLowerCase(),
           'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIVE MINUTE DAX 52:',err);
+          console.log('FIVE MINUTE DAX 55:',err);
           if(rows.affectedRows == 1){
-            console.log('FIVE MINUTE DAX DB 54');
+            console.log('FIVE MINUTE DAX DB 57');
           }else {
             console.log(err);
           }
@@ -88,16 +90,18 @@ var five_minute = {
             fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
         });
-        io.emit('five minute dow report', fiveMinuteData);
+
+        io.emit('five minute dow-report', fiveMinuteData);
+
         dow_5.create({
           'summary': fiveMinuteData.summary.toLowerCase(),
           'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIVE MINUTE DOW 97:',err);
+          console.log('FIVE MINUTE DOW 102:',err);
           if(rows.affectedRows == 1){
-            console.log('FIVE MINUTE DOW DB 99');
+            console.log('FIVE MINUTE DOW DB 104');
           }else {
             console.log(err);
           }
@@ -133,16 +137,18 @@ var five_minute = {
             fiveMinuteData.technical_indicators = $(this).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
           }
         });
-        io.emit('five minute seng report', fiveMinuteData);
+
+        io.emit('five minute seng-report', fiveMinuteData);
+
         seng_5.create({
           'summary': fiveMinuteData.summary.toLowerCase(),
           'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIVE MINUTE SENG 142:',err);
+          console.log('FIVE MINUTE SENG 149:',err);
           if(rows.affectedRows == 1){
-            console.log('FIVE MINUTE SENG DB 144');
+            console.log('FIVE MINUTE SENG DB 151');
           }else {
             console.log(err);
           }
