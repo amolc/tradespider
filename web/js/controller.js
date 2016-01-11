@@ -97,7 +97,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 
   socket.on('one minute dax-report', function(oneData){
     if($state.current.name === 'dax.daxperiod60'){
-      $scope.daxs.push({
+      $scope.dax_1s.push({
         'created_on': oneData.created_on,
         'summary': oneData.summary.toLowerCase(),
         'moving_averages': oneData.moving_averages.toLowerCase(),
@@ -109,7 +109,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 
   socket.on('five minute dax-report', function(fiveData){
     if($state.current.name === 'dax.daxperiod300'){
-      $scope.daxs.push({
+      $scope.dax_5s.push({
         'created_on': fiveData.created_on,
         'summary': fiveData.summary.toLowerCase(),
         'moving_averages': fiveData.moving_averages.toLowerCase(),
@@ -121,7 +121,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 
   socket.on('fifteen minute dax-report', function(fifteenData){
     if($state.current.name === 'dax.daxperiod1500'){
-      $scope.daxs.push({
+      $scope.dax_15s.push({
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary.toLowerCase(),
         'moving_averages': fifteenData.moving_averages.toLowerCase(),
