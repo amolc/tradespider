@@ -20,7 +20,7 @@ var fifteen_minute = {
   dax: function() {
     var time = new Date().getTime();
 
-    request(config.fifteen_minute_dax, function (error, response, html) {
+    request(cfg.fifteen_minute_dax, function (error, response, html) {
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         var fifteenMinuteData = {};
@@ -67,7 +67,7 @@ var fifteen_minute = {
   dow: function () {
     var time = new Date().getTime();
 
-    request(config.fifteen_minute_dow, function (error, response, html) {
+    request(cfg.fifteen_minute_dow, function (error, response, html) {
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         var fifteenMinuteData = {};
@@ -114,7 +114,7 @@ var fifteen_minute = {
   seng: function() {
     var time = new Date().getTime();
 
-    request(config.fifteen_minute_seng, function (error, response, html) {
+    request(cfg.fifteen_minute_seng, function (error, response, html) {
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         var fifteenMinuteData = {};
