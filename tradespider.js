@@ -42,9 +42,9 @@ var fifteenMinuteCron = cron.job('0 */15 * * * *', function(){
 //One Minute Cron Start
 oneMinuteCron.start();
 //Five Minute Cron Start
-// fiveMinuteCron.start();
+fiveMinuteCron.start();
 //Fifteen Minute Cron Start
-// fifteenMinuteCron.start();
+fifteenMinuteCron.start();
 
 http.listen(cfg.port);
 console.log("listening to port "+ cfg.port);
