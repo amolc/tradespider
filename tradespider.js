@@ -15,9 +15,6 @@ var io = require("./socket");
 var bodyParser = require('body-parser');
 var cron = require('cron');
 
-// var neuron = require('neuron');
-// var manager = new neuron.JobManager();
-
 app.use(bodyParser.json({limit: '50mb'}));
 app.use('/', express.static(__dirname + '/web'));
 

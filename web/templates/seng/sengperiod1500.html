@@ -1,0 +1,46 @@
+<table class="table"  data-ng-init="sengData('period1500')">
+     <thead>
+         <tr>
+             <th>
+                 TIME
+             </th>
+             <th>
+                 SUMMARY
+             </th>
+             <th>
+                 MOVING AVERAGES
+             </th>
+             <th>
+                 TECHNICAL INDICATORS
+             </th>
+         </tr>
+     </thead>
+     <tbody>
+         <tr class="active" data-ng-repeat="seng_15 in seng_15s | orderBy: 'id' : 'reverse'">
+             <th>
+                 {{seng_15.created_on | date: 'h:mm a'}}
+             </th>
+             <td>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_15.summary === 'buy'">{{seng_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_15.summary === 'strong buy'">{{seng_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_15.summary === 'sell'">{{seng_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_15.summary === 'strong sell'">{{seng_15.summary | uppercase}}</button>
+                 <button type="button" class="btn btn-default btn-xs" data-ng-if="seng_15.summary === 'neutral'">{{seng_15.summary | uppercase}}</button>
+             </td>
+             <td>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_15.moving_averages === 'buy'">{{seng_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_15.moving_averages === 'strong buy'">{{seng_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_15.moving_averages === 'sell'">{{seng_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_15.moving_averages === 'strong sell'">{{seng_15.moving_averages | uppercase}}</button>
+                 <button type="button" class="btn btn-default btn-xs" data-ng-if="seng_15.moving_averages === 'neutral'">{{seng_15.moving_averages | uppercase}}</button>
+             </td>
+             <td>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_15.technical_indicators === 'buy'">{{seng_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_15.technical_indicators === 'strong buy'">{{seng_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_15.technical_indicators === 'sell'">{{seng_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_15.technical_indicators === 'strong sell'">{{seng_15.technical_indicators | uppercase}}</button>
+                 <button type="button" class="btn btn-default btn-xs" data-ng-if="seng_15.technical_indicators === 'neutral'">{{seng_15.technical_indicators | uppercase}}</button>
+             </td>
+         </tr>
+     </tbody>
+ </table>
