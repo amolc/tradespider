@@ -1,13 +1,8 @@
 var io = require("socket.io")();
-var mysql = require('mysql');
 
-var dbConnection = mysql.createConnection({
-  database : 'tradespider',
-  user : 'ftdev',
-  password : '10gXWOqeaf',
-  host :'apps.fountaintechies.com',
-  // multipleStatements: true
-});
+var env = process.env.NODE_ENV || 'dev';
+var cfg = require('./config/config.'+env);
+var db = cfg.connection;
 
 function dax(page, callback) {
   var query;
@@ -18,7 +13,7 @@ function dax(page, callback) {
   }else if(page.page == "period1500"){
     query = 'SELECT * FROM dax_15 ORDER BY id DESC';
   }
-  dbConnection.query(query, function(err, results) {
+  db.query(query, function(err, results) {
     if(err){
       // echo globally (all clients) that a person has connected
       console.log(err);
@@ -38,7 +33,7 @@ function dow(page, callback) {
   }else if(page.page == "period1500"){
     query = 'SELECT * FROM dow_15 ORDER BY id DESC';
   }
-  dbConnection.query(query, function(err, results) {
+  db.query(query, function(err, results) {
     if(err){
       // echo globally (all clients) that a person has connected
       console.log(err);
