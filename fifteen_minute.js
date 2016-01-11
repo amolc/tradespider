@@ -51,7 +51,7 @@ var fifteen_minute = {
           'summary': fifteenMinuteData.summary.toLowerCase(),
           'moving_averages': fifteenMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fifteenMinuteData.technical_indicators.toLowerCase(),
-          'value': fiveMinuteData.value,
+          'value': fifteenMinuteData.value,
           'created_on': fifteenMinuteData.created_on
         }, function (err, rows) {
           console.log('FIFTEEN MINUTE DAX 55:',err);
@@ -100,7 +100,7 @@ var fifteen_minute = {
           'summary': fifteenMinuteData.summary.toLowerCase(),
           'moving_averages': fifteenMinuteData.moving_averages.toLowerCase(),
           'technical_indicators': fifteenMinuteData.technical_indicators.toLowerCase(),
-          'value': fiveMinuteData.value,
+          'value': fifteenMinuteData.value,
           'created_on': fifteenMinuteData.created_on
         }, function (err, rows) {
           console.log('FIFTEEN MINUTE DOW 102:',err);
