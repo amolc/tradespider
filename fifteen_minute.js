@@ -1,7 +1,7 @@
 var env = process.env.NODE_ENV;
 var cfg = require('./config/config.'+env);
 var db = cfg.connection;
-var io = require("./socket");
+var io = require("./socket/socket");
 
 var request = require('request');
 var cheerio = require('cheerio');

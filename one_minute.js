@@ -1,7 +1,7 @@
 var env = process.env.NODE_ENV;
 var cfg = require('./config/config.'+env);
 var db = cfg.connection;
-var io = require("./socket");
+var io = require("./socket/socket");
 
 var request = require('request');
 var cheerio = require('cheerio');
@@ -145,19 +145,19 @@ var one_minute = {
 
         io.emit('one minute usfuture-report', oneMinuteData);
 
-        usfuture_1.create({
-          'summary': oneMinuteData.summary.toLowerCase(),
-          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-          'value': oneMinuteData.value,
-          'created_on': oneMinuteData.created_on
-        }, function (err, rows) {
-          if(rows.affectedRows == 1){
-            console.log('ONE MINUTE US-FUTURE DB 156');
-          }else {
-            console.log(err);
-          }
-        });
+        // usfuture_1.create({
+        //   'summary': oneMinuteData.summary.toLowerCase(),
+        //   'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
+        //   'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
+        //   'value': oneMinuteData.value,
+        //   'created_on': oneMinuteData.created_on
+        // }, function (err, rows) {
+        //   if(rows.affectedRows == 1){
+        //     console.log('ONE MINUTE US-FUTURE DB 156');
+        //   }else {
+        //     console.log(err);
+        //   }
+        // });
       }
     });
 

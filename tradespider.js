@@ -10,7 +10,7 @@ var five_minute = require('./five_minute');
 var fifteen_minute = require('./fifteen_minute');
 
 var http = require("http").createServer(app);
-var io = require("./socket");
+var io = require("./socket/socket");
 
 var bodyParser = require('body-parser');
 var cron = require('cron');
@@ -20,10 +20,10 @@ app.use('/', express.static(__dirname + '/web'));
 
 // One Minute Cron
 var oneMinuteCron = cron.job('0 * * * * *', function(){
-  // one_minute.dax();
-  // one_minute.dow();
+  one_minute.dax();
+  one_minute.dow();
   one_minute.usfuture();
-  // one_minute.seng();
+  one_minute.seng();
 });
 
 // Five Minute Cron
@@ -45,9 +45,9 @@ var fifteenMinuteCron = cron.job('0 */15 * * * *', function(){
 //One Minute Cron Start
 oneMinuteCron.start();
 //Five Minute Cron Start
-// fiveMinuteCron.start();
+fiveMinuteCron.start();
 //Fifteen Minute Cron Start
-// fifteenMinuteCron.start();
+fifteenMinuteCron.start();
 
 http.listen(cfg.port);
 console.log("listening to port "+ cfg.port);

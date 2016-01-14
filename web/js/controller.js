@@ -103,7 +103,11 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 .controller('daxController', function ($scope, $state, socket) {
 
   $scope.daxData = function (page) {
-      socket.emit('get dax data', {'page': page});
+    socket.emit('get dax data', {'page': page});
+  };
+
+  $scope.deleteDaxRecords = function () {
+    socket.emit('clear dax records');
   };
 
   socket.on('dax data', function(data){
@@ -158,6 +162,10 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 
   $scope.dowData = function (page) {
       socket.emit('get dow data', {'page': page});
+  };
+
+  $scope.deleteDowRecords = function () {
+    socket.emit('clear dow records');
   };
 
   socket.on('dow data', function(data){
@@ -215,6 +223,10 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
       socket.emit('get usfuture data', {'page': page});
   };
 
+  $scope.deleteUsFutureRecords = function () {
+    socket.emit('clear usfuture records');
+  };
+
   socket.on('usfuture data', function(data){
     if($state.current.name === 'usfuture.usfutureperiod60'){
       $scope.usfuture_1s = data.usfuture;
@@ -267,6 +279,10 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
 
   $scope.sengData = function (page) {
       socket.emit('get seng data', {'page': page});
+  };
+
+  $scope.deleteSengRecords = function () {
+    socket.emit('clear seng records');
   };
 
   socket.on('seng data', function(data){
