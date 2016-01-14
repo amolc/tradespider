@@ -12,6 +12,8 @@ var CRUD = require('mysql-crud');
 var dax_5 = CRUD(db, 'dax_5');
 //DOW Table
 var dow_5 = CRUD(db, 'dow_5');
+//DOW Table
+var usfuture_5 = CRUD(db, 'usfuture_5');
 //SENG Table
 var seng_5 = CRUD(db, 'seng_5');
 
@@ -54,9 +56,8 @@ var five_minute = {
           'value': fiveMinuteData.value,
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIVE MINUTE DAX 55:',err);
           if(rows.affectedRows == 1){
-            console.log('FIVE MINUTE DAX DB 57');
+            console.log('FIVE MINUTE DAX DB 60');
           }else {
             console.log(err);
           }
@@ -103,9 +104,56 @@ var five_minute = {
           'value': fiveMinuteData.value,
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIVE MINUTE DOW 102:',err);
           if(rows.affectedRows == 1){
-            console.log('FIVE MINUTE DOW DB 104');
+            console.log('FIVE MINUTE DOW DB 108');
+          }else {
+            console.log(err);
+          }
+        });
+      }
+    });
+
+  },
+
+  usfuture: function () {
+    var time = new Date().getTime();
+
+    request(cfg.five_minute_dow, function (error, response, html) {
+      if (!error && response.statusCode == 200) {
+        var $ = cheerio.load(html);
+        var fiveMinuteData = {};
+
+        fiveMinuteData.created_on = time;
+        // Summary Info
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
+
+        // Moving Averages Info
+        if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+        }
+
+        // Technical Indicators Info
+        if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+        }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+        }
+
+        fiveMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
+
+        io.emit('five minute usfuture-report', fiveMinuteData);
+
+        usfuture_5.create({
+          'summary': fiveMinuteData.summary.toLowerCase(),
+          'moving_averages': fiveMinuteData.moving_averages.toLowerCase(),
+          'technical_indicators': fiveMinuteData.technical_indicators.toLowerCase(),
+          'value': fiveMinuteData.value,
+          'created_on': fiveMinuteData.created_on
+        }, function (err, rows) {
+          if(rows.affectedRows == 1){
+            console.log('FIVE MINUTE US-FUTURE DB 156');
           }else {
             console.log(err);
           }
@@ -152,9 +200,8 @@ var five_minute = {
           'value': fiveMinuteData.value,
           'created_on': fiveMinuteData.created_on
         }, function (err, rows) {
-          console.log('FIVE MINUTE SENG 149:',err);
           if(rows.affectedRows == 1){
-            console.log('FIVE MINUTE SENG DB 151');
+            console.log('FIVE MINUTE SENG DB 203');
           }else {
             console.log(err);
           }

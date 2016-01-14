@@ -19,9 +19,9 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
     templateUrl: "templates/dax/daxperiod300.html",
   })
 
-  .state('dax.daxperiod1500', {
-    url: "/daxperiod1500",
-    templateUrl: "templates/dax/daxperiod1500.html",
+  .state('dax.daxperiod900', {
+    url: "/daxperiod900",
+    templateUrl: "templates/dax/daxperiod900.html",
   })
 
   .state('dow', {
@@ -40,9 +40,30 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
     templateUrl: "templates/dow/dowperiod300.html",
   })
 
-  .state('dow.dowperiod1500', {
-    url: "/dowperiod1500",
-    templateUrl: "templates/dow/dowperiod1500.html",
+  .state('dow.dowperiod900', {
+    url: "/dowperiod900",
+    templateUrl: "templates/dow/dowperiod900.html",
+  })
+
+  .state('usfuture', {
+    url: "/usfuture",
+    templateUrl: "templates/usfuture/usfuture.html",
+    controller: 'usfutureController'
+  })
+
+  .state('usfuture.usfutureperiod60', {
+    url: "/usfutureperiod60",
+    templateUrl: "templates/usfuture/usfutureperiod60.html",
+  })
+
+  .state('usfuture.usfutureperiod300', {
+    url: "/usfutureperiod300",
+    templateUrl: "templates/usfuture/usfutureperiod300.html",
+  })
+
+  .state('usfuture.usfutureperiod900', {
+    url: "/usfutureperiod900",
+    templateUrl: "templates/usfuture/usfutureperiod900.html",
   })
 
   .state('seng', {
@@ -61,9 +82,9 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
     templateUrl: "templates/seng/sengperiod300.html",
   })
 
-  .state('seng.sengperiod1500', {
-    url: "/sengperiod1500",
-    templateUrl: "templates/seng/sengperiod1500.html",
+  .state('seng.sengperiod900', {
+    url: "/sengperiod900",
+    templateUrl: "templates/seng/sengperiod900.html",
   });
 
   $urlRouterProvider.otherwise('/dax/daxperiod60');
@@ -90,7 +111,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
       $scope.dax_1s = data.dax;
     }else if($state.current.name === 'dax.daxperiod300'){
       $scope.dax_5s = data.dax;
-    }else if($state.current.name === 'dax.daxperiod1500'){
+    }else if($state.current.name === 'dax.daxperiod900'){
       $scope.dax_15s = data.dax;
     }
   });
@@ -120,7 +141,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   });
 
   socket.on('fifteen minute dax-report', function(fifteenData){
-    if($state.current.name === 'dax.daxperiod1500'){
+    if($state.current.name === 'dax.daxperiod900'){
       $scope.dax_15s.push({
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary.toLowerCase(),
@@ -144,7 +165,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
       $scope.dow_1s = data.dow;
     }else if($state.current.name === 'dow.dowperiod300'){
       $scope.dow_5s = data.dow;
-    }else if($state.current.name === 'dow.dowperiod1500'){
+    }else if($state.current.name === 'dow.dowperiod900'){
       $scope.dow_15s = data.dow;
     }
   });
@@ -174,8 +195,63 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   });
 
   socket.on('fifteen minute dow-report', function(fifteenData){
-    if($state.current.name === 'dow.dowperiod1500'){
+    if($state.current.name === 'dow.dowperiod900'){
       $scope.dow_15s.push({
+        'created_on': fifteenData.created_on,
+        'summary': fifteenData.summary.toLowerCase(),
+        'moving_averages': fifteenData.moving_averages.toLowerCase(),
+        'technical_indicators': fifteenData.technical_indicators.toLowerCase(),
+        'value': fifteenData.value
+      });
+    }
+  });
+
+})
+
+
+.controller('usfutureController', function ($scope, $state, socket) {
+
+  $scope.usfutureData = function (page) {
+      socket.emit('get usfuture data', {'page': page});
+  };
+
+  socket.on('usfuture data', function(data){
+    if($state.current.name === 'usfuture.usfutureperiod60'){
+      $scope.usfuture_1s = data.usfuture;
+    }else if($state.current.name === 'usfuture.usfutureperiod300'){
+      $scope.usfuture_5s = data.usfuture;
+    }else if($state.current.name === 'usfuture.usfutureperiod900'){
+      $scope.usfuture_15s = data.usfuture;
+    }
+  });
+
+  socket.on('one minute usfuture-report', function(oneData){
+    if($state.current.name === 'usfuture.usfutureperiod60'){
+      $scope.usfuture_1s.push({
+        'created_on': oneData.created_on,
+        'summary': oneData.summary.toLowerCase(),
+        'moving_averages': oneData.moving_averages.toLowerCase(),
+        'technical_indicators': oneData.technical_indicators.toLowerCase(),
+        'value': oneData.value
+      });
+    }
+  });
+
+  socket.on('five minute usfuture-report', function(fiveData){
+    if($state.current.name === 'usfuture.usfutureperiod300'){
+      $scope.usfuture_5s.push({
+        'created_on': fiveData.created_on,
+        'summary': fiveData.summary.toLowerCase(),
+        'moving_averages': fiveData.moving_averages.toLowerCase(),
+        'technical_indicators': fiveData.technical_indicators.toLowerCase(),
+        'value': fiveData.value
+      });
+    }
+  });
+
+  socket.on('fifteen minute usfuture-report', function(fifteenData){
+    if($state.current.name === 'usfuture.usfutureperiod900'){
+      $scope.usfuture_15s.push({
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary.toLowerCase(),
         'moving_averages': fifteenData.moving_averages.toLowerCase(),
@@ -198,7 +274,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
       $scope.seng_1s = data.seng;
     }else if($state.current.name === 'seng.sengperiod300'){
       $scope.seng_5s = data.seng;
-    }else if($state.current.name === 'seng.sengperiod1500'){
+    }else if($state.current.name === 'seng.sengperiod900'){
       $scope.seng_15s = data.seng;
     }
   });
@@ -228,7 +304,7 @@ angular.module('tradespider',['ui.router','btford.socket-io'])
   });
 
   socket.on('fifteen minute seng-report', function(fifteenData){
-    if($state.current.name === 'seng.sengperiod1500'){
+    if($state.current.name === 'seng.sengperiod900'){
       $scope.seng_15s.push({
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary.toLowerCase(),

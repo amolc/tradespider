@@ -20,15 +20,17 @@ app.use('/', express.static(__dirname + '/web'));
 
 // One Minute Cron
 var oneMinuteCron = cron.job('0 * * * * *', function(){
-  one_minute.dax();
-  one_minute.dow();
-  one_minute.seng();
+  // one_minute.dax();
+  // one_minute.dow();
+  one_minute.usfuture();
+  // one_minute.seng();
 });
 
 // Five Minute Cron
 var fiveMinuteCron = cron.job('0 */5 * * * *', function(){
   five_minute.dax();
   five_minute.dow();
+  five_minute.usfuture();
   five_minute.seng();
 });
 
@@ -36,15 +38,16 @@ var fiveMinuteCron = cron.job('0 */5 * * * *', function(){
 var fifteenMinuteCron = cron.job('0 */15 * * * *', function(){
   fifteen_minute.dax();
   fifteen_minute.dow();
+  fifteen_minute.usfuture();
   fifteen_minute.seng();
 });
 
 //One Minute Cron Start
 oneMinuteCron.start();
 //Five Minute Cron Start
-fiveMinuteCron.start();
+// fiveMinuteCron.start();
 //Fifteen Minute Cron Start
-fifteenMinuteCron.start();
+// fifteenMinuteCron.start();
 
 http.listen(cfg.port);
 console.log("listening to port "+ cfg.port);

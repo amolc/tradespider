@@ -10,7 +10,7 @@ function dax(page, callback) {
     query = 'SELECT * FROM dax_1 ORDER BY id DESC';
   }else if(page.page == "period300"){
     query = 'SELECT * FROM dax_5 ORDER BY id DESC';
-  }else if(page.page == "period1500"){
+  }else if(page.page == "period900"){
     query = 'SELECT * FROM dax_15 ORDER BY id DESC';
   }
   db.query(query, function(err, results) {
@@ -30,8 +30,28 @@ function dow(page, callback) {
     query = 'SELECT * FROM dow_1 ORDER BY id DESC';
   }else if(page.page == "period300"){
     query = 'SELECT * FROM dow_5 ORDER BY id DESC';
-  }else if(page.page == "period1500"){
+  }else if(page.page == "period900"){
     query = 'SELECT * FROM dow_15 ORDER BY id DESC';
+  }
+  db.query(query, function(err, results) {
+    if(err){
+      // echo globally (all clients) that a person has connected
+      console.log(err);
+    }else {
+      // echo globally (all clients) that a person has connected
+      callback(results);
+    }
+  });
+}
+
+function usfuture(page, callback) {
+  var query;
+  if(page.page == "period60"){
+    query = 'SELECT * FROM usfuture_1 ORDER BY id DESC';
+  }else if(page.page == "period300"){
+    query = 'SELECT * FROM usfuture_5 ORDER BY id DESC';
+  }else if(page.page == "period900"){
+    query = 'SELECT * FROM usfuture_15 ORDER BY id DESC';
   }
   db.query(query, function(err, results) {
     if(err){
@@ -50,7 +70,7 @@ function seng(page, callback) {
     query = 'SELECT * FROM seng_1 ORDER BY id DESC';
   }else if(page.page == "period300"){
     query = 'SELECT * FROM seng_5 ORDER BY id DESC';
-  }else if(page.page == "period1500"){
+  }else if(page.page == "period900"){
     query = 'SELECT * FROM seng_15 ORDER BY id DESC';
   }
   db.query(query, function(err, results) {
@@ -79,6 +99,15 @@ io.on('connection', function(socket){
     dow(page, function (result) {
       socket.emit('dow data', {
         'dow': result,
+      });
+    });
+  });
+
+  //US-FUTURE DATA SOCKET
+  socket.on('get usfuture data', function (page) {
+    usfuture(page, function (result) {
+      socket.emit('usfuture data', {
+        'usfuture': result,
       });
     });
   });
