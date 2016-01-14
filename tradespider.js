@@ -17,6 +17,7 @@ var cron = require('cron');
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use('/', express.static(__dirname + '/web'));
+app.use('/template', express.static(__dirname + '/startbootstrap-freelancer-1.0.5'));
 
 // One Minute Cron
 var oneMinuteCron = cron.job('0 * * * * *', function(){
