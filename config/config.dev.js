@@ -8,9 +8,9 @@ config.port = 5555;
 
 config.connection = mysql.createPool({
   database : 'tradespider',
-  user : 'ftdev',
+  user : 'root',
   password : '10gXWOqeaf',
-  host :'apps.fountaintechies.com',
+  host :'localhost',
 });
 
 config.summary_div = 'div #techStudiesInnerWrap';
