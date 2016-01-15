@@ -21,7 +21,6 @@ angular.module('tradespider')
   });
 
   socket.on('one minute usfuture-report', function(oneData){
-    console.log(oneData);
     if($state.current.name === 'usfuture.usfutureperiod60'){
       $scope.usfuture_1s.push({
         'created_on': oneData.created_on,
