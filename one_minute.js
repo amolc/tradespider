@@ -17,6 +17,84 @@ var usfuture_1 = CRUD(db, 'usfuture_1');
 //SENG Table
 var seng_1 = CRUD(db, 'seng_1');
 
+function calculateChange(data, callback) {
+  // var change_flag, change_by, change_type;
+  var change = {};
+
+  if(data.old.summary !== data.new.summary){
+      change.change_flag = true;
+
+      if(data.old.summary == 'neutral'){
+
+        if(data.new.summary == 'buy'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'sell'){
+          change.change_type = 'negative';
+        }else if(data.new.summary == 'strong buy'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'strong sell'){
+          change.change_type = 'negative';
+        }
+
+      }else if(data.old.summary == 'sell'){
+
+        if(data.new.summary == 'buy'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'neutral'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'strong buy'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'strong sell'){
+          change.change_type = 'negative';
+        }
+
+      }else if(data.old.summary == 'buy'){
+
+        if(data.new.summary == 'neutral'){
+          change.change_type = 'negative';
+        }else if(data.new.summary == 'sell'){
+          change.change_type = 'negative';
+        }else if(data.new.summary == 'strong buy'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'strong sell'){
+          change.change_type = 'negative';
+        }
+
+      }else if(data.old.summary == 'strong sell'){
+
+        if(data.new.summary == 'buy'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'sell'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'strong buy'){
+          change.change_type = 'positive';
+        }else if(data.new.summary == 'neutral'){
+          change.change_type = 'positive';
+        }
+
+      }else if(data.old.summary == 'strong buy'){
+
+        if(data.new.summary == 'buy'){
+          change.change_type = 'negative';
+        }else if(data.new.summary == 'sell'){
+          change.change_type = 'negative';
+        }else if(data.new.summary == 'neutral'){
+          change.change_type = 'negative';
+        }else if(data.new.summary == 'strong sell'){
+          change.change_type = 'negative';
+        }
+
+      }
+
+  }else {
+    change.change_flag = false;
+    change.change_type = 'neutral';
+  }
+
+  callback(change);
+
+}
+
 var one_minute = {
 
   dax: function() {
@@ -29,39 +107,81 @@ var one_minute = {
 
         oneMinuteData.created_on = time;
         // Summary Info
-        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
+        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
 
         // Moving Averages Info
         if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
         }
 
         // Technical Indicators Info
         if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
         }
 
-        oneMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
+        oneMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',',''));
 
-        io.emit('one minute dax-report', oneMinuteData);
-
-        dax_1.create({
-          'summary': oneMinuteData.summary.toLowerCase(),
-          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-          'value': oneMinuteData.value,
-          'created_on': oneMinuteData.created_on
-        }, function (err, rows) {
-          if(rows.affectedRows == 1){
-            console.log('ONE MINUTE DAX DB 60');
-          }else {
+        var dax_query = "SELECT * FROM dax_1 ORDER BY id DESC LIMIT 1";
+        db.query(dax_query, function (err, rows) {
+          if(err){
             console.log(err);
+          }else {
+            if(rows.length === 0){
+
+              io.emit('one minute dax-report', oneMinuteData);
+
+              dax_1.create({
+                'summary': oneMinuteData.summary,
+                'moving_averages': oneMinuteData.moving_averages,
+                'technical_indicators': oneMinuteData.technical_indicators,
+                'value': oneMinuteData.value,
+                'created_on': oneMinuteData.created_on
+              }, function (err, rows) {
+                if(rows.affectedRows == 1){
+                  console.log('ONE MINUTE US-FUTURE DB 156');
+                }else {
+                  console.log(err);
+                }
+              });
+
+            }else {
+
+              var data = {
+                new: oneMinuteData,
+                old: rows[0]
+              };
+
+              calculateChange(data, function (result) {
+                oneMinuteData.change_flag = result.change_flag;
+                oneMinuteData.change_type = result.change_type;
+
+                io.emit('one minute dax-report', oneMinuteData);
+
+                dax_1.create({
+                  'summary': oneMinuteData.summary,
+                  'moving_averages': oneMinuteData.moving_averages,
+                  'technical_indicators': oneMinuteData.technical_indicators,
+                  'value': oneMinuteData.value,
+                  'change_flag': oneMinuteData.change_flag,
+                  'change_type': oneMinuteData.change_type,
+                  'created_on': oneMinuteData.created_on
+                }, function (err, rows) {
+                  if(rows.affectedRows == 1){
+                    console.log('ONE MINUTE US-FUTURE DB 156');
+                  }else {
+                    console.log(err);
+                  }
+                });
+
+              });
+            }
           }
         });
+
       }
     });
 
@@ -77,37 +197,78 @@ var one_minute = {
 
         oneMinuteData.created_on = time;
         // Summary Info
-        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
+        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
 
         // Moving Averages Info
         if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
         }
 
         // Technical Indicators Info
         if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
         }
 
-        oneMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
+        oneMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',',''));
 
-        io.emit('one minute dow-report', oneMinuteData);
-
-        dow_1.create({
-          'summary': oneMinuteData.summary.toLowerCase(),
-          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-          'value': oneMinuteData.value,
-          'created_on': oneMinuteData.created_on
-        }, function (err, rows) {
-          if(rows.affectedRows == 1){
-            console.log('ONE MINUTE DOW DB 108');
-          }else {
+        var dow_query = "SELECT * FROM dow_1 ORDER BY id DESC LIMIT 1";
+        db.query(dow_query, function (err, rows) {
+          if(err){
             console.log(err);
+          }else {
+            if(rows.length === 0){
+
+              io.emit('one minute dow-report', oneMinuteData);
+
+              dow_1.create({
+                'summary': oneMinuteData.summary,
+                'moving_averages': oneMinuteData.moving_averages,
+                'technical_indicators': oneMinuteData.technical_indicators,
+                'value': oneMinuteData.value,
+                'created_on': oneMinuteData.created_on
+              }, function (err, rows) {
+                if(rows.affectedRows == 1){
+                  console.log('ONE MINUTE US-FUTURE DB 156');
+                }else {
+                  console.log(err);
+                }
+              });
+
+            }else {
+
+              var data = {
+                new: oneMinuteData,
+                old: rows[0]
+              };
+
+              calculateChange(data, function (result) {
+                oneMinuteData.change_flag = result.change_flag;
+                oneMinuteData.change_type = result.change_type;
+
+                io.emit('one minute dow-report', oneMinuteData);
+
+                dow_1.create({
+                  'summary': oneMinuteData.summary,
+                  'moving_averages': oneMinuteData.moving_averages,
+                  'technical_indicators': oneMinuteData.technical_indicators,
+                  'value': oneMinuteData.value,
+                  'change_flag': oneMinuteData.change_flag,
+                  'change_type': oneMinuteData.change_type,
+                  'created_on': oneMinuteData.created_on
+                }, function (err, rows) {
+                  if(rows.affectedRows == 1){
+                    console.log('ONE MINUTE US-FUTURE DB 156');
+                  }else {
+                    console.log(err);
+                  }
+                });
+
+              });
+            }
           }
         });
       }
@@ -125,39 +286,81 @@ var one_minute = {
 
         oneMinuteData.created_on = time;
         // Summary Info
-        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
+        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
 
         // Moving Averages Info
         if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
         }
 
         // Technical Indicators Info
         if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
         }
 
-        oneMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
+        oneMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',',''));
 
-        io.emit('one minute usfuture-report', oneMinuteData);
-
-        usfuture_1.create({
-          'summary': oneMinuteData.summary.toLowerCase(),
-          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-          'value': oneMinuteData.value,
-          'created_on': oneMinuteData.created_on
-        }, function (err, rows) {
-          if(rows.affectedRows == 1){
-            console.log('ONE MINUTE US-FUTURE DB 156');
-          }else {
+        var usfuture_query = "SELECT * FROM usfuture_1 ORDER BY id DESC LIMIT 1";
+        db.query(usfuture_query, function (err, rows) {
+          if(err){
             console.log(err);
+          }else {
+            if(rows.length === 0){
+
+              io.emit('one minute usfuture-report', oneMinuteData);
+
+              usfuture_1.create({
+                'summary': oneMinuteData.summary,
+                'moving_averages': oneMinuteData.moving_averages,
+                'technical_indicators': oneMinuteData.technical_indicators,
+                'value': oneMinuteData.value,
+                'created_on': oneMinuteData.created_on
+              }, function (err, rows) {
+                if(rows.affectedRows == 1){
+                  console.log('ONE MINUTE US-FUTURE DB 156');
+                }else {
+                  console.log(err);
+                }
+              });
+
+            }else {
+
+              var data = {
+                new: oneMinuteData,
+                old: rows[0]
+              };
+
+              calculateChange(data, function (result) {
+                oneMinuteData.change_flag = result.change_flag;
+                oneMinuteData.change_type = result.change_type;
+
+                io.emit('one minute usfuture-report', oneMinuteData);
+
+                usfuture_1.create({
+                  'summary': oneMinuteData.summary,
+                  'moving_averages': oneMinuteData.moving_averages,
+                  'technical_indicators': oneMinuteData.technical_indicators,
+                  'value': oneMinuteData.value,
+                  'change_flag': oneMinuteData.change_flag,
+                  'change_type': oneMinuteData.change_type,
+                  'created_on': oneMinuteData.created_on
+                }, function (err, rows) {
+                  if(rows.affectedRows == 1){
+                    console.log('ONE MINUTE US-FUTURE DB 156');
+                  }else {
+                    console.log(err);
+                  }
+                });
+
+              });
+            }
           }
         });
+
       }
     });
 
@@ -173,37 +376,80 @@ var one_minute = {
 
         oneMinuteData.created_on = time;
         // Summary Info
-        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text();
+        oneMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
 
         // Moving Averages Info
         if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1){
-          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text();
+          oneMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
         }
 
         // Technical Indicators Info
         if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
         }else if($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1){
-          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text();
+          oneMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
         }
 
-        oneMinuteData.value = $('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text();
+        oneMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',',''));
 
         io.emit('one minute seng-report', oneMinuteData);
 
-        seng_1.create({
-          'summary': oneMinuteData.summary.toLowerCase(),
-          'moving_averages': oneMinuteData.moving_averages.toLowerCase(),
-          'technical_indicators': oneMinuteData.technical_indicators.toLowerCase(),
-          'value': oneMinuteData.value,
-          'created_on': oneMinuteData.created_on
-        }, function (err, rows) {
-          if(rows.affectedRows == 1){
-            console.log('ONE MINUTE SENG DB 204');
-          }else {
+        var seng_query = "SELECT * FROM seng_1 ORDER BY id DESC LIMIT 1";
+        db.query(seng_query, function (err, rows) {
+          if(err){
             console.log(err);
+          }else {
+            if(rows.length === 0){
+
+              io.emit('one minute seng-report', oneMinuteData);
+
+              seng_1.create({
+                'summary': oneMinuteData.summary,
+                'moving_averages': oneMinuteData.moving_averages,
+                'technical_indicators': oneMinuteData.technical_indicators,
+                'value': oneMinuteData.value,
+                'created_on': oneMinuteData.created_on
+              }, function (err, rows) {
+                if(rows.affectedRows == 1){
+                  console.log('ONE MINUTE US-FUTURE DB 156');
+                }else {
+                  console.log(err);
+                }
+              });
+
+            }else {
+
+              var data = {
+                new: oneMinuteData,
+                old: rows[0]
+              };
+
+              calculateChange(data, function (result) {
+                oneMinuteData.change_flag = result.change_flag;
+                oneMinuteData.change_type = result.change_type;
+
+                io.emit('one minute seng-report', oneMinuteData);
+
+                seng_1.create({
+                  'summary': oneMinuteData.summary,
+                  'moving_averages': oneMinuteData.moving_averages,
+                  'technical_indicators': oneMinuteData.technical_indicators,
+                  'value': oneMinuteData.value,
+                  'change_flag': oneMinuteData.change_flag,
+                  'change_type': oneMinuteData.change_type,
+                  'created_on': oneMinuteData.created_on
+                }, function (err, rows) {
+                  if(rows.affectedRows == 1){
+                    console.log('ONE MINUTE US-FUTURE DB 156');
+                  }else {
+                    console.log(err);
+                  }
+                });
+
+              });
+            }
           }
         });
       }
