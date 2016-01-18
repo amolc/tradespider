@@ -21,7 +21,6 @@ angular.module('tradespider')
   });
 
   socket.on('one minute dax-report', function(oneData){
-    console.log(oneData);
     if($state.current.name === 'dax.daxperiod60'){
       $scope.dax_1s.push({
         'created_on': oneData.created_on,
