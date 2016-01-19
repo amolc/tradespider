@@ -21,6 +21,7 @@ angular.module('tradespider')
   });
 
   socket.on('one minute dax-report', function(oneData){
+    console.log(oneData);
     if($state.current.name === 'dax.daxperiod60'){
       $scope.dax_1s.push({
         'created_on': oneData.created_on,
@@ -29,7 +30,8 @@ angular.module('tradespider')
         'technical_indicators': oneData.technical_indicators,
         'value': oneData.value,
         'change_type': oneData.change_type,
-        'change_flag': oneData.change_flag
+        'change_flag': oneData.change_flag,
+        'signal_strength': oneData.signal_strength
       });
     }
   });

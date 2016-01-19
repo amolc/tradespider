@@ -85,10 +85,26 @@ function calculateChange(data, callback) {
         }
 
       }
+      change.change_value = data.new.value;
+      change.signal_strength = 'change';
+      change.last_change_type = change.change_type;
 
   }else {
     change.change_flag = false;
     change.change_type = 'neutral';
+    change.change_value = data.old.change_value;
+    change.last_change_type = data.old.last_change_type;
+
+    if(data.old.last_change_type === 'positive'){
+      if(data.new.value > change.change_value) change.signal_strength = 'correct';
+      else if(data.new.value < change.change_value) change.signal_strength = 'wrong';
+      else change.signal_strength = 'correct';
+    }else if(data.old.last_change_type === 'negative'){
+      if(data.new.value < change.change_value) change.signal_strength = 'correct';
+      else if(data.new.value > change.change_value) change.signal_strength = 'wrong';
+      else change.signal_strength = 'correct';
+    }
+
   }
 
   callback(change);
@@ -139,6 +155,8 @@ var one_minute = {
                 'moving_averages': oneMinuteData.moving_averages,
                 'technical_indicators': oneMinuteData.technical_indicators,
                 'value': oneMinuteData.value,
+                'signal_strength': oneMinuteData.signal_strength,
+                'last_change_type': oneMinuteData.last_change_type,
                 'created_on': oneMinuteData.created_on
               }, function (err, rows) {
                 if(rows.affectedRows == 1){
@@ -158,6 +176,9 @@ var one_minute = {
               calculateChange(data, function (result) {
                 oneMinuteData.change_flag = result.change_flag;
                 oneMinuteData.change_type = result.change_type;
+                oneMinuteData.change_value = result.change_value;
+                oneMinuteData.signal_strength = result.signal_strength;
+                oneMinuteData.last_change_type = result.last_change_type;
 
                 io.emit('one minute dax-report', oneMinuteData);
 
@@ -166,10 +187,14 @@ var one_minute = {
                   'moving_averages': oneMinuteData.moving_averages,
                   'technical_indicators': oneMinuteData.technical_indicators,
                   'value': oneMinuteData.value,
+                  'change_value': oneMinuteData.change_value,
                   'change_flag': oneMinuteData.change_flag,
                   'change_type': oneMinuteData.change_type,
+                  'signal_strength': oneMinuteData.signal_strength,
+                  'last_change_type': oneMinuteData.last_change_type,
                   'created_on': oneMinuteData.created_on
                 }, function (err, rows) {
+                  console.log(err);
                   if(rows.affectedRows == 1){
                     console.log('ONE MINUTE US-FUTURE DB 156');
                   }else {
