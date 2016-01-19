@@ -29,7 +29,8 @@ angular.module('tradespider')
         'technical_indicators': oneData.technical_indicators.toLowerCase(),
         'value': oneData.value,
         'change_type': oneData.change_type,
-        'change_flag': oneData.change_flag
+        'change_flag': oneData.change_flag,
+        'signal_strength': oneData.signal_strength
       });
     }
   });

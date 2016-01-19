@@ -19,6 +19,9 @@
              <th>
                  SIGNAL
              </th>
+             <th>
+                 STRENGTH
+             </th>
          </tr>
      </thead>
      <tbody>
@@ -53,6 +56,10 @@
            <td>
                <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.change_type == 'positive'">{{usfuture_1.change_type | uppercase}}</button>
                <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.change_type == 'negative'">{{usfuture_1.change_type | uppercase}}</button>
+           </td>
+           <td>
+               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.signal_strength === 'correct'">{{usfuture_1.signal_strength | uppercase}}</button>
+               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.signal_strength === 'wrong'">{{usfuture_1.signal_strength | uppercase}}</button>
            </td>
        </tr>
      </tbody>
