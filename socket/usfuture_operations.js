@@ -24,40 +24,64 @@ var usfuture = {
   },
 
   clear_usfuture_1: function (){
-    var query = 'TRUNCATE TABLE usfuture_1';
-    db.query(query, function(err, results) {
+    var delete_query = 'SELECT * FROM usfuture_1 ORDER BY id DESC LIMIT 1';
+    db.query(delete_query, function (err, rows) {
       if(err){
         // echo globally (all clients) that a person has connected
         console.log(err);
       }else {
-        // echo globally (all clients) that a person has connected
-        console.log(results);
+        var query = 'DELETE FROM usfuture_1 WHERE id < '+ rows[0].id;
+        db.query(query, function(err, results) {
+          if(err){
+            // echo globally (all clients) that a person has connected
+            console.log(err);
+          }else {
+            // echo globally (all clients) that a person has connected
+            console.log(results);
+          }
+        });
       }
     });
   },
 
   clear_usfuture_5: function (){
-    var query = 'TRUNCATE TABLE usfuture_5';
-    db.query(query, function(err, results) {
+    var delete_query = 'SELECT * FROM usfuture_5 ORDER BY id DESC LIMIT 1';
+    db.query(delete_query, function (err, rows) {
       if(err){
         // echo globally (all clients) that a person has connected
         console.log(err);
       }else {
-        // echo globally (all clients) that a person has connected
-        console.log(results);
+        var query = 'DELETE FROM usfuture_5 WHERE id < '+ rows[0].id;
+        db.query(query, function(err, results) {
+          if(err){
+            // echo globally (all clients) that a person has connected
+            console.log(err);
+          }else {
+            // echo globally (all clients) that a person has connected
+            console.log(results);
+          }
+        });
       }
     });
   },
 
   clear_usfuture_15: function (){
-    var query = 'TRUNCATE TABLE usfuture_15';
-    db.query(query, function(err, results) {
+    var delete_query = 'SELECT * FROM usfuture_15 ORDER BY id DESC LIMIT 1';
+    db.query(delete_query, function (err, rows) {
       if(err){
         // echo globally (all clients) that a person has connected
         console.log(err);
       }else {
-        // echo globally (all clients) that a person has connected
-        console.log(results);
+        var query = 'DELETE FROM usfuture_15 WHERE id < '+ rows[0].id;
+        db.query(query, function(err, results) {
+          if(err){
+            // echo globally (all clients) that a person has connected
+            console.log(err);
+          }else {
+            // echo globally (all clients) that a person has connected
+            console.log(results);
+          }
+        });
       }
     });
   },

@@ -90,8 +90,6 @@ function calculateChange(data, callback) {
       change.last_change_type = change.change_type;
 
   }else {
-    console.log(data.old);
-    console.log(data.new);
     change.change_flag = false;
     change.change_type = 'neutral';
     change.change_value = data.old.change_value;
@@ -157,8 +155,9 @@ var one_minute = {
                 'moving_averages': oneMinuteData.moving_averages,
                 'technical_indicators': oneMinuteData.technical_indicators,
                 'value': oneMinuteData.value,
-                'signal_strength': oneMinuteData.signal_strength,
-                'last_change_type': oneMinuteData.last_change_type,
+                'signal_strength': 'change',
+                'last_change_type': 'neutral',
+                'change_value': oneMinuteData.value,
                 'created_on': oneMinuteData.created_on
               }, function (err, rows) {
                 if(rows.affectedRows == 1){
@@ -176,7 +175,6 @@ var one_minute = {
               };
 
               calculateChange(data, function (result) {
-                console.log(result);
                 oneMinuteData.change_flag = result.change_flag;
                 oneMinuteData.change_type = result.change_type;
                 oneMinuteData.change_value = result.change_value;
