@@ -90,6 +90,8 @@ function calculateChange(data, callback) {
       change.last_change_type = change.change_type;
 
   }else {
+    console.log(data.old);
+    console.log(data.new);
     change.change_flag = false;
     change.change_type = 'neutral';
     change.change_value = data.old.change_value;
