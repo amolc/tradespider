@@ -195,7 +195,6 @@ var one_minute = {
                   'last_change_type': oneMinuteData.last_change_type,
                   'created_on': oneMinuteData.created_on
                 }, function (err, rows) {
-                  console.log(err);
                   if(rows.affectedRows == 1){
                     console.log('ONE MINUTE US-FUTURE DB 156');
                   }else {
