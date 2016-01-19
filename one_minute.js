@@ -174,6 +174,7 @@ var one_minute = {
               };
 
               calculateChange(data, function (result) {
+                console.log(result);
                 oneMinuteData.change_flag = result.change_flag;
                 oneMinuteData.change_type = result.change_type;
                 oneMinuteData.change_value = result.change_value;
