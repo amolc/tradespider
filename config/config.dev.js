@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb:://trade:3cXWOqeaf@tradealert.fountaintechies.com:27017/tradealert');
+mongoose.connect('mongodb://trade:3cXWOqeaf@tradealert.fountaintechies.com:27017/tradealert');
 
 require('../schema/table.schema');
 
