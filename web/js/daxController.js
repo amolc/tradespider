@@ -50,7 +50,10 @@ angular.module('tradespider')
         'summary': fiveData.summary,
         'moving_averages': fiveData.moving_averages,
         'technical_indicators': fiveData.technical_indicators,
-        'value': fiveData.value
+        'value': fiveData.value,
+        'change_type': fiveData.change_type,
+        'change_flag': fiveData.change_flag,
+        'signal_strength': fiveData.signal_strength
       });
     }
   });
@@ -62,7 +65,10 @@ angular.module('tradespider')
         'summary': fifteenData.summary,
         'moving_averages': fifteenData.moving_averages,
         'technical_indicators': fifteenData.technical_indicators,
-        'value': fifteenData.value
+        'value': fifteenData.value,
+        'change_type': fifteenData.change_type,
+        'change_flag': fifteenData.change_flag,
+        'signal_strength': fifteenData.signal_strength
       });
     }
   });
