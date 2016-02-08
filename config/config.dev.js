@@ -1,17 +1,12 @@
-var mysql = require('mysql');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/tradealert');
+
+require('../schema/table.schema');
+
 var config = module.exports = {};
-var request = require('request');
-var cheerio = require('cheerio');
 
 config.env = 'dev';
 config.port = 5555;
-
-config.connection = mysql.createPool({
-  database : 'tradespider',
-  user : 'root',
-  password : '10gXWOqeaf',
-  host :'localhost',
-});
 
 config.summary_div = 'div #techStudiesInnerWrap';
 

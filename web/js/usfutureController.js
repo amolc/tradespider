@@ -1,24 +1,28 @@
 angular.module('tradespider')
 
-.controller('usfutureController', function ($scope, $state, socket) {
+.controller('usfutureController', function ($scope, $state, $http, socket) {
 
   $scope.usfutureData = function (page) {
-      socket.emit('get usfuture data', {'page': page});
+    $http.post( socketUrl + '/usfuture/get_usfuture_data', {'page': page}).success(function (res, req) {
+      if(res.status === 0){
+        console.log('Error While Executing the query for: '+ $state.current.name);
+      }else {
+        if($state.current.name === 'usfuture.usfutureperiod60'){
+          $scope.usfuture_1s = res;
+        }else if($state.current.name === 'usfuture.usfutureperiod300'){
+          $scope.usfuture_5s = res;
+        }else if($state.current.name === 'usfuture.usfutureperiod900'){
+          $scope.usfuture_15s = res;
+        }
+      }
+    }).error(function (err) {
+      console.log('Internet Connection Is Not Available.');
+    });
   };
 
   $scope.deleteUsFutureRecords = function () {
     socket.emit('clear usfuture records');
   };
-
-  socket.on('usfuture data', function(data){
-    if($state.current.name === 'usfuture.usfutureperiod60'){
-      $scope.usfuture_1s = data.usfuture;
-    }else if($state.current.name === 'usfuture.usfutureperiod300'){
-      $scope.usfuture_5s = data.usfuture;
-    }else if($state.current.name === 'usfuture.usfutureperiod900'){
-      $scope.usfuture_15s = data.usfuture;
-    }
-  });
 
   socket.on('one minute usfuture-report', function(oneData){
     if($state.current.name === 'usfuture.usfutureperiod60'){

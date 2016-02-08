@@ -1,4 +1,4 @@
-angular.module('tradespider',['ui.router','btford.socket-io'])
+angular.module('tradespider',['ui.router','btford.socket-io', 'ui.bootstrap'])
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider

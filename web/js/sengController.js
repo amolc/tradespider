@@ -1,24 +1,28 @@
 angular.module('tradespider')
 
-.controller('sengController', function ($scope, $state, socket) {
+.controller('sengController', function ($scope, $state, $http, socket) {
 
   $scope.sengData = function (page) {
-      socket.emit('get seng data', {'page': page});
+    $http.post( socketUrl + '/seng/get_seng_data', {'page': page}).success(function (res, req) {
+      if(res.status === 0){
+        console.log('Error While Executing the query for: '+ $state.current.name);
+      }else {
+        if($state.current.name === 'seng.sengperiod60'){
+          $scope.seng_1s = res;
+        }else if($state.current.name === 'seng.sengperiod300'){
+          $scope.seng_5s = res;
+        }else if($state.current.name === 'seng.sengperiod900'){
+          $scope.seng_15s = res;
+        }
+      }
+    }).error(function (err) {
+      console.log('Internet Connection Is Not Available.');
+    });
   };
 
   $scope.deleteSengRecords = function () {
     socket.emit('clear seng records');
   };
-
-  socket.on('seng data', function(data){
-    if($state.current.name === 'seng.sengperiod60'){
-      $scope.seng_1s = data.seng;
-    }else if($state.current.name === 'seng.sengperiod300'){
-      $scope.seng_5s = data.seng;
-    }else if($state.current.name === 'seng.sengperiod900'){
-      $scope.seng_15s = data.seng;
-    }
-  });
 
   socket.on('one minute seng-report', function(oneData){
     if($state.current.name === 'seng.sengperiod60'){

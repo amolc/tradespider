@@ -2,13 +2,13 @@
     <div class="container">
       <ul class="tabs nav navbar-nav navbar-left">
         <li>
-            <a ui-sref="dax.daxperiod60" class="active">1 MINUTE</a>
+            <a ui-sref-active="active" ui-sref="dax.daxperiod60">1 MINUTE</a>
         </li>
         <li>
-            <a ui-sref="dax.daxperiod300" >5 MINUTE</a>
+            <a ui-sref-active="active" ui-sref="dax.daxperiod300" >5 MINUTE</a>
         </li>
         <li>
-            <a ui-sref="dax.daxperiod900" >15 MINUTE</a>
+            <a ui-sref-active="active" ui-sref="dax.daxperiod900" >15 MINUTE</a>
         </li>
       </ul>
       <div class="tabs nav navbar-nav navbar-right" style="margin-right: 0px;">
@@ -16,20 +16,5 @@
       </div>
     </div>
     <div class="container" ui-view>
-        <!-- <div class="page-nation">
-            <ul class="pagination pagination-large">
-            <li class="disabled"><span><</span></li>
-            <li class="active"><span>Today</span></li>
-            <li><a href="#">Tomorrow</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">8</a></li>
-            <li><a href="#">9</a></li>
-            <li class="disabled"><span>...</span></li><li>
-            <li><a rel="next" href="#">></a></li>
-            </ul>
-        </div> -->
     </div>
   </section>

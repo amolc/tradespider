@@ -25,7 +25,7 @@
          </tr>
      </thead>
      <tbody>
-       <tr class="active"  data-ng-repeat="dax_1 in dax_1s | orderBy: 'id' : 'reverse'">
+       <tr class="active"  data-ng-repeat="dax_1 in dax_1s | orderBy: 'created_on' : 'reverse'">
            <th>
                {{dax_1.created_on | date: 'h:mm a'}}
            </th>
@@ -64,3 +64,27 @@
        </tr>
      </tbody>
  </table>
+ <div data-pagination="" data-num-pages="numPages()"
+      data-current-page="currentPage" data-max-size="maxSize"
+      data-boundary-links="true"></div>
+   <!-- <div class="page-nation">
+       <ul class="pagination pagination-large">
+         <li class="disabled">
+           <span><</span>
+         </li>
+         <li class="active">
+           <span>Today</span>
+         </li>
+         <li>
+           <a href="#">Tomorrow</a>
+         </li>
+         <li><a href="#">3</a></li>
+         <li><a href="#">4</a></li>
+         <li><a href="#">6</a></li>
+         <li><a href="#">7</a></li>
+         <li><a href="#">8</a></li>
+         <li><a href="#">9</a></li>
+         <li class="disabled"><span>...</span></li>
+         <li><a rel="next" href="#">></a></li>
+       </ul>
+   </div> -->

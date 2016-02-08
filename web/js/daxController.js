@@ -1,24 +1,32 @@
 angular.module('tradespider')
 
-.controller('daxController', function ($scope, $state, socket) {
+.controller('daxController', function ($scope, $state, $http, socket) {
+  $scope.dax_1s = [];
+  $scope.currentPage = 1;
+  $scope.numPerPage = 10;
+  $scope.maxSize = 5;
 
   $scope.daxData = function (page) {
-    socket.emit('get dax data', {'page': page});
+    $http.post( socketUrl + '/dax/get_dax_data', {'page': page}).success(function (res, req) {
+      if(res.status === 0){
+        console.log('Error While Executing the query for: '+ $state.current.name);
+      }else {
+        if($state.current.name === 'dax.daxperiod60'){
+          $scope.dax_1s = res;
+        }else if($state.current.name === 'dax.daxperiod300'){
+          $scope.dax_5s = res;
+        }else if($state.current.name === 'dax.daxperiod900'){
+          $scope.dax_15s = res;
+        }
+      }
+    }).error(function (err) {
+      console.log('Internet Connection Is Not Available.');
+    });
   };
 
   $scope.deleteDaxRecords = function () {
     socket.emit('clear dax records');
   };
-
-  socket.on('dax data', function(data){
-    if($state.current.name === 'dax.daxperiod60'){
-      $scope.dax_1s = data.dax;
-    }else if($state.current.name === 'dax.daxperiod300'){
-      $scope.dax_5s = data.dax;
-    }else if($state.current.name === 'dax.daxperiod900'){
-      $scope.dax_15s = data.dax;
-    }
-  });
 
   socket.on('one minute dax-report', function(oneData){
     if($state.current.name === 'dax.daxperiod60'){

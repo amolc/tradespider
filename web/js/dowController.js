@@ -1,24 +1,28 @@
 angular.module('tradespider')
 
-.controller('dowController', function ($scope, $state, socket) {
+.controller('dowController', function ($scope, $state, $http, socket) {
 
   $scope.dowData = function (page) {
-      socket.emit('get dow data', {'page': page});
+    $http.post( socketUrl + '/dow/get_dow_data', {'page': page}).success(function (res, req) {
+      if(res.status === 0){
+        console.log('Error While Executing the query for: '+ $state.current.name);
+      }else {
+        if($state.current.name === 'dow.dowperiod60'){
+          $scope.dow_1s = res;
+        }else if($state.current.name === 'dow.dowperiod300'){
+          $scope.dow_5s = res;
+        }else if($state.current.name === 'dow.dowperiod900'){
+          $scope.dow_15s = res;
+        }
+      }
+    }).error(function (err) {
+      console.log('Internet Connection Is Not Available.');
+    });
   };
 
   $scope.deleteDowRecords = function () {
     socket.emit('clear dow records');
   };
-
-  socket.on('dow data', function(data){
-    if($state.current.name === 'dow.dowperiod60'){
-      $scope.dow_1s = data.dow;
-    }else if($state.current.name === 'dow.dowperiod300'){
-      $scope.dow_5s = data.dow;
-    }else if($state.current.name === 'dow.dowperiod900'){
-      $scope.dow_15s = data.dow;
-    }
-  });
 
   socket.on('one minute dow-report', function(oneData){
     if($state.current.name === 'dow.dowperiod60'){
