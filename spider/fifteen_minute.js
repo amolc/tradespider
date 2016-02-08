@@ -182,7 +182,7 @@ var fifteen_minute = {
   usfuture: function() {
     var time = new Date();
 
-    request(cfg.fifteen_minute_dow, function(error, response, html) {
+    request(cfg.fifteen_minute_usfuture, function(error, response, html) {
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         var fifteenMinuteData = {};
