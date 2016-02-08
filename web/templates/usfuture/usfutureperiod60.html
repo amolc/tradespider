@@ -1,66 +1,76 @@
 <table class="table" data-ng-init="usfutureData('period60')">
-     <thead>
-         <tr>
-             <th>
-                 TIME
-             </th>
-             <th>
-                 MOVING AVERAGES
-             </th>
-             <th>
-                 TECHNICAL INDICATORS
-             </th>
-             <th>
-                 SUMMARY
-             </th>
-             <th>
-                 VALUE
-             </th>
-             <th>
-                 SIGNAL
-             </th>
-             <th>
-                 STRENGTH
-             </th>
-         </tr>
-     </thead>
-     <tbody>
-       <tr class="active"  data-ng-repeat="usfuture_1 in usfuture_1s | orderBy: 'created_on' : 'reverse'">
-           <th>
-               {{usfuture_1.created_on | date: 'h:mm a'}}
-           </th>
-           <td>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.moving_averages === 'buy'">{{usfuture_1.moving_averages | uppercase}}</button>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.moving_averages === 'strong buy'">{{usfuture_1.moving_averages | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.moving_averages === 'sell'">{{usfuture_1.moving_averages | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.moving_averages === 'strong sell'">{{usfuture_1.moving_averages | uppercase}}</button>
-               <button type="button" class="btn btn-default btn-xs" data-ng-if="usfuture_1.moving_averages === 'neutral'">{{usfuture_1.moving_averages | uppercase}}</button>
-           </td>
-           <td>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.technical_indicators === 'buy'">{{usfuture_1.technical_indicators | uppercase}}</button>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.technical_indicators === 'strong buy'">{{usfuture_1.technical_indicators | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.technical_indicators === 'sell'">{{usfuture_1.technical_indicators | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.technical_indicators === 'strong sell'">{{usfuture_1.technical_indicators | uppercase}}</button>
-               <button type="button" class="btn btn-default btn-xs" data-ng-if="usfuture_1.technical_indicators === 'neutral'">{{usfuture_1.technical_indicators | uppercase}}</button>
-           </td>
-           <td>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.summary === 'buy'">{{usfuture_1.summary | uppercase}}</button>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.summary === 'strong buy'">{{usfuture_1.summary | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.summary === 'sell'">{{usfuture_1.summary | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.summary === 'strong sell'">{{usfuture_1.summary | uppercase}}</button>
-               <button type="button" class="btn btn-default btn-xs" data-ng-if="usfuture_1.summary === 'neutral'">{{usfuture_1.summary | uppercase}}</button>
-           </td>
-           <td>
-               <button type="button" class="btn btn-info btn-sm" data-ng-if="usfuture_1.value">{{usfuture_1.value}}</button>
-           </td>
-           <td>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.change_type == 'positive'">{{usfuture_1.change_type | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.change_type == 'negative'">{{usfuture_1.change_type | uppercase}}</button>
-           </td>
-           <td>
-               <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.signal_strength === 'correct'">{{usfuture_1.signal_strength | uppercase}}</button>
-               <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.signal_strength === 'wrong'">{{usfuture_1.signal_strength | uppercase}}</button>
-           </td>
-       </tr>
-     </tbody>
- </table>
+  <thead>
+    <tr>
+      <th>
+        ACCURACY: {{usfuture_1_average | limitTo: 5}}%
+      </th>
+      <th colspan="6">
+        <div class="tabs nav navbar-nav navbar-right" style="margin-right: 0px;">
+          <button type="button" class="btn btn-success btn-xs" data-ng-click="deleteUsFutureRecords()">DELETE US FUTURE RECORDS</button>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        TIME
+      </th>
+      <th>
+        MOVING AVERAGES
+      </th>
+      <th>
+        TECHNICAL INDICATORS
+      </th>
+      <th>
+        SUMMARY
+      </th>
+      <th>
+        VALUE
+      </th>
+      <th>
+        SIGNAL
+      </th>
+      <th>
+        STRENGTH
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="active" data-ng-repeat="usfuture_1 in usfuture_1s | orderBy: 'created_on' : 'reverse'">
+      <th>
+        {{usfuture_1.created_on | date: 'h:mm a'}}
+      </th>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.moving_averages === 'buy'">{{usfuture_1.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.moving_averages === 'strong buy'">{{usfuture_1.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.moving_averages === 'sell'">{{usfuture_1.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.moving_averages === 'strong sell'">{{usfuture_1.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="usfuture_1.moving_averages === 'neutral'">{{usfuture_1.moving_averages | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.technical_indicators === 'buy'">{{usfuture_1.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.technical_indicators === 'strong buy'">{{usfuture_1.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.technical_indicators === 'sell'">{{usfuture_1.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.technical_indicators === 'strong sell'">{{usfuture_1.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="usfuture_1.technical_indicators === 'neutral'">{{usfuture_1.technical_indicators | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.summary === 'buy'">{{usfuture_1.summary | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.summary === 'strong buy'">{{usfuture_1.summary | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.summary === 'sell'">{{usfuture_1.summary | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.summary === 'strong sell'">{{usfuture_1.summary | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="usfuture_1.summary === 'neutral'">{{usfuture_1.summary | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-info btn-sm" data-ng-if="usfuture_1.value">{{usfuture_1.value}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.change_type == 'positive'">{{usfuture_1.change_type | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.change_type == 'negative'">{{usfuture_1.change_type | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="usfuture_1.signal_strength === 'correct'">{{usfuture_1.signal_strength | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="usfuture_1.signal_strength === 'wrong'">{{usfuture_1.signal_strength | uppercase}}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

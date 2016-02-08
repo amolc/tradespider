@@ -4,6 +4,7 @@ var io = require("../socket/socket");
 
 var request = require('request');
 var cheerio = require('cheerio');
+// var moment = require('moment');
 
 var commonFunctions = require('../api/functions');
 
@@ -230,6 +231,8 @@ var one_minute = {
               }
             });
           } else if (usfuture60.length === 1) {
+            console.log(usfuture60[0].created_on);
+            console.log(time);
             var data = {
               new: oneMinuteData,
               old: usfuture60[0]

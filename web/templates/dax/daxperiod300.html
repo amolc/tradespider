@@ -1,66 +1,76 @@
-<table class="table"  data-ng-init="daxData('period300')">
-     <thead>
-         <tr>
-             <th>
-                 TIME
-             </th>
-             <th>
-                 MOVING AVERAGES
-             </th>
-             <th>
-                 TECHNICAL INDICATORS
-             </th>
-             <th>
-                 SUMMARY
-             </th>
-             <th>
-                 VALUE
-             </th>
-             <th>
-                 SIGNAL
-             </th>
-             <th>
-                 STRENGTH
-             </th>
-         </tr>
-     </thead>
-     <tbody>
-         <tr class="active" data-ng-repeat="dax_5 in dax_5s | orderBy: 'created_on' : 'reverse'">
-             <th>
-                 {{dax_5.created_on | date: 'h:mm a'}}
-             </th>
-             <td>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.moving_averages === 'buy'">{{dax_5.moving_averages | uppercase}}</button>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.moving_averages === 'strong buy'">{{dax_5.moving_averages | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.moving_averages === 'sell'">{{dax_5.moving_averages | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.moving_averages === 'strong sell'">{{dax_5.moving_averages | uppercase}}</button>
-                 <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.moving_averages === 'neutral'">{{dax_5.moving_averages | uppercase}}</button>
-             </td>
-             <td>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.technical_indicators === 'buy'">{{dax_5.technical_indicators | uppercase}}</button>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.technical_indicators === 'strong buy'">{{dax_5.technical_indicators | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'sell'">{{dax_5.technical_indicators | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'strong sell'">{{dax_5.technical_indicators | uppercase}}</button>
-                 <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.technical_indicators === 'neutral'">{{dax_5.technical_indicators | uppercase}}</button>
-             </td>
-             <td>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.summary === 'buy'">{{dax_5.summary | uppercase}}</button>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.summary === 'strong buy'">{{dax_5.summary | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.summary === 'sell'">{{dax_5.summary | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.summary === 'strong sell'">{{dax_5.summary | uppercase}}</button>
-                 <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.summary === 'neutral'">{{dax_5.summary | uppercase}}</button>
-             </td>
-             <td>
-                 <button type="button" class="btn btn-info btn-sm" data-ng-if="dax_5.value">{{dax_5.value}}</button>
-             </td>
-             <td>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.change_type === 'positive'">{{dax_5.change_type | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.change_type === 'negative'">{{dax_5.change_type | uppercase}}</button>
-             </td>
-             <td>
-                 <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.signal_strength === 'correct'">{{dax_5.signal_strength | uppercase}}</button>
-                 <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.signal_strength === 'wrong'">{{dax_5.signal_strength | uppercase}}</button>
-             </td>
-         </tr>
-     </tbody>
- </table>
+<table class="table" data-ng-init="daxData('period300')">
+  <thead>
+    <tr>
+      <th>
+        ACCURACY: 100%
+      </th>
+      <th colspan="6">
+        <div class="tabs nav navbar-nav navbar-right" style="margin-right: 0px;">
+          <button type="button" class="btn btn-success btn-xs" data-ng-click="deleteDaxRecords()">DELETE DAX RECORDS</button>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        TIME
+      </th>
+      <th>
+        MOVING AVERAGES
+      </th>
+      <th>
+        TECHNICAL INDICATORS
+      </th>
+      <th>
+        SUMMARY
+      </th>
+      <th>
+        VALUE
+      </th>
+      <th>
+        SIGNAL
+      </th>
+      <th>
+        STRENGTH
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="active" data-ng-repeat="dax_5 in dax_5s | orderBy: 'created_on' : 'reverse'">
+      <th>
+        {{dax_5.created_on | date: 'h:mm a'}}
+      </th>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.moving_averages === 'buy'">{{dax_5.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.moving_averages === 'strong buy'">{{dax_5.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.moving_averages === 'sell'">{{dax_5.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.moving_averages === 'strong sell'">{{dax_5.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.moving_averages === 'neutral'">{{dax_5.moving_averages | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.technical_indicators === 'buy'">{{dax_5.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.technical_indicators === 'strong buy'">{{dax_5.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'sell'">{{dax_5.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.technical_indicators === 'strong sell'">{{dax_5.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.technical_indicators === 'neutral'">{{dax_5.technical_indicators | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.summary === 'buy'">{{dax_5.summary | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.summary === 'strong buy'">{{dax_5.summary | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.summary === 'sell'">{{dax_5.summary | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.summary === 'strong sell'">{{dax_5.summary | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="dax_5.summary === 'neutral'">{{dax_5.summary | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-info btn-sm" data-ng-if="dax_5.value">{{dax_5.value}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.change_type === 'positive'">{{dax_5.change_type | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.change_type === 'negative'">{{dax_5.change_type | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="dax_5.signal_strength === 'correct'">{{dax_5.signal_strength | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="dax_5.signal_strength === 'wrong'">{{dax_5.signal_strength | uppercase}}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

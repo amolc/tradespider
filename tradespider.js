@@ -56,8 +56,8 @@ var daxCronStop = cron.job('00 30 16 * * 1-5', function () {
   console.log('************** Dax Cron Stopped **************');
 });
 
-// daxCronStart.start();
-// daxCronStop.start();
+daxCronStart.start();
+daxCronStop.start();
 
 // ***************************************** Seng Cron Jobs *****************************************
 var oneMinuteSengCron = cron.job('0 * * * * *', function () {
@@ -86,8 +86,8 @@ var sengCronStop = cron.job('00 15 04 * * 1-5', function () {
   console.log('************** Seng Cron Stopped **************');
 });
 
-// sengCronStart.start();
-// sengCronStop.start();
+sengCronStart.start();
+sengCronStop.start();
 
 // ***************************************** DOW Cron Jobs *****************************************
 var oneMinuteDowCron = cron.job('0 * * * * *', function () {
@@ -116,16 +116,16 @@ var dowCronStop = cron.job('00 30 21 * * 1-5', function () {
   console.log('************** Dow Cron Stopped **************');
 });
 
-// dowCronStart.start();
-// dowCronStop.start();
+dowCronStart.start();
+dowCronStop.start();
 
 // ***************************************** US-FUTURES Cron Jobs *****************************************
 var oneMinuteUsfutureCron = cron.job('0 * * * * *', function () {
+  console.log('************** Test Cron Started **************');
   one_minute.usfuture();
 });
 
 var fiveMinuteUsfutureCron = cron.job('0 */5 * * * *', function () {
-  console.log('************** Test Cron Started **************');
   five_minute.usfuture();
 });
 
@@ -147,11 +147,13 @@ var usfutureCronStop = cron.job('00 00 16 * * 1-5', function () {
   console.log('************** Usfuture Cron Stopped **************');
 });
 
-// usfutureCronStart.start();
-// usfutureCronStop.start();
+usfutureCronStart.start();
+usfutureCronStop.start();
 
 // ***************************************** Test Cron Jobs *****************************************
-oneMinuteUsfutureCron.start();
+// oneMinuteUsfutureCron.start();
+// fiveMinuteUsfutureCron.start();
+// fifteenMinuteUsfutureCron.start();
 
 http.listen(cfg.port);
 console.log("listening to port "+ cfg.port);

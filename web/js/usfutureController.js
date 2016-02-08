@@ -2,6 +2,28 @@ angular.module('tradespider')
 
 .controller('usfutureController', function ($scope, $state, $http, socket) {
 
+  function strengthAccuracy(data) {
+    var correctStrength = 0;
+    async.each(data, function (item, callback) {
+      if(item.signal_strength === 'correct'){
+        correctStrength++;
+      }
+      callback();
+    }, function (err) {
+      if (err) {
+        console.log('Error While Calculating Accuracy.');
+      }else {
+        if($state.current.name === 'usfuture.usfutureperiod60'){
+          $scope.usfuture_1_average = (correctStrength/data.length) * 100;
+        }else if($state.current.name === 'usfuture.usfutureperiod300'){
+          $scope.usfuture_5_average = (correctStrength/data.length) * 100;
+        }else if($state.current.name === 'usfuture.usfutureperiod900'){
+          $scope.usfuture_15_average = (correctStrength/data.length) * 100;
+        }
+      }
+    });
+  }
+
   $scope.usfutureData = function (page) {
     $http.post( socketUrl + '/usfuture/get_usfuture_data', {'page': page}).success(function (res, req) {
       if(res.status === 0){
@@ -9,10 +31,13 @@ angular.module('tradespider')
       }else {
         if($state.current.name === 'usfuture.usfutureperiod60'){
           $scope.usfuture_1s = res;
+          strengthAccuracy(res);
         }else if($state.current.name === 'usfuture.usfutureperiod300'){
           $scope.usfuture_5s = res;
+          strengthAccuracy(res);
         }else if($state.current.name === 'usfuture.usfutureperiod900'){
           $scope.usfuture_15s = res;
+          strengthAccuracy(res);
         }
       }
     }).error(function (err) {
@@ -20,9 +45,9 @@ angular.module('tradespider')
     });
   };
 
-  $scope.deleteUsFutureRecords = function () {
-    socket.emit('clear usfuture records');
-  };
+  // $scope.deleteUsFutureRecords = function () {
+  //   socket.emit('clear usfuture records');
+  // };
 
   socket.on('one minute usfuture-report', function(oneData){
     if($state.current.name === 'usfuture.usfutureperiod60'){
@@ -36,6 +61,7 @@ angular.module('tradespider')
         'change_flag': oneData.change_flag,
         'signal_strength': oneData.signal_strength
       });
+      strengthAccuracy($scope.usfuture_1s);
     }
   });
 
@@ -51,6 +77,7 @@ angular.module('tradespider')
         'change_flag': fiveData.change_flag,
         'signal_strength': fiveData.signal_strength
       });
+      strengthAccuracy($scope.usfuture_5s);
     }
   });
 
@@ -66,6 +93,7 @@ angular.module('tradespider')
         'change_flag': fifteenData.change_flag,
         'signal_strength': fifteenData.signal_strength
       });
+      strengthAccuracy($scope.usfuture_15s);
     }
   });
 
