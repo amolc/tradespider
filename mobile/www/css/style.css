@@ -1,0 +1,78 @@
+/* Empty. Add your own CSS if you like */
+
+@font-face {
+    font-family: 'bebasregular';
+    src: url('fonts/bebas___-webfont.eot');
+    src: url('fonts/bebas___-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/bebas___-webfont.woff2') format('woff2'),
+         url('fonts/bebas___-webfont.woff') format('woff'),
+         url('fonts/bebas___-webfont.ttf') format('truetype'),
+         url('fonts/bebas___-webfont.svg#bebasregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+span.back-text{
+	display: none !important;
+}
+.bar.bar-stable{
+	background: #26c6da;
+}
+.title-image{
+	width: 70%;
+    margin-top: 5px;
+}
+.item-complex .item-content{
+    padding: 30px 49px 26px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    font-family: 'bebasregular';
+    font-size: 26px;
+    letter-spacing: 0.5px;
+}
+.item .item-content.activated{
+	background-color: #E9F7F9;
+	border-color: #E9F7F9;
+}
+.tabs-top > .tabs{
+	top: 0px;
+	background-color: #fff;
+}
+.tabs-striped.tabs-background-positive .tabs{
+	background-color: #fff;
+}
+.tabs-top.tabs-striped .tab-item.active{
+	color: #2b2b2b;
+	font-family: 'bebasregular';
+    font-size: 18px;
+    border: 0 solid #26C6DA;
+    letter-spacing: 0.5px;
+}
+.tabs-striped.tabs-color-light .tab-item{
+    color: #D3E0E2;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+.tabs-background-positive .tabs, .tabs-background-positive > .tabs{
+	border-color: #D3E0E2;
+}
+.bar-stable .button.button-clear{
+	color: #fff;
+}
+.bar-stable.bar.bar-header{
+	height: 100px;
+    padding: 33px 10px;
+}
+.bar.bar-stable .title {
+    color: #444;
+    top: 25px;
+    height: 59px;
+}
+.has-header {
+    top: 100px;
+}
+.homepage_tabs .item-complex{
+	margin: 15px;
+	border-radius: 6px;
+}
