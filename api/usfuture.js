@@ -6,48 +6,40 @@ var commonFunctions = require('./functions');
 
 exports.get_usfuture_data = function (req, res) {
   if(req.body.page){
+    var tableName;
     if(req.body.page == "period60"){
-      // Use the model 'find' method to get a list of listings
-      usfuture_1.find().sort('-created_on').limit(500).exec(function(err, usfuture60 ) {
-        if (err) {
-          // If an error occurs send the error message
-          return res.status(400).send({
-            message: commonFunctions.getErrorMessage(err)
-          });
-        } else {
-          // Send a JSON representation of the listing
-          res.json(usfuture60);
-        }
-      });
+      tableName = usfuture_1;
     }else if(req.body.page == "period300"){
-      // Use the model 'find' method to get a list of listings
-      usfuture_5.find().sort('-created_on').limit(500).exec(function(err, usfuture300 ) {
-        if (err) {
-          // If an error occurs send the error message
-          return res.status(400).send({
-            message: commonFunctions.getErrorMessage(err)
-          });
-        } else {
-          // Send a JSON representation of the listing
-          res.json(usfuture300);
-        }
-      });
+      tableName = usfuture_5;
     }else if(req.body.page == "period900"){
-      // Use the model 'find' method to get a list of listings
-      usfuture_15.find().sort('-created_on').limit(500).exec(function(err, usfuture900 ) {
-        if (err) {
-          // If an error occurs send the error message
-          return res.status(400).send({
-            message: commonFunctions.getErrorMessage(err)
-          });
-        } else {
-          // Send a JSON representation of the listing
-          res.json(usfuture900);
-        }
-      });
+      tableName = usfuture_15;
     }
+    tableName.find({ is_started: true }).sort('-created_on').limit(1).exec(function (err, response) {
+      if (err) {
+        // If an error occurs send the error message
+        return res.status(400).send({
+          message: commonFunctions.getErrorMessage(err)
+        });
+      } else {
+        if(response.length === 0){
+          res.sendStatus(400);
+        }else {
+          tableName.find({ _id: { $gte: response[0]._id } }).sort('-created_on').limit(500).exec(function(err, rows) {
+            if (err) {
+              // If an error occurs send the error message
+              return res.status(400).send({
+                message: commonFunctions.getErrorMessage(err)
+              });
+            } else {
+              // Send a JSON representation of the listing
+              res.json(rows);
+            }
+          });
+        }
+      }
+    });
   }else {
-    res.send(404);
+    res.sendStatus(404);
     res.jsonp({'error': 'Invalid Request'});
   }
 };

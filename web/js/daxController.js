@@ -1,10 +1,27 @@
 angular.module('tradespider')
 
 .controller('daxController', function ($scope, $state, $http, socket) {
-  $scope.dax_1s = [];
-  $scope.currentPage = 1;
-  $scope.numPerPage = 10;
-  $scope.maxSize = 5;
+
+  function strengthAccuracy(data) {
+    var correctStrength = 0, changeCount = 0;
+    async.each(data, function (item, callback) {
+      if(item.signal_strength === 'correct') correctStrength++;
+      if(item.signal_strength === 'change') changeCount++;
+      callback();
+    }, function (err) {
+      if (err) {
+        console.log('Error While Calculating Accuracy.');
+      }else {
+        if($state.current.name === 'dax.daxperiod60'){
+          $scope.dax_1_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }else if($state.current.name === 'dax.daxperiod300'){
+          $scope.dax_5_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }else if($state.current.name === 'dax.daxperiod900'){
+          $scope.dax_15_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }
+      }
+    });
+  }
 
   $scope.daxData = function (page) {
     $http.post( socketUrl + '/dax/get_dax_data', {'page': page}).success(function (res, req) {
@@ -18,15 +35,16 @@ angular.module('tradespider')
         }else if($state.current.name === 'dax.daxperiod900'){
           $scope.dax_15s = res;
         }
+        strengthAccuracy(res);
       }
     }).error(function (err) {
       console.log('Internet Connection Is Not Available.');
     });
   };
 
-  $scope.deleteDaxRecords = function () {
-    socket.emit('clear dax records');
-  };
+  // $scope.deleteDaxRecords = function () {
+  //   socket.emit('clear dax records');
+  // };
 
   socket.on('one minute dax-report', function(oneData){
     if($state.current.name === 'dax.daxperiod60'){
@@ -40,6 +58,7 @@ angular.module('tradespider')
         'change_flag': oneData.change_flag,
         'signal_strength': oneData.signal_strength
       });
+      strengthAccuracy($scope.dax_1s);
     }
   });
 
@@ -55,6 +74,7 @@ angular.module('tradespider')
         'change_flag': fiveData.change_flag,
         'signal_strength': fiveData.signal_strength
       });
+      strengthAccuracy($scope.dax_5s);
     }
   });
 
@@ -70,6 +90,7 @@ angular.module('tradespider')
         'change_flag': fifteenData.change_flag,
         'signal_strength': fifteenData.signal_strength
       });
+      strengthAccuracy($scope.dax_15s);
     }
   });
 

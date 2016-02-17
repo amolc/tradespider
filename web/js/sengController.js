@@ -2,6 +2,27 @@ angular.module('tradespider')
 
 .controller('sengController', function ($scope, $state, $http, socket) {
 
+  function strengthAccuracy(data) {
+    var correctStrength = 0, changeCount = 0;
+    async.each(data, function (item, callback) {
+      if(item.signal_strength === 'correct') correctStrength++;
+      if(item.signal_strength === 'change') changeCount++;
+      callback();
+    }, function (err) {
+      if (err) {
+        console.log('Error While Calculating Accuracy.');
+      }else {
+        if($state.current.name === 'seng.sengperiod60'){
+          $scope.seng_1_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }else if($state.current.name === 'seng.sengperiod300'){
+          $scope.seng_5_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }else if($state.current.name === 'seng.sengperiod900'){
+          $scope.seng_15_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }
+      }
+    });
+  }
+
   $scope.sengData = function (page) {
     $http.post( socketUrl + '/seng/get_seng_data', {'page': page}).success(function (res, req) {
       if(res.status === 0){
@@ -14,15 +35,16 @@ angular.module('tradespider')
         }else if($state.current.name === 'seng.sengperiod900'){
           $scope.seng_15s = res;
         }
+        strengthAccuracy(res);
       }
     }).error(function (err) {
       console.log('Internet Connection Is Not Available.');
     });
   };
 
-  $scope.deleteSengRecords = function () {
-    socket.emit('clear seng records');
-  };
+  // $scope.deleteSengRecords = function () {
+  //   socket.emit('clear seng records');
+  // };
 
   socket.on('one minute seng-report', function(oneData){
     if($state.current.name === 'seng.sengperiod60'){
@@ -36,6 +58,7 @@ angular.module('tradespider')
         'change_flag': oneData.change_flag,
         'signal_strength': oneData.signal_strength
       });
+      strengthAccuracy($scope.seng_1s);
     }
   });
 
@@ -51,6 +74,7 @@ angular.module('tradespider')
         'change_flag': fiveData.change_flag,
         'signal_strength': fiveData.signal_strength
       });
+      strengthAccuracy($scope.seng_5s);
     }
   });
 
@@ -66,6 +90,7 @@ angular.module('tradespider')
         'change_flag': fifteenData.change_flag,
         'signal_strength': fifteenData.signal_strength
       });
+      strengthAccuracy($scope.seng_15s);
     }
   });
 

@@ -4,6 +4,7 @@ var io = require("../socket/socket");
 
 var request = require('request');
 var cheerio = require('cheerio');
+var moment = require('moment');
 
 var commonFunctions = require('../api/functions');
 
@@ -46,6 +47,7 @@ var five_minute = {
           if (err) {
             console.log(err);
           } else if (dax300.length === 0) {
+            fiveMinuteData.is_started = true;
             fiveMinuteData.signal_strength = 'change';
             fiveMinuteData.last_change_type = 'neutral';
 
@@ -63,6 +65,12 @@ var five_minute = {
               }
             });
           } else if (dax300.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(dax300[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fiveMinuteData.is_started = false;
+            }else if(ms > 1){
+              fiveMinuteData.is_started = true;
+            }
             var data = {
               new: fiveMinuteData,
               old: dax300[0]
@@ -128,6 +136,7 @@ var five_minute = {
           if (err) {
             console.log(err);
           } else if (dow300.length === 0) {
+            fiveMinuteData.is_started = true;
             fiveMinuteData.signal_strength = 'change';
             fiveMinuteData.last_change_type = 'neutral';
 
@@ -145,6 +154,12 @@ var five_minute = {
               }
             });
           } else if (dow300.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(dow300[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fiveMinuteData.is_started = false;
+            }else if(ms > 1){
+              fiveMinuteData.is_started = true;
+            }
             var data = {
               new: fiveMinuteData,
               old: dow300[0]
@@ -211,6 +226,7 @@ var five_minute = {
           if (err) {
             console.log(err);
           } else if (usfuture300.length === 0) {
+            fiveMinuteData.is_started = true;
             fiveMinuteData.signal_strength = 'change';
             fiveMinuteData.last_change_type = 'neutral';
 
@@ -228,6 +244,12 @@ var five_minute = {
               }
             });
           } else if (usfuture300.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(usfuture300[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fiveMinuteData.is_started = false;
+            }else if(ms > 1){
+              fiveMinuteData.is_started = true;
+            }
             var data = {
               new: fiveMinuteData,
               old: usfuture300[0]
@@ -294,6 +316,7 @@ var five_minute = {
           if (err) {
             console.log(err);
           } else if (seng300.length === 0) {
+            fiveMinuteData.is_started = true;
             fiveMinuteData.signal_strength = 'change';
             fiveMinuteData.last_change_type = 'neutral';
 
@@ -311,6 +334,12 @@ var five_minute = {
               }
             });
           } else if (seng300.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(seng300[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fiveMinuteData.is_started = false;
+            }else if(ms > 1){
+              fiveMinuteData.is_started = true;
+            }
             var data = {
               new: fiveMinuteData,
               old: seng300[0]

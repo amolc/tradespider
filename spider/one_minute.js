@@ -4,7 +4,7 @@ var io = require("../socket/socket");
 
 var request = require('request');
 var cheerio = require('cheerio');
-// var moment = require('moment');
+var moment = require('moment');
 
 var commonFunctions = require('../api/functions');
 
@@ -47,6 +47,7 @@ var one_minute = {
           if (err) {
             console.log(err);
           } else if (dax60.length === 0) {
+            oneMinuteData.is_started = true;
             oneMinuteData.signal_strength = 'change';
             oneMinuteData.last_change_type = 'neutral';
 
@@ -64,6 +65,12 @@ var one_minute = {
               }
             });
           } else if (dax60.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(dax60[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              oneMinuteData.is_started = false;
+            }else if(ms > 1){
+              oneMinuteData.is_started = true;
+            }
             var data = {
               new: oneMinuteData,
               old: dax60[0]
@@ -130,6 +137,7 @@ var one_minute = {
           if (err) {
             console.log(err);
           } else if (dow60.length === 0) {
+            oneMinuteData.is_started = true;
             oneMinuteData.signal_strength = 'change';
             oneMinuteData.last_change_type = 'neutral';
 
@@ -147,6 +155,13 @@ var one_minute = {
               }
             });
           } else if (dow60.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(dow60[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              oneMinuteData.is_started = false;
+            }else if(ms > 1){
+              oneMinuteData.is_started = true;
+            }
+
             var data = {
               new: oneMinuteData,
               old: dow60[0]
@@ -214,6 +229,7 @@ var one_minute = {
           if (err) {
             console.log(err);
           } else if (usfuture60.length === 0) {
+            oneMinuteData.is_started = true;
             oneMinuteData.signal_strength = 'change';
             oneMinuteData.last_change_type = 'neutral';
 
@@ -231,8 +247,13 @@ var one_minute = {
               }
             });
           } else if (usfuture60.length === 1) {
-            console.log(usfuture60[0].created_on);
-            console.log(time);
+            var ms = moment.utc(moment(time).diff(moment(usfuture60[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              oneMinuteData.is_started = false;
+            }else if(ms > 1){
+              oneMinuteData.is_started = true;
+            }
+
             var data = {
               new: oneMinuteData,
               old: usfuture60[0]
@@ -300,6 +321,7 @@ var one_minute = {
           if (err) {
             console.log(err);
           } else if (seng60.length === 0) {
+            oneMinuteData.is_started = true;
             oneMinuteData.signal_strength = 'change';
             oneMinuteData.last_change_type = 'neutral';
 
@@ -317,6 +339,12 @@ var one_minute = {
               }
             });
           } else if (seng60.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(seng60[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              oneMinuteData.is_started = false;
+            }else if(ms > 1){
+              oneMinuteData.is_started = true;
+            }
             var data = {
               new: oneMinuteData,
               old: seng60[0]

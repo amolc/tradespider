@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var tableSchema = new Schema({
+  is_started: Boolean,
   summary: String,
   moving_averages: String,
   technical_indicators: String,

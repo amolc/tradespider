@@ -3,22 +3,21 @@ angular.module('tradespider')
 .controller('usfutureController', function ($scope, $state, $http, socket) {
 
   function strengthAccuracy(data) {
-    var correctStrength = 0;
+    var correctStrength = 0, changeCount = 0;
     async.each(data, function (item, callback) {
-      if(item.signal_strength === 'correct'){
-        correctStrength++;
-      }
+      if(item.signal_strength === 'correct') correctStrength++;
+      if(item.signal_strength === 'change') changeCount++;
       callback();
     }, function (err) {
       if (err) {
         console.log('Error While Calculating Accuracy.');
       }else {
         if($state.current.name === 'usfuture.usfutureperiod60'){
-          $scope.usfuture_1_average = (correctStrength/data.length) * 100;
+          $scope.usfuture_1_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }else if($state.current.name === 'usfuture.usfutureperiod300'){
-          $scope.usfuture_5_average = (correctStrength/data.length) * 100;
+          $scope.usfuture_5_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }else if($state.current.name === 'usfuture.usfutureperiod900'){
-          $scope.usfuture_15_average = (correctStrength/data.length) * 100;
+          $scope.usfuture_15_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }
       }
     });
@@ -31,14 +30,12 @@ angular.module('tradespider')
       }else {
         if($state.current.name === 'usfuture.usfutureperiod60'){
           $scope.usfuture_1s = res;
-          strengthAccuracy(res);
         }else if($state.current.name === 'usfuture.usfutureperiod300'){
           $scope.usfuture_5s = res;
-          strengthAccuracy(res);
         }else if($state.current.name === 'usfuture.usfutureperiod900'){
           $scope.usfuture_15s = res;
-          strengthAccuracy(res);
         }
+        strengthAccuracy(res);
       }
     }).error(function (err) {
       console.log('Internet Connection Is Not Available.');

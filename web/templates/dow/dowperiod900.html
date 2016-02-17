@@ -1,8 +1,8 @@
 <table class="table" data-ng-init="dowData('period900')">
   <thead>
     <tr>
-      <th>
-        ACCURACY: 100%
+      <th style="background-color: #f39c12;">
+        ACCURACY: {{dow_15_average | limitTo: 5}}%
       </th>
       <th colspan="6">
         <div class="tabs nav navbar-nav navbar-right" style="margin-right: 0px;">

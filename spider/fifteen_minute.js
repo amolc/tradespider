@@ -5,6 +5,7 @@ var io = require("../socket/socket");
 
 var request = require('request');
 var cheerio = require('cheerio');
+var moment = require('moment');
 
 var commonFunctions = require('../api/functions');
 
@@ -47,6 +48,7 @@ var fifteen_minute = {
           if (err) {
             console.log(err);
           } else if (dax900.length === 0) {
+            fifteenMinuteData.is_started = true;
             fifteenMinuteData.signal_strength = 'change';
             fifteenMinuteData.last_change_type = 'neutral';
 
@@ -64,6 +66,12 @@ var fifteen_minute = {
               }
             });
           } else if (dax900.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(dax900[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fifteenMinuteData.is_started = false;
+            }else if(ms > 1){
+              fifteenMinuteData.is_started = true;
+            }
             var data = {
               new: fifteenMinuteData,
               old: dax900[0]
@@ -129,6 +137,7 @@ var fifteen_minute = {
           if (err) {
             console.log(err);
           } else if (dow900.length === 0) {
+            fifteenMinuteData.is_started = true;
             fifteenMinuteData.signal_strength = 'change';
             fifteenMinuteData.last_change_type = 'neutral';
 
@@ -146,6 +155,12 @@ var fifteen_minute = {
               }
             });
           } else if (dow900.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(dow900[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fifteenMinuteData.is_started = false;
+            }else if(ms > 1){
+              fifteenMinuteData.is_started = true;
+            }
             var data = {
               new: fifteenMinuteData,
               old: dow900[0]
@@ -211,6 +226,7 @@ var fifteen_minute = {
           if (err) {
             console.log(err);
           } else if (usfuture900.length === 0) {
+            fifteenMinuteData.is_started = true;
             fifteenMinuteData.signal_strength = 'change';
             fifteenMinuteData.last_change_type = 'neutral';
 
@@ -228,6 +244,12 @@ var fifteen_minute = {
               }
             });
           } else if (usfuture900.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(usfuture900[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fifteenMinuteData.is_started = false;
+            }else if(ms > 1){
+              fifteenMinuteData.is_started = true;
+            }
             var data = {
               new: fifteenMinuteData,
               old: usfuture900[0]
@@ -293,6 +315,7 @@ var fifteen_minute = {
           if (err) {
             console.log(err);
           } else if (seng900.length === 0) {
+            fifteenMinuteData.is_started = true;
             fifteenMinuteData.signal_strength = 'change';
             fifteenMinuteData.last_change_type = 'neutral';
 
@@ -310,6 +333,12 @@ var fifteen_minute = {
               }
             });
           } else if (seng900.length === 1) {
+            var ms = moment.utc(moment(time).diff(moment(seng900[0].created_on))).format("HH");
+            if(ms <= 1 && ms >= 0){
+              fifteenMinuteData.is_started = false;
+            }else if(ms > 1){
+              fifteenMinuteData.is_started = true;
+            }
             var data = {
               new: fifteenMinuteData,
               old: seng900[0]
