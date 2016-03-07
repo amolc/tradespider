@@ -1,6 +1,7 @@
 var dax_1 = require('mongoose').model('dax_1');
 var dax_5 = require('mongoose').model('dax_5');
 var dax_15 = require('mongoose').model('dax_15');
+var dax_60 = require('mongoose').model('dax_60');
 
 var commonFunctions = require('./functions');
 

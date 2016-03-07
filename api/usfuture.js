@@ -1,6 +1,7 @@
 var usfuture_1 = require('mongoose').model('usfuture_1');
 var usfuture_5 = require('mongoose').model('usfuture_5');
 var usfuture_15 = require('mongoose').model('usfuture_15');
+var usfuture_60 = require('mongoose').model('usfuture_60');
 
 var commonFunctions = require('./functions');
 

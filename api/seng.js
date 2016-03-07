@@ -1,6 +1,7 @@
 var seng_1 = require('mongoose').model('seng_1');
 var seng_5 = require('mongoose').model('seng_5');
 var seng_15 = require('mongoose').model('seng_15');
+var seng_60 = require('mongoose').model('seng_60');
 
 var commonFunctions = require('./functions');
 

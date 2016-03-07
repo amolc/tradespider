@@ -1,6 +1,7 @@
 var dow_1 = require('mongoose').model('dow_1');
 var dow_5 = require('mongoose').model('dow_5');
 var dow_15 = require('mongoose').model('dow_15');
+var dow_60 = require('mongoose').model('dow_60');
 
 var commonFunctions = require('./functions');
 
