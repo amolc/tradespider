@@ -13,6 +13,8 @@ exports.get_dow_data = function (req, res) {
       tableName = dow_5;
     }else if(req.body.page == "period900"){
       tableName = dow_15;
+    }else if(req.body.page == "period3600"){
+      tableName = dow_60;
     }
     tableName.find({ is_started: true }).sort('-created_on').limit(1).exec(function (err, response) {
       if (err) {

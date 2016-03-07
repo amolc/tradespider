@@ -24,6 +24,11 @@ angular.module('tradespider',['ui.router','btford.socket-io', 'ui.bootstrap'])
     templateUrl: "templates/dax/daxperiod900.html",
   })
 
+  .state('dax.daxperiod3600', {
+    url: "/daxperiod3600",
+    templateUrl: "templates/dax/daxperiod900.html",
+  })
+
   .state('dow', {
     url: "/dow",
     templateUrl: "templates/dow/dow.html",
@@ -43,6 +48,11 @@ angular.module('tradespider',['ui.router','btford.socket-io', 'ui.bootstrap'])
   .state('dow.dowperiod900', {
     url: "/dowperiod900",
     templateUrl: "templates/dow/dowperiod900.html",
+  })
+
+  .state('dow.dowperiod3600', {
+    url: "/dowperiod3600",
+    templateUrl: "templates/dow/dowperiod3600.html",
   })
 
   .state('usfuture', {
@@ -66,6 +76,11 @@ angular.module('tradespider',['ui.router','btford.socket-io', 'ui.bootstrap'])
     templateUrl: "templates/usfuture/usfutureperiod900.html",
   })
 
+  .state('usfuture.usfutureperiod3600', {
+    url: "/usfutureperiod3600",
+    templateUrl: "templates/usfuture/usfutureperiod3600.html",
+  })
+
   .state('seng', {
     url: "/seng",
     templateUrl: "templates/seng/seng.html",
@@ -85,6 +100,11 @@ angular.module('tradespider',['ui.router','btford.socket-io', 'ui.bootstrap'])
   .state('seng.sengperiod900', {
     url: "/sengperiod900",
     templateUrl: "templates/seng/sengperiod900.html",
+  })
+
+  .state('seng.sengperiod3600', {
+    url: "/sengperiod3600",
+    templateUrl: "templates/seng/sengperiod3600.html",
   });
 
   $urlRouterProvider.otherwise('/dax/daxperiod60');

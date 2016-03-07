@@ -18,6 +18,8 @@ angular.module('tradespider')
           $scope.dax_5_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }else if($state.current.name === 'dax.daxperiod900'){
           $scope.dax_15_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }else if($state.current.name === 'dax.daxperiod3600'){
+          $scope.dax_60_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }
       }
     });
@@ -34,6 +36,8 @@ angular.module('tradespider')
           $scope.dax_5s = res;
         }else if($state.current.name === 'dax.daxperiod900'){
           $scope.dax_15s = res;
+        }else if($state.current.name === 'dax.daxperiod3600'){
+          $scope.dax_60s = res;
         }
         strengthAccuracy(res);
       }
@@ -91,6 +95,22 @@ angular.module('tradespider')
         'signal_strength': fifteenData.signal_strength
       });
       strengthAccuracy($scope.dax_15s);
+    }
+  });
+
+  socket.on('sixty minute dax-report', function(sixtyData){
+    if($state.current.name === 'dax.daxperiod3600'){
+      $scope.dax_60s.push({
+        'created_on': sixtyData.created_on,
+        'summary': sixtyData.summary,
+        'moving_averages': sixtyData.moving_averages,
+        'technical_indicators': sixtyData.technical_indicators,
+        'value': sixtyData.value,
+        'change_type': sixtyData.change_type,
+        'change_flag': sixtyData.change_flag,
+        'signal_strength': sixtyData.signal_strength
+      });
+      strengthAccuracy($scope.dax_60s);
     }
   });
 

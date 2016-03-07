@@ -18,6 +18,8 @@ angular.module('tradespider')
           $scope.seng_5_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }else if($state.current.name === 'seng.sengperiod900'){
           $scope.seng_15_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
+        }else if($state.current.name === 'seng.sengperiod3600'){
+          $scope.seng_60_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }
       }
     });
@@ -34,6 +36,8 @@ angular.module('tradespider')
           $scope.seng_5s = res;
         }else if($state.current.name === 'seng.sengperiod900'){
           $scope.seng_15s = res;
+        }else if($state.current.name === 'seng.sengperiod3600'){
+          $scope.seng_60s = res;
         }
         strengthAccuracy(res);
       }
@@ -91,6 +95,22 @@ angular.module('tradespider')
         'signal_strength': fifteenData.signal_strength
       });
       strengthAccuracy($scope.seng_15s);
+    }
+  });
+
+  socket.on('sixty minute seng-report', function(sixtyData){
+    if($state.current.name === 'seng.sengperiod3600'){
+      $scope.seng_60s.push({
+        'created_on': sixtyData.created_on,
+        'summary': sixtyData.summary.toLowerCase(),
+        'moving_averages': sixtyData.moving_averages.toLowerCase(),
+        'technical_indicators': sixtyData.technical_indicators.toLowerCase(),
+        'value': sixtyData.value,
+        'change_type': sixtyData.change_type,
+        'change_flag': sixtyData.change_flag,
+        'signal_strength': sixtyData.signal_strength
+      });
+      strengthAccuracy($scope.seng_60s);
     }
   });
 

@@ -14,6 +14,7 @@ var cron = require('cron');
 var one_minute = require('./spider/one_minute');
 var five_minute = require('./spider/five_minute');
 var fifteen_minute = require('./spider/fifteen_minute');
+var sixty_minute = require('./spider/sixty_minute');
 
 var dax = require('./api/dax');
 var dow = require('./api/dow');
@@ -41,18 +42,24 @@ var fiveMinuteDaxCron = cron.job('0 */5 * * * *', function () {
 var fifteenMinuteDaxCron = cron.job('0 */15 * * * *', function () {
   fifteen_minute.dax();
 });
+
+var sixtyMinuteDaxCron = cron.job('0 0 * * * *', function () {
+  sixty_minute.dax();
+});
 //
-var daxCronStart = cron.job('00 00 07 * * 1-5', function () {
+var daxCronStart = cron.job('00 00 08 * * 1-5', function () {
   console.log('************** Dax Cron Started **************');
   oneMinuteDaxCron.start();
   fiveMinuteDaxCron.start();
   fifteenMinuteDaxCron.start();
+  sixtyMinuteDaxCron.start();
 });
 
 var daxCronStop = cron.job('00 30 16 * * 1-5', function () {
   oneMinuteDaxCron.stop();
   fiveMinuteDaxCron.stop();
   fifteenMinuteDaxCron.stop();
+  sixtyMinuteDaxCron.stop();
   console.log('************** Dax Cron Stopped **************');
 });
 
@@ -71,18 +78,24 @@ var fiveMinuteSengCron = cron.job('0 */5 * * * *', function () {
 var fifteenMinuteSengCron = cron.job('0 */15 * * * *', function () {
   fifteen_minute.seng();
 });
+
+var sixtyMinuteSengCron = cron.job('0 */15 * * * *', function () {
+  sixty_minute.seng();
+});
 //
 var sengCronStart = cron.job('00 15 01 * * 1-5', function () {
   console.log('************** Seng Cron Started **************');
   oneMinuteSengCron.start();
   fiveMinuteSengCron.start();
   fifteenMinuteSengCron.start();
+  sixtyMinuteSengCron.start();
 });
 
 var sengCronStop = cron.job('00 15 04 * * 1-5', function () {
   oneMinuteSengCron.stop();
   fiveMinuteSengCron.stop();
   fifteenMinuteSengCron.stop();
+  sixtyMinuteSengCron.stop();
   console.log('************** Seng Cron Stopped **************');
 });
 
@@ -101,18 +114,24 @@ var fiveMinuteDowCron = cron.job('0 */5 * * * *', function () {
 var fifteenMinuteDowCron = cron.job('0 */15 * * * *', function () {
   fifteen_minute.dow();
 });
+
+var sixtyMinuteDowCron = cron.job('0 */15 * * * *', function () {
+  sixty_minute.dow();
+});
 //
 var dowCronStart = cron.job('00 30 14 * * 1-5', function () {
   console.log('************** Dow Cron Started **************');
   oneMinuteDowCron.start();
   fiveMinuteDowCron.start();
   fifteenMinuteDowCron.start();
+  sixtyMinuteDowCron.start();
 });
 
 var dowCronStop = cron.job('00 30 21 * * 1-5', function () {
   oneMinuteDowCron.stop();
   fiveMinuteDowCron.stop();
   fifteenMinuteDowCron.stop();
+  sixtyMinuteDowCron.stop();
   console.log('************** Dow Cron Stopped **************');
 });
 
@@ -132,18 +151,24 @@ var fiveMinuteUsfutureCron = cron.job('0 */5 * * * *', function () {
 var fifteenMinuteUsfutureCron = cron.job('0 */15 * * * *', function () {
   fifteen_minute.usfuture();
 });
+
+var sixtyMinuteUsfutureCron = cron.job('0 */15 * * * *', function () {
+  sixty_minute.usfuture();
+});
 //
 var usfutureCronStart = cron.job('00 00 23 * * 1-5', function () {
   console.log('************** Usfuture Cron Started **************');
   oneMinuteUsfutureCron.start();
   fiveMinuteUsfutureCron.start();
   fifteenMinuteUsfutureCron.start();
+  sixtyMinuteUsfutureCron.start();
 });
 
 var usfutureCronStop = cron.job('00 00 16 * * 1-5', function () {
   oneMinuteUsfutureCron.stop();
   fiveMinuteUsfutureCron.stop();
   fifteenMinuteUsfutureCron.stop();
+  sixtyMinuteUsfutureCron.stop();
   console.log('************** Usfuture Cron Stopped **************');
 });
 

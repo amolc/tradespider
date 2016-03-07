@@ -1,0 +1,76 @@
+<table class="table" data-ng-init="sengData('period900')">
+  <thead>
+    <tr>
+      <th style="background-color: #f39c12;">
+        ACCURACY: {{seng_60_average | limitTo: 5}}%
+      </th>
+      <th colspan="6">
+        <div class="tabs nav navbar-nav navbar-right" style="margin-right: 0px;">
+          <button type="button" class="btn btn-success btn-xs" data-ng-click="deleteSengRecords()">DELETE SENG RECORDS</button>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        TIME
+      </th>
+      <th>
+        MOVING AVERAGES
+      </th>
+      <th>
+        TECHNICAL INDICATORS
+      </th>
+      <th>
+        SUMMARY
+      </th>
+      <th>
+        VALUE
+      </th>
+      <th>
+        SIGNAL
+      </th>
+      <th>
+        STRENGTH
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="active" data-ng-repeat="seng_60 in seng_60s | orderBy: 'created_on' : 'reverse'">
+      <th>
+        {{seng_60.created_on | date: 'h:mm a'}}
+      </th>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.moving_averages === 'buy'">{{seng_60.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.moving_averages === 'strong buy'">{{seng_60.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.moving_averages === 'sell'">{{seng_60.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.moving_averages === 'strong sell'">{{seng_60.moving_averages | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="seng_60.moving_averages === 'neutral'">{{seng_60.moving_averages | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.technical_indicators === 'buy'">{{seng_60.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.technical_indicators === 'strong buy'">{{seng_60.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.technical_indicators === 'sell'">{{seng_60.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.technical_indicators === 'strong sell'">{{seng_60.technical_indicators | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="seng_60.technical_indicators === 'neutral'">{{seng_60.technical_indicators | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.summary === 'buy'">{{seng_60.summary | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.summary === 'strong buy'">{{seng_60.summary | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.summary === 'sell'">{{seng_60.summary | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.summary === 'strong sell'">{{seng_60.summary | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="seng_60.summary === 'neutral'">{{seng_60.summary | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-info btn-sm" data-ng-if="seng_60.value">{{seng_60.value}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.change_type === 'positive'">{{seng_60.change_type | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.change_type === 'negative'">{{seng_60.change_type | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="seng_60.signal_strength === 'correct'">{{seng_60.signal_strength | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="seng_60.signal_strength === 'wrong'">{{seng_60.signal_strength | uppercase}}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
