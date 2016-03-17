@@ -47,6 +47,12 @@ angular.module('starter.controllers', [])
     { title: 'DOW', id: 2 },
     { title: 'US FEATURES', id: 3 },
     { title: 'HSE', id: 4 },
+    { title: 'BIST 100', id: 4 },
+    { title: 'CHINA A50', id: 4 },
+    { title: 'HANG SENG', id: 4 },
+    { title: 'NIFTY 50', id: 4 },
+    { title: 'NASDAQ', id: 4 },
+    { title: 'CAC 40', id: 4 },
   ];
  
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
