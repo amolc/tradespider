@@ -21,6 +21,14 @@ var dow = require('./api/dow');
 var usfuture = require('./api/usfuture');
 var seng = require('./api/seng');
 
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
+  next();
+});
+
 app.use(bodyParser.json({limit: '50mb'}));
 app.use('/', express.static(__dirname + '/web'));
 app.use('/template', express.static(__dirname + '/startbootstrap'));

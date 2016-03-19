@@ -1,0 +1,74 @@
+<ion-view view-title='<img class="title-image" src="img/logo.svg" />'>
+  <ion-content ng-controller="daxController">
+   <ion-tabs class="tabs-striped tabs-top tabs-dark">
+
+  <ion-tab title="1 MINUTE" ui-sref="app.dax.daxperiod60" on-select="main.onTabSelected(this)">
+    <!-- Tab 1 content -->
+     <ion-nav-view name="app-dax-daxperiod60"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="5 MINUTE" ui-sref="app.dax.daxperiod300">
+    <!-- Tab 2 content -->
+     <ion-nav-view name="app-dax-daxperiod300"></ion-nav-view>
+  </ion-tab>
+  <ion-tab title="15 MINUTE" ui-sref="app.dax.daxperiod900">
+    <!-- Tab 3 content -->
+     <ion-nav-view name="app-dax-daxperiod900"></ion-nav-view>
+  </ion-tab>
+  <ion-tab title="60 MINUTE" ui-sref="app.dax.daxperiod3600">
+    <!-- Tab 3 content -->
+     <ion-nav-view name="app-dax-daxperiod3600"></ion-nav-view>
+  </ion-tab>
+</ion-tabs>
+  <!-- <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+    <div class="tabs">
+      <a class="tab-item active" href="#">      
+        DAX
+      </a>
+      <a class="tab-item" href="#">
+        DOW
+      </a>
+      <a class="tab-item" href="#">
+        US FEATURES
+      </a>
+      <a class="tab-item" href="#">
+        HSE
+      </a>
+      <a class="tab-item" href="#">
+        BIST 100
+      </a>
+      <a class="tab-item" href="#">
+        CHINA A50
+      </a>
+      <a class="tab-item" href="#">
+        HANG SENG
+      </a>
+      <a class="tab-item" href="#">
+        NIFTY 50
+      </a>
+      <a class="tab-item" href="#">
+        NASDAQ
+      </a>
+      <a class="tab-item" href="#">
+        CAC 40
+      </a>
+    </div>
+  </div>
+    <div class="card">
+        <div class="item item-divider">
+            A line chart
+        </div>
+        <div class="item item-text-wrap">
+            <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" options="{showTooltips: false}"></canvas>
+        </div>
+    </div>
+    <div class="card">
+        <div class="item item-divider">
+            A bar chart
+        </div>
+        <div class="item item-text-wrap">
+            <canvas id="bar" class="chart chart-bar" data="data" labels="labels" legend="true" series="series" options="{showTooltips: false}"></canvas>
+        </div>
+    </div> -->
+  </ion-content>
+</ion-view>

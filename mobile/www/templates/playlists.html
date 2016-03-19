@@ -1,7 +1,7 @@
 <ion-view view-title='<img class="title-image" src="img/logo.svg" />'>
   <ion-content>
     <ion-list class="homepage_tabs">
-      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+      <ion-item ng-repeat="playlist in playlists" ng-href="#/app/dax/{{playlist.id}}">
         {{playlist.title}}
       </ion-item>
     </ion-list>

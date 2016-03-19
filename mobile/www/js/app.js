@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -59,16 +59,60 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.dax', {
+    url: '/dax/:playlistId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/dax.html',
+        controller: 'daxController'
       }
     }
-  });
+  })
+
+  .state('app.dax.daxperiod60', {
+    url: '/daxperiod60/',
+    views: {
+      'app-dax-daxperiod60': {
+        templateUrl: 'templates/daxperiod60.html'
+      }
+    }
+  })
+
+  .state('app.dax.daxperiod300', {
+    url: '/daxperiod300/',
+    views: {
+      'app-dax-daxperiod300': {
+        templateUrl: 'templates/daxperiod300.html'
+      }
+    }
+  })
+
+  .state('app.dax.daxperiod900', {
+    url: '/daxperiod900/',
+    views: {
+      'app-dax-daxperiod900': {
+        templateUrl: 'templates/daxperiod900.html'
+      }
+    }
+  })
+
+  .state('app.dax.daxperiod3600', {
+    url: '/daxperiod3600/',
+    views: {
+      'app-dax-daxperiod3600': {
+        templateUrl: 'templates/daxperiod3600.html'
+      }
+    }
+  });  
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
-});
+})
 
+// SOCKET Config for the DEVELOPMENT instance
+.factory('socket', function(socketFactory){
+    var myIoSocket = io.connect(socketUrl);
+    mySocket = socketFactory({
+      ioSocket: myIoSocket
+    });
+    return mySocket;
+});
