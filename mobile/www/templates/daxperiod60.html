@@ -1,28 +1,30 @@
 <ion-view view-title="1 MINUTE" data-ng-init="daxData('period60')">
 	<ion-content scroll="true" has-bouncing="true">
-		<div class="row">
-          <div class="col">Time</div>
-          <div class="col">Summary</div>
-          <div class="col">Value</div>
-          <div class="col">Signal</div>
+    <div class="list">
+      <div class="row item item-divider">
+        <div class="col">Time</div>
+        <div class="col">Summary</div>
+        <div class="col">Value</div>
+        <div class="col">Signal</div>
+      </div>
+      <div class="row item"  data-ng-repeat="dax_1 in dax_1s | orderBy: 'created_on' : 'reverse'">
+        <div class="col"> {{dax_1.created_on | date: 'h:mm a'}}</div>
+        <div class="col">
+          <span  data-ng-if="dax_1.summary === 'buy'">{{dax_1.summary | uppercase}}</span>
+          <span  class="btn btn-success btn-xs" data-ng-if="dax_1.summary === 'strong buy'">{{dax_1.summary | uppercase}}</span>
+          <span data-ng-if="dax_1.summary === 'sell'">{{dax_1.summary | uppercase}}</span>
+          <span data-ng-if="dax_1.summary == 'strong sell'">{{dax_1.summary | uppercase}}</span>
+          <span data-ng-if="dax_1.summary == 'neutral'">{{dax_1.summary | uppercase}}</span>
         </div>
-        <div class="row"  data-ng-repeat="dax_1 in dax_1s | orderBy: 'created_on' : 'reverse'">
-          <div class="col"> {{dax_1.created_on | date: 'h:mm a'}}</div>
-          <div class="col">
-          	<span  data-ng-if="dax_1.summary === 'buy'">{{dax_1.summary | uppercase}}</span>
-        <span  class="btn btn-success btn-xs" data-ng-if="dax_1.summary === 'strong buy'">{{dax_1.summary | uppercase}}</span>
-        <span data-ng-if="dax_1.summary === 'sell'">{{dax_1.summary | uppercase}}</span>
-          	<span data-ng-if="dax_1.summary == 'strong sell'">{{dax_1.summary | uppercase}}</span>
-          	<span data-ng-if="dax_1.summary == 'neutral'">{{dax_1.summary | uppercase}}</span>
-          </div>
-          <div class="col">
-          	<span data-ng-if="dax_1.value">{{dax_1.value}}</span>
-          </div>
-          <div class="col">
-          	<span data-ng-if="dax_1.change_type == 'positive'">{{dax_1.change_type | uppercase}}</span>
-          	<span data-ng-if="dax_1.change_type == 'negative'">{{dax_1.change_type | uppercase}}</span>
-          </div>
+        <div class="col">
+          <span data-ng-if="dax_1.value">{{dax_1.value}}</span>
         </div>
+        <div class="col">
+          <span data-ng-if="dax_1.change_type == 'positive'">{{dax_1.change_type | uppercase}}</span>
+          <span data-ng-if="dax_1.change_type == 'negative'">{{dax_1.change_type | uppercase}}</span>
+        </div>
+      </div>
+    </div>
 	</ion-content>
 </ion-view>
 
