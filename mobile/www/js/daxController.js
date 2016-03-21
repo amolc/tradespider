@@ -25,7 +25,6 @@ angular.module('starter.controllers')
   }
 
   $scope.daxData = function (page) {
-    console.log(page);
     $http.post( socketUrl + '/dax/get_dax_data', {'page': page}).success(function (res, req) {
       if(res.status === 0){
         console.log('Error While Executing the query for: '+ $state.current.name);
@@ -34,6 +33,7 @@ angular.module('starter.controllers')
           $scope.dax_1s = res;
         }else if($state.current.name === 'app.dax.daxperiod300'){
           $scope.dax_5s = res;
+          console.log($scope.dax_5s);
         }else if($state.current.name === 'app.dax.daxperiod900'){
           $scope.dax_15s = res;
         }else if($state.current.name === 'app.dax.daxperiod3600'){

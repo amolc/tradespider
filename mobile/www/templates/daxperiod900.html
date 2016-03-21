@@ -1,6 +1,30 @@
-<ion-view view-title="15 MINUTE" >
+<ion-view view-title="15 MINUTE" data-ng-init="daxData('period900')" >
 	<ion-content scroll="true" has-bouncing="true">
-		15 MINUTE
+		<ion-content scroll="true" has-bouncing="true">
+		<div class="row">
+          <div class="col">Time</div>
+          <div class="col">Summary</div>
+          <div class="col">Value</div>
+          <div class="col">Signal</div>
+        </div>
+        <div class="row"  data-ng-repeat="dax_15 in dax_15s | orderBy: 'created_on' : 'reverse'">
+          <div class="col"> {{dax_15.created_on | date: 'h:mm a'}}</div>
+          <div class="col">
+          	<span  data-ng-if="dax_15.summary === 'buy'">{{dax_15.summary | uppercase}}</span>
+        <span  class="btn btn-success btn-xs" data-ng-if="dax_15.summary === 'strong buy'">{{dax_15.summary | uppercase}}</span>
+        <span data-ng-if="dax_15.summary === 'sell'">{{dax_15.summary | uppercase}}</span>
+          	<span data-ng-if="dax_15.summary == 'strong sell'">{{dax_15.summary | uppercase}}</span>
+          	<span data-ng-if="dax_15.summary == 'neutral'">{{dax_15.summary | uppercase}}</span>
+          </div>
+          <div class="col">
+          	<span data-ng-if="dax_15.value">{{dax_15.value}}</span>
+          </div>
+          <div class="col">
+          	<span data-ng-if="dax_15.change_type == 'positive'">{{dax_15.change_type | uppercase}}</span>
+          	<span data-ng-if="dax_15.change_type == 'negative'">{{dax_15.change_type | uppercase}}</span>
+          </div>
+        </div>
+	</ion-content>
 	</ion-content>
 </ion-view>
 
