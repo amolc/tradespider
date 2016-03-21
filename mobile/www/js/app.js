@@ -70,7 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
   })
 
   .state('app.dax.daxperiod60', {
-    url: '/daxperiod60/',
+    url: '/daxperiod60',
     views: {
       'app-dax-daxperiod60': {
         templateUrl: 'templates/daxperiod60.html'
@@ -79,7 +79,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
   })
 
   .state('app.dax.daxperiod300', {
-    url: '/daxperiod300/',
+    url: '/daxperiod300',
     views: {
       'app-dax-daxperiod300': {
         templateUrl: 'templates/daxperiod300.html'
@@ -88,7 +88,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
   })
 
   .state('app.dax.daxperiod900', {
-    url: '/daxperiod900/',
+    url: '/daxperiod900',
     views: {
       'app-dax-daxperiod900': {
         templateUrl: 'templates/daxperiod900.html'
@@ -97,7 +97,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
   })
 
   .state('app.dax.daxperiod3600', {
-    url: '/daxperiod3600/',
+    url: '/daxperiod3600',
     views: {
       'app-dax-daxperiod3600': {
         templateUrl: 'templates/daxperiod3600.html'
