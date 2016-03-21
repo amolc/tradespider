@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 var env = process.env.NODE_ENV || 'dev';
-var cfg = require('./config/config.dev');
+var cfg = require('/config/config.dev');
 var db = cfg.connection;
 
 var http = require("http").createServer(app);
