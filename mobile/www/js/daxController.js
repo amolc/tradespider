@@ -11,13 +11,13 @@ angular.module('starter.controllers')
       if (err) {
         console.log('Error While Calculating Accuracy.');
       }else {
-        if($state.current.name === 'dax.daxperiod60'){
+        if($state.current.name === 'app.dax.daxperiod60'){
           $scope.dax_1_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
-        }else if($state.current.name === 'dax.daxperiod300'){
+        }else if($state.current.name === 'app.dax.daxperiod300'){
           $scope.dax_5_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
-        }else if($state.current.name === 'dax.daxperiod900'){
+        }else if($state.current.name === 'app.dax.daxperiod900'){
           $scope.dax_15_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
-        }else if($state.current.name === 'dax.daxperiod3600'){
+        }else if($state.current.name === 'app.dax.daxperiod3600'){
           $scope.dax_60_average = ( correctStrength/ ( data.length - changeCount ) ) * 100;
         }
       }
@@ -33,7 +33,6 @@ angular.module('starter.controllers')
           $scope.dax_1s = res;
         }else if($state.current.name === 'app.dax.daxperiod300'){
           $scope.dax_5s = res;
-          console.log($scope.dax_5s);
         }else if($state.current.name === 'app.dax.daxperiod900'){
           $scope.dax_15s = res;
         }else if($state.current.name === 'app.dax.daxperiod3600'){
@@ -51,7 +50,7 @@ angular.module('starter.controllers')
   // };
 
   socket.on('one minute dax-report', function(oneData){
-    if($state.current.name === 'dax.daxperiod60'){
+    if($state.current.name === 'app.dax.daxperiod60' && $scope.dax_1s != undefined ){
       $scope.dax_1s.push({
         'created_on': oneData.created_on,
         'summary': oneData.summary,
@@ -67,7 +66,7 @@ angular.module('starter.controllers')
   });
 
   socket.on('five minute dax-report', function(fiveData){
-    if($state.current.name === 'dax.daxperiod300'){
+    if($state.current.name === 'app.dax.daxperiod300' && $scope.dax_5s != undefined ){
       $scope.dax_5s.push({
         'created_on': fiveData.created_on,
         'summary': fiveData.summary,
@@ -83,7 +82,7 @@ angular.module('starter.controllers')
   });
 
   socket.on('fifteen minute dax-report', function(fifteenData){
-    if($state.current.name === 'dax.daxperiod900'){
+    if($state.current.name === 'app.dax.daxperiod900' && $scope.dax_15s != undefined){
       $scope.dax_15s.push({
         'created_on': fifteenData.created_on,
         'summary': fifteenData.summary,
@@ -99,7 +98,7 @@ angular.module('starter.controllers')
   });
 
   socket.on('sixty minute dax-report', function(sixtyData){
-    if($state.current.name === 'dax.daxperiod3600'){
+    if($state.current.name === 'app.dax.daxperiod3600' && $scope.dax_60s != undefined){
       $scope.dax_60s.push({
         'created_on': sixtyData.created_on,
         'summary': sixtyData.summary,

@@ -1,25 +1,23 @@
 <ion-view view-title='<img class="title-image" src="img/logo.svg" />'>
   <ion-content ng-controller="daxController">
-   <ion-tabs class="tabs-striped tabs-top tabs-dark">
-
-  <ion-tab title="1 MINUTE" ui-sref="app.dax.daxperiod60" on-select="main.onTabSelected(this)">
-    <!-- Tab 1 content -->
-     <ion-nav-view name="app-dax-daxperiod60"></ion-nav-view>
-  </ion-tab>
-
-  <ion-tab title="5 MINUTE" ui-sref="app.dax.daxperiod300">
-    <!-- Tab 2 content -->
-     <ion-nav-view name="app-dax-daxperiod300"></ion-nav-view>
-  </ion-tab>
-  <ion-tab title="15 MINUTE" ui-sref="app.dax.daxperiod900">
-    <!-- Tab 3 content -->
-     <ion-nav-view name="app-dax-daxperiod900"></ion-nav-view>
-  </ion-tab>
-  <ion-tab title="60 MINUTE" ui-sref="app.dax.daxperiod3600">
-    <!-- Tab 3 content -->
-     <ion-nav-view name="app-dax-daxperiod3600"></ion-nav-view>
-  </ion-tab>
-</ion-tabs>
+    <ion-tabs class="tabs-striped tabs-top tabs-dark">
+      <ion-tab title="1 MINUTE" ui-sref="app.dax.daxperiod60" on-select="main.onTabSelected(this)">
+      <!-- Tab 1 content -->
+        <ion-nav-view name="app-dax-daxperiod60"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="5 MINUTE" ui-sref="app.dax.daxperiod300">
+      <!-- Tab 2 content -->
+        <ion-nav-view name="app-dax-daxperiod300"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="15 MINUTE" ui-sref="app.dax.daxperiod900">
+      <!-- Tab 3 content -->
+        <ion-nav-view name="app-dax-daxperiod900"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="60 MINUTE" ui-sref="app.dax.daxperiod3600">
+      <!-- Tab 3 content -->
+        <ion-nav-view name="app-dax-daxperiod3600"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
   <!-- <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
     <div class="tabs">
       <a class="tab-item active" href="#">      

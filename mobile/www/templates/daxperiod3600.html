@@ -1,6 +1,9 @@
 <ion-view view-title="60 MINUTE" data-ng-init="daxData('period3600')">
    <ion-content scroll="true" has-bouncing="true">
     <div class="list">
+      <div class="row item item-divider" data-ng-if="dax_60_average">
+        <div>ACCURACY: {{dax_60_average | limitTo: 5}}%</div>
+      </div>
       <div class="row item item-divider">
         <div class="col">Time</div>
         <div class="col">Summary</div>
