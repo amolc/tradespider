@@ -3,19 +3,15 @@
 
 // Load the module dependencies
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var notificationschema = mongoose.Schema;
 
 // create a schema
-var tableSchema = new Schema({
+var notificationTableSchema = new notificationschema({
   token_id : String,
   device : String,
   platform : String,
-  user_id : Number,
-  created_on: {
-		type: Date,
-		default: Date.now
-	}
+  user_id : Number
 });
-
+  
 // Create the 'notification' model out of the 'tableSchema'
-mongoose.model('notification', tableSchema);
+mongoose.model('notification', notificationTableSchema);
