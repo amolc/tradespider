@@ -24,26 +24,43 @@ var five_minute = {
         var fiveMinuteData = {};
 
         // Summary Info
-        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary')
+          .children('span').text().toLowerCase();
 
         // Moving Averages Info
-        if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+            '.summaryTableLine').children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('b').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+              '.summaryTableLine').children('span').eq(1).children('b')
+            .text().toLowerCase();
         }
 
         // Technical Indicators Info
-        if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').next().children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').next()
+          .children('span').eq(1).children('b').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'b').text().toLowerCase();
         }
 
-        fiveMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',', ''));
+        fiveMinuteData.value = parseFloat($(
+            'div #quotes_summary_current_data').children().children(
+            '.inlineblock').children('div').children('span').eq(0).text()
+          .replace(',', ''));
 
         // Use the model 'find' method to get a list of listings
-        dax_5.find().sort('-created_on').limit(1).exec(function(err, dax300) {
+        dax_5.find().sort('-created_on').limit(1).exec(function(err,
+          dax300) {
           if (err) {
             console.log(err);
           } else if (dax300.length === 0) {
@@ -65,10 +82,11 @@ var five_minute = {
               }
             });
           } else if (dax300.length === 1) {
-            var ms = moment.utc(moment(time).diff(moment(dax300[0].created_on))).format("HH");
-            if(ms <= 1 && ms >= 0){
+            var ms = moment.utc(moment(time).diff(moment(dax300[0].created_on)))
+              .format("HH");
+            if (ms <= 1 && ms >= 0) {
               fiveMinuteData.is_started = false;
-            }else if(ms > 1){
+            } else if (ms > 1) {
               fiveMinuteData.is_started = true;
             }
             var data = {
@@ -113,26 +131,43 @@ var five_minute = {
         var fiveMinuteData = {};
 
         // Summary Info
-        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary')
+          .children('span').text().toLowerCase();
 
         // Moving Averages Info
-        if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+            '.summaryTableLine').children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('b').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+              '.summaryTableLine').children('span').eq(1).children('b')
+            .text().toLowerCase();
         }
 
         // Technical Indicators Info
-        if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').next().children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').next()
+          .children('span').eq(1).children('b').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'b').text().toLowerCase();
         }
 
-        fiveMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',', ''));
+        fiveMinuteData.value = parseFloat($(
+            'div #quotes_summary_current_data').children().children(
+            '.inlineblock').children('div').children('span').eq(0).text()
+          .replace(',', ''));
 
         // Use the model 'find' method to get a list of listings
-        dow_5.find().sort('-created_on').limit(1).exec(function(err, dow300) {
+        dow_5.find().sort('-created_on').limit(1).exec(function(err,
+          dow300) {
           if (err) {
             console.log(err);
           } else if (dow300.length === 0) {
@@ -154,10 +189,11 @@ var five_minute = {
               }
             });
           } else if (dow300.length === 1) {
-            var ms = moment.utc(moment(time).diff(moment(dow300[0].created_on))).format("HH");
-            if(ms <= 1 && ms >= 0){
+            var ms = moment.utc(moment(time).diff(moment(dow300[0].created_on)))
+              .format("HH");
+            if (ms <= 1 && ms >= 0) {
               fiveMinuteData.is_started = false;
-            }else if(ms > 1){
+            } else if (ms > 1) {
               fiveMinuteData.is_started = true;
             }
             var data = {
@@ -203,26 +239,43 @@ var five_minute = {
         var fiveMinuteData = {};
 
         // Summary Info
-        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary')
+          .children('span').text().toLowerCase();
 
         // Moving Averages Info
-        if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+            '.summaryTableLine').children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('b').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+              '.summaryTableLine').children('span').eq(1).children('b')
+            .text().toLowerCase();
         }
 
         // Technical Indicators Info
-        if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').next().children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').next()
+          .children('span').eq(1).children('b').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'b').text().toLowerCase();
         }
 
-        fiveMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',', ''));
+        fiveMinuteData.value = parseFloat($(
+            'div #quotes_summary_current_data').children().children(
+            '.inlineblock').children('div').children('span').eq(0).text()
+          .replace(',', ''));
 
         // Use the model 'find' method to get a list of listings
-        usfuture_5.find().sort('-created_on').limit(1).exec(function(err, usfuture300) {
+        usfuture_5.find().sort('-created_on').limit(1).exec(function(
+          err, usfuture300) {
           if (err) {
             console.log(err);
           } else if (usfuture300.length === 0) {
@@ -244,10 +297,11 @@ var five_minute = {
               }
             });
           } else if (usfuture300.length === 1) {
-            var ms = moment.utc(moment(time).diff(moment(usfuture300[0].created_on))).format("HH");
-            if(ms <= 1 && ms >= 0){
+            var ms = moment.utc(moment(time).diff(moment(
+              usfuture300[0].created_on))).format("HH");
+            if (ms <= 1 && ms >= 0) {
               fiveMinuteData.is_started = false;
-            }else if(ms > 1){
+            } else if (ms > 1) {
               fiveMinuteData.is_started = true;
             }
             var data = {
@@ -265,14 +319,16 @@ var five_minute = {
               var usfutureData = new usfuture_5(fiveMinuteData);
 
               fiveMinuteData.created_on = time;
-              io.emit('five minute usfuture-report', fiveMinuteData);
+              io.emit('five minute usfuture-report',
+                fiveMinuteData);
 
               // Try saving the new usfuture document
               usfutureData.save(function(err) {
                 if (err) {
                   console.log(err);
                 } else {
-                  console.log('FIVE MINUTE US-FUTURE DB 253');
+                  console.log(
+                    'FIVE MINUTE US-FUTURE DB 253');
                 }
               });
 
@@ -293,26 +349,43 @@ var five_minute = {
         var fiveMinuteData = {};
 
         // Summary Info
-        fiveMinuteData.summary = $(cfg.summary_div).children('.summary').children('span').text().toLowerCase();
+        fiveMinuteData.summary = $(cfg.summary_div).children('.summary')
+          .children('span').text().toLowerCase();
 
         // Moving Averages Info
-        if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.moving_averages = $(cfg.summary_div).children('.summaryTableLine').children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+            '.summaryTableLine').children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').children(
+            'span').eq(1).children('b').length === 1) {
+          fiveMinuteData.moving_averages = $(cfg.summary_div).children(
+              '.summaryTableLine').children('span').eq(1).children('b')
+            .text().toLowerCase();
         }
 
         // Technical Indicators Info
-        if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('span').text().toLowerCase();
-        } else if ($(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').length === 1) {
-          fiveMinuteData.technical_indicators = $(cfg.summary_div).children('.summaryTableLine').next().children('span').eq(1).children('b').text().toLowerCase();
+        if ($(cfg.summary_div).children('.summaryTableLine').next().children(
+            'span').eq(1).children('span').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'span').text().toLowerCase();
+        } else if ($(cfg.summary_div).children('.summaryTableLine').next()
+          .children('span').eq(1).children('b').length === 1) {
+          fiveMinuteData.technical_indicators = $(cfg.summary_div).children(
+            '.summaryTableLine').next().children('span').eq(1).children(
+            'b').text().toLowerCase();
         }
 
-        fiveMinuteData.value = parseFloat($('div #quotes_summary_current_data').children().children('.inlineblock').children('div').children('span').eq(0).text().replace(',', ''));
+        fiveMinuteData.value = parseFloat($(
+            'div #quotes_summary_current_data').children().children(
+            '.inlineblock').children('div').children('span').eq(0).text()
+          .replace(',', ''));
 
         // Use the model 'find' method to get a list of listings
-        seng_5.find().sort('-created_on').limit(1).exec(function(err, seng300) {
+        seng_5.find().sort('-created_on').limit(1).exec(function(err,
+          seng300) {
           if (err) {
             console.log(err);
           } else if (seng300.length === 0) {
@@ -334,10 +407,11 @@ var five_minute = {
               }
             });
           } else if (seng300.length === 1) {
-            var ms = moment.utc(moment(time).diff(moment(seng300[0].created_on))).format("HH");
-            if(ms <= 1 && ms >= 0){
+            var ms = moment.utc(moment(time).diff(moment(seng300[0]
+              .created_on))).format("HH");
+            if (ms <= 1 && ms >= 0) {
               fiveMinuteData.is_started = false;
-            }else if(ms > 1){
+            } else if (ms > 1) {
               fiveMinuteData.is_started = true;
             }
             var data = {
