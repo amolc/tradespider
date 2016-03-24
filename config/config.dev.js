@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://trade:3cXWOqeaf@localhost:27017/tradealert');
 
 require('../schema/table.schema');
+require('../schema/tableNotificationSchema');
 
 var config = module.exports = {};
 
