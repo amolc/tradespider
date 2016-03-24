@@ -10,7 +10,7 @@ var tableSchema = new Schema({
   token_id : String,
   device : String,
   platform : String,
-  user_id : Number
+  user_id : Number,
   created_on: {
 		type: Date,
 		default: Date.now
