@@ -89,7 +89,7 @@ var URL = {
 
               });
 
-              console.log(metadata);
+            //  console.log(metadata);
 
 
     }
