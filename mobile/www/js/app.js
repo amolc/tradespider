@@ -59,12 +59,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+  .state('app.playlists', {
+    url: '/playlists',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/playlists.html',
+        controller: 'PlaylistsCtrl'
+      }
+    }
+  })
+
+  .state('app.login', {
+      url: '/login',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/login.html',
+          controller : 'logincontroller'
         }
       }
     })
