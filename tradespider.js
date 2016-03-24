@@ -38,7 +38,7 @@ app.post('/dax/get_dax_data', dax.get_dax_data);
 app.post('/dow/get_dow_data', dow.get_dow_data);
 app.post('/usfuture/get_usfuture_data', usfuture.get_usfuture_data);
 app.post('/seng/get_seng_data', seng.get_seng_data);
-app.post('/dax/addDevice', notification.addDevice);
+app.post('/notification/addDevice', notification.addDevice);
 
 // // ***************************************** Dax Cron Jobs *****************************************
 var oneMinuteDaxCron = cron.job('0 * * * * *', function () {
