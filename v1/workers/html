@@ -1,0 +1,38 @@
+var $ = cheerio.load(html);
+
+var five = $('table.technicalSummaryTbl tbody tr:nth-child(3)').children().eq(1).html();
+var fifteen = $('table.technicalSummaryTbl tbody tr:nth-child(3)').children().eq(2).html();
+var hour = $('table.technicalSummaryTbl tbody tr:nth-child(3)').children().eq(3).html();
+var daily = $('table.technicalSummaryTbl tbody tr:nth-child(3)').children().eq(4).html();
+var monthly = $('table.technicalSummaryTbl tbody tr:nth-child(3)').children().eq(5).html();
+
+var presentvalue = $('#last_last').text();
+var change = $('#last_last').next().text();
+var changeper = $('#last_last').next().next().next().text();
+
+var previousclose = $('div.overviewDataTable').children().eq(0).children().eq(1).html();
+var volume = $('div.overviewDataTable').children().eq(1).children().eq(1).html();
+var dayrange = $('div.overviewDataTable').children().eq(2).children().eq(1).html();
+var open = $('div.overviewDataTable').children().eq(3).children().eq(1).html();
+var avgvolume = $('div.overviewDataTable').children().eq(4).children().eq(1).html();
+var fiftytwoweek = $('div.overviewDataTable').children().eq(5).children().eq(1).html();
+var oneyearreturn = $('div.overviewDataTable').children().eq(6).children().eq(1).html();
+
+return callback = {
+          time : time,
+          presentvalue : presentvalue,
+          change : change,
+          changeper : changeper,
+          previousclose : previousclose,
+          volume : volume,
+          dayrange : dayrange,
+          open : open,
+          avgvolume : avgvolume,
+          fiftytwoweek : fiftytwoweek,
+          oneyearreturn : oneyearreturn,
+          five : five,
+          fifteen : fifteen,
+          hour : hour,
+          daily : daily,
+          monthly : monthly
+          };
