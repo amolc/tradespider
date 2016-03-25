@@ -1,0 +1,61 @@
+if (data.old.summary == 'neutral') {
+
+  if (data.new.summary == 'buy') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'sell') {
+    change.change_type = 'negative';
+  } else if (data.new.summary == 'strong buy') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'strong sell') {
+    change.change_type = 'negative';
+  }
+
+} else if (data.old.summary == 'sell') {
+
+  if (data.new.summary == 'buy') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'neutral') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'strong buy') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'strong sell') {
+    change.change_type = 'negative';
+  }
+
+} else if (data.old.summary == 'buy') {
+
+  if (data.new.summary == 'neutral') {
+    change.change_type = 'negative';
+  } else if (data.new.summary == 'sell') {
+    change.change_type = 'negative';
+  } else if (data.new.summary == 'strong buy') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'strong sell') {
+    change.change_type = 'negative';
+  }
+
+} else if (data.old.summary == 'strong sell') {
+
+  if (data.new.summary == 'buy') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'sell') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'strong buy') {
+    change.change_type = 'positive';
+  } else if (data.new.summary == 'neutral') {
+    change.change_type = 'positive';
+  }
+
+} else if (data.old.summary == 'strong buy') {
+
+  if (data.new.summary == 'buy') {
+    change.change_type = 'negative';
+  } else if (data.new.summary == 'sell') {
+    change.change_type = 'negative';
+  } else if (data.new.summary == 'neutral') {
+    change.change_type = 'negative';
+  } else if (data.new.summary == 'strong sell') {
+    change.change_type = 'negative';
+  }
+
+}
