@@ -37,7 +37,7 @@ var fountainjs = {
   },
   doandroidPushEvent : function(){
         console.log("doAndroidPush");
-        jobsCollection.find({"type":"iosPush"}, function (err, jobs) {
+        jobsCollection.find({"type":"iosPush","status":"open"}, function (err, jobs) {
             for(var i=0;i<jobs.length;i++){
             fountainjs.pushAndroidNotification(jobs[i].token,jobs[i].payload);
             fountainjs.updateJob(jobs[i]._id);
@@ -47,7 +47,7 @@ var fountainjs = {
   },
   doiosPushEvent   : function(){
         console.log("doIosPush");
-        jobsCollection.find({"type":"androidPush"}, function (err, jobs) {
+        jobsCollection.find({"type":"iosPush","status":"open"}, function (err, jobs) {
             for(var i=0;i<jobs.length;i++){
               fountainjs.pushIosNotification(jobs[i].token,jobs[i].payload);
               fountainjs.updateJob(jobs[i]._id);
@@ -103,6 +103,9 @@ var fountainjs = {
           console.log("Note =" );
           console.log( notification );
       };
+
+
+
   },
   userDummy: function() {
 
