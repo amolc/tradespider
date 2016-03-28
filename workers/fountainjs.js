@@ -79,10 +79,10 @@ var fountainjs = {
   },
   pushIosNotification   : function(token,payload){
 
-    var notification = new apn.Notification();
+    var notification = new apn.Notification(token);
     notification.expiry = Math.floor(Date.now() / 1000) + 3600;
     notification.badge = Number(1) || 0;
-    notification.alert = "This is a Push Testing";
+    notification.alert = payload;
     notification.payload = {'prop': 'special value'};
     notification.device = new apn.Device(token);
 
