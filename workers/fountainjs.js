@@ -140,6 +140,27 @@ var fountainjs = {
       "period": "hour",
       "status": "alive"
     });
+    UserAlerts.insert({
+      "userId": "1",
+      "name" :   "Amol",
+      "email" : "shilpi@fountaintechies.com",
+      "token" : "f03582704dc29d75caebd15e4d78449fd64db2e4e8727a059d50b9ffbe955f43",
+      "type"  : "android",
+      "market": "hse",
+      "period": "daily",
+      "status": "alive"
+    });
+    UserAlerts.insert({
+      "userId": "1",
+      "name" :   "Amol",
+      "email" : "shilpi@fountaintechies.com",
+      "token" : "f03582704dc29d75caebd15e4d78449fd64db2e4e8727a059d50b9ffbe955f43",
+      "type"  : "android",
+      "market": "hse",
+      "period": "monthly",
+      "status": "alive"
+    });
+
 
   }
 };

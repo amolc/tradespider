@@ -18,12 +18,19 @@ var hse = cron.job('0 * * * * *', function() {
 });
 
 var Step1Trigger = cron.job('0 * * * * *', function() {
-  var time = "five";
-  var market = "hse";
-  signalData.triggerSignal(time, market);
-  signalData.triggerSignal(time, market);
-  signalData.triggerSignal(time, market);
-  signalData.triggerSignal(time, market);
+  var time1 = "five";
+  var time2 = "fifteen";
+  var time3 = "hour";
+  var time4 = "daily";
+  var time5 = "monthly";
+
+  var market ="hse";
+
+  signalData.triggerSignal(time1, market);
+  signalData.triggerSignal(time2, market);
+  signalData.triggerSignal(time3, market);
+  signalData.triggerSignal(time4, market);
+  signalData.triggerSignal(time5, market);
 });
 
 var Step2Usersignal = cron.job('0 * * * * *', function() {
@@ -35,7 +42,7 @@ var Step3Notify = cron.job('0 * * * * *', function() {
   fountainjs.doiosPushEvent();
 });
 
-hse.start();
-// Step1Trigger.start();
-// Step2Usersignal.start();
-// Step3Notify.start();
+//hse.start();
+ Step1Trigger.start();
+ Step2Usersignal.start();
+ Step3Notify.start();
