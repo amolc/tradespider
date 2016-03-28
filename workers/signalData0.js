@@ -137,79 +137,69 @@ var signalData = {
   },
 
   userSignal: function() {
-    console.log("userSignal-function");
     var Signal = db.collection("signal");
+
+
     Signal.find({
-    "status":"Open"
+      "status": "open"
     }).sort({
       "_id": -1
-    }, function(err, signaldoc) {
+    }, function(err, sig) {
       //console.log(doc);
-      console.log("sig.length"+signaldoc.length);
     var signalrecords=[] ;
-      for (i = 0; i < signaldoc.length; i++) {
-         signalrecords.push(signaldoc);
+      for (i = 0; i < sig.length; i++) {
+         signalrecords.push(sig);
       }
-      var a = 0 ;
       async.each(signalrecords, function (signalrecord, callback) {
-            console.log(a);
-            createAlertEvent(signalrecord[a]);
-            updateSignal(signalrecord[a]);
-            a++ ;
+            createAlertEvent(signalrecord);
       }, function(err){
         if(err) console.log(err);
       });
     });
-    function updateSignal(signal) {
-      console.log("UpdateSignal");
-        Signal.findAndModify({
-            query: { _id: signal._id },
-            update: { $set: { status: 'close' } }
-        }, function (err, doc, lastErrorObject) {
-            // doc.tag === 'maintainer'
-            if(err) console.log(err);
-        })
-      }
 
-    function createAlertEvent(signal) {
-        console.log("createAlertEvent");
-        var signalId = signal._id ;
-        console.log(signalId);
-        var Alerts = db.collection("userAlerts");
-        console.log(signal.market);
-        console.log(signal.period);
-        var payload = signal.market+" "+signal.period+"  "+signal.signal ;
-      Alerts.find({
-          "market": signal.market,
-          "period": signal.period
-        }).sort({
-          "_id": -1
-        }, function(err, useralert) {
-          var users = [];
-          for (var j = 0; j < useralert.length ; j++) {
-            users.push(useralert);
-          }
-          var d = 0 ;
-          async.each(users, function(user,callback){
-                console.log("d"+d);
-                createevent(user[d],payload);
-                d++
-          }, function(err){
-            if(err) console.log(err);
-          });
+    function createAlertEvent(doc) {
+      var Alerts = db.collection("userAlerts");
+      console.log(doc.market);
+      console.log(doc.period);
 
+    Alerts.find({
+        "market": doc.market,
+        "period": doc.period
+      }).sort({
+        "_id": -1
+      }, function(err, useralert) {
+        //console.log(doc);
+        //console.log(a);
+        //console.log(doc.signal);
+        //console.log(useralert);
 
+        var payload = doc.market+" "+doc.period+"  "+doc.signal ;
+
+        var counts = [];
+        var userlength = useralert.length ;
+        console.log(userlength);
+        for (var j = 0; j < userlength; j++) {
+          counts.push(useralert);
+        }
+
+        async.each(counts, function(count,callback){
+          var y= 0 ;
+          var userName = count[y];
+          console.log(y);
+          console.log(userName);
+
+            y++;
+        }, function(err){
+          if(err) console.log(err);
+          console.log("done");
         });
-      }
 
-      function createevent(user,payload){
-          console.log(user);
-          if(user.type="ios"){
-              fountainjs.iosPushEvent(user.name,user.token,payload);
-          }else{
-              fountainjs.androidPushEvent(user.name,user.token,payload);
-          }
-      }
+      });
+
+
+
+
+    }
 
   },
 
