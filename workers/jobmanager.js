@@ -17,23 +17,7 @@ var hse = cron.job('0 * * * * *', function() {
   spiderData.spider(link, market);
 });
 
-var Step1Trigger = cron.job('0 * * * * *', function() {
-  var time = "five";
-  var market = "hse";
-  signalData.triggerSignal(time, market);
-  signalData.triggerSignal(time, market);
-  signalData.triggerSignal(time, market);
-  signalData.triggerSignal(time, market);
-});
 
-var Step2Usersignal = cron.job('0 * * * * *', function() {
-  signalData.userSignal();
-});
-
-var Step3Notify = cron.job('0 * * * * *', function() {
-  //fountainjs.doandroidPushEvent();
-  fountainjs.doiosPushEvent();
-});
 
 hse.start();
 // Step1Trigger.start();
