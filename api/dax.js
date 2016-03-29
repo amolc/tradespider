@@ -7,6 +7,7 @@ var commonFunctions = require('./functions');
 
 exports.get_dax_data = function (req, res) {
   console.log('in get_dax_data');
+  console.log('dax_1', dax_1);
   if(req.body.page){
     var tableName;
     if(req.body.page == "period60"){
