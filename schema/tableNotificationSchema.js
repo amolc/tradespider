@@ -12,6 +12,6 @@ var notificationTableSchema = new notificationschema({
   platform : String,
   user_id : Number
 });
-  
+  console.log(notificationTableSchema);
 // Create the 'notification' model out of the 'tableSchema'
 mongoose.model('notification', notificationTableSchema);
