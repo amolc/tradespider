@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var url = 'mongodb://localhost:27017/tradespider';
 
-mongoose.connect('mongodb://trade:3cxWOqeaf@localhost:27017/tradespider');
+mongoose.connect(url);
 
 require('../schema/table.schema');
 require('../schema/tableNotificationSchema');
