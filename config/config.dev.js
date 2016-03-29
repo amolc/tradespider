@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var assert = require('assert');
 // mongoose.connect('mongodb://trade:3cxWOqeaf@localhost:27017/tradespider');
     
 mongoose.connect('mongodb://trade:3cxWOqeaf@localhost:27017/tradespider', function(err, db) {
