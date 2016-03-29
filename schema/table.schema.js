@@ -25,7 +25,7 @@ var tableSchema = new Schema({
 	}
 });
 
-console.log(tableSchema);  
+console.log('tableSchema', tableSchema);  
 // Create the 'dax_1' model out of the 'tableSchema'
 mongoose.model('dax_1', tableSchema);
 // Create the 'dax_5' model out of the 'tableSchema'
