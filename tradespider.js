@@ -3,9 +3,8 @@ var app = express();
 
 var env = process.env.NODE_ENV || 'dev';
 var cfg = require('./config/config.'+env);
-console.log('cfg', cfg);
 var db = cfg.connection;
-console.log('db', db);
+
 var http = require("http").createServer(app);
 var io = require("./socket/socket");
 
