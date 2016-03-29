@@ -1,16 +1,19 @@
 var mongoose = require('mongoose');
 
-var url = 'mongodb://trade:3cXWOqeaf@localhost:27017/tradespider';
+// var url = 'mongodb://trade:3cXWOqeaf@localhost:27017/tradespider';
 
 // mongoose.connect(url);
 
-mongoose.connect(url, function(err) {
-    if (err) {
-        console.log('err_9', err);
-    } else {
-        console.log('Connected');
-    }    
-});
+var opt = {
+        user: 'trade',
+        pass: '3cxWOqeaf',
+        auth: {
+            authdb: 'tradespider'
+        }
+    };
+
+mongoose.createConnection('localhost', 'tradespider', 27017, opt);
+
 
 require('../schema/table.schema');
 require('../schema/tableNotificationSchema');
