@@ -6,6 +6,7 @@ var dax_60 = require('mongoose').model('dax_60');
 var commonFunctions = require('./functions');
 
 exports.get_dax_data = function (req, res) {
+  console.log('in get_dax_data');
   if(req.body.page){
     var tableName;
     if(req.body.page == "period60"){
@@ -18,6 +19,8 @@ exports.get_dax_data = function (req, res) {
       tableName = dax_60;
     }
     tableName.find({ is_started: true }).sort('-created_on').limit(1).exec(function (err, response) {
+      console.log('err', err);
+      console.log('response', response);
       if (err) {
         // If an error occurs send the error message
         return res.status(400).send({
