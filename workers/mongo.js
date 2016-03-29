@@ -7,20 +7,16 @@ var Db = require('mongodb').Db,
   GridStore = require('mongodb').GridStore,
   Grid = require('mongodb').Grid,
   Code = require('mongodb').Code,
-  assert = require('assert'),
-  builder = require('mongo-sql');
+  assert = require('assert');
 
 var db = new Db('tradespider', new Server('localhost', 27017));
 // Fetch a collection to insert document into
 db.open(function(err, db) {
-  var collection = db.collection("hse");
-
-  // We get the last 2 records in the market for %% time_period %%
-  // We compare the same and then
-  // if there is a change, we run a logic to select the diff.
-
-
-  console.log(data);
+  var collection = db.collection("abcd");
+  // Insert a single document
+  collection.insert({
+    hello: 'world_no_safe'
+  });
 
 
 });
