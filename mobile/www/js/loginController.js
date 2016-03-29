@@ -10,7 +10,7 @@ angular.module('starter.controllers')
 			token_id : window.localStorage.getItem("token_id")
 		}
 
-	    $http.post( socketUrl + '/notification/addDevice', {'page': devicedetails}).success(function (res, req) {
+	    $http.post( socketUrl + '/notification/addDevice', devicedetails).success(function (res, req) {
 	      console.log(res);
 	    }).error(function (err) {
 	      console.log('Internet Connection Is Not Available.');
