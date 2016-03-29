@@ -1,6 +1,16 @@
 var mongoose = require('mongoose');
+
 var url = 'mongodb://trade:3cXWOqeaf@localhost:27017/tradespider';
-mongoose.connect(url);
+
+// mongoose.connect(url);
+
+mongoose.connect(url, function(err) {
+    if (err) {
+        console.err('err_9', err);
+    } else {
+        console.log('Connected');
+    }    
+});
 
 require('../schema/table.schema');
 require('../schema/tableNotificationSchema');
