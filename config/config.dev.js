@@ -6,7 +6,7 @@ var url = 'mongodb://trade:3cXWOqeaf@localhost:27017/tradespider';
 
 mongoose.connect(url, function(err) {
     if (err) {
-        console.err('err_9', err);
+        console.log('err_9', err);
     } else {
         console.log('Connected');
     }    
