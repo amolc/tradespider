@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://trade:3cxWOqeaf@localhost:27017/tradespider');
+mongoose.connect('mongodb://trade:3cxWOqeaf@localhost:127.0.0.1:27017/tradespider');
+
+mongoose.connection.once('connected', function() {
+    console.log("Connected to database")
+});
 
 require('../schema/table.schema');
 require('../schema/tableNotificationSchema');
