@@ -1,7 +1,7 @@
 angular.module('starter.controllers')
 
 .controller('daxController', function($scope, $state, $http, socket) {
-	  function strengthAccuracy(data) {
+	function strengthAccuracy(data) {
     var correctStrength = 0, changeCount = 0;
     async.each(data, function (item, callback) {
       if(item.signal_strength === 'correct') correctStrength++;
@@ -26,6 +26,7 @@ angular.module('starter.controllers')
 
   $scope.daxData = function (page) {
     $http.post( socketUrl + '/dax/get_dax_data', {'page': page}).success(function (res, req) {
+      
       if(res.status === 0){
         console.log('Error While Executing the query for: '+ $state.current.name);
       }else {
