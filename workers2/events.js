@@ -12,7 +12,7 @@ var sender = new gcm.Sender('AIzaSyAJ9kNU7h4VSK2oiqrD5EatNVvzBD6zsxw');
 var events = {
 
     androidPushEvent: function(){
-      jobCollection.find({ "type":"androidPush", "status":"open" }, function (err, jobs) {
+      jobCollection.find({ "type":"androidPush", "status":"created" }, function (err, jobs) {
         if(err) console.log('async android push event', err);
         async.each(jobs, function (job, callback) {
           events.sendAndroidNotification(job.token, job.payload);

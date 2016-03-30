@@ -111,9 +111,7 @@ var signalData = {
     var signalId = signalRecord._id;
     var payload = signalRecord.market + " " + signalRecord.period + "  " + signalRecord.signal;
     var jobs = [];
-    console.log('114', signalRecord);
     alerts.find({ "market": signalRecord.market, "period": signalRecord.period }).sort({ "_id": -1 }, function(err, users) {
-      console.log('117', users.length);
       if(err) return callback(err);
       async.each(users, function(user, callback){
         if(user.type == "ios"){
@@ -139,7 +137,6 @@ var signalData = {
         }
       }, function(err){
         if(err) return callback(err);
-        console.log('142', jobs.length);
         async.each(jobs, function (job, callback) {
           jobCollection.insert(job);
           callback();

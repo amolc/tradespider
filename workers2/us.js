@@ -8,14 +8,14 @@ var usFuture = cron.job('0 * * * * *', function() {
   console.log('Cron Started');
   var link = "http://www.investing.com/indices/nq-100-futures";
   var market = "usFuture";
-  spiderData.spider(link, market);
+  // spiderData.spider(link, market);
+  //
+  // trigger.calculateSignal(market, function (err, result) {
+  //   console.log(err);
+  //   console.log(result);
+  // });
 
-  trigger.calculateSignal(market, function (err, result) {
-    console.log(err);
-    console.log(result);
-  });
-
-  trigger.compareUserSignal();
+  // trigger.compareUserSignal();
   events.androidPushEvent();
   events.iosPushEvent();
 });
