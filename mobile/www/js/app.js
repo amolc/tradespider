@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', 'ngCordova', 'angular-storage'])
+angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', 'ngCordova', 'angular-storage', 'ngMessages'])
 
 .run(function($ionicPlatform, $cordovaDevice, store) {
   $ionicPlatform.ready(function() {
@@ -32,14 +32,41 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.directive('compareTo', ['$parse', function ($parse) {
+  return {
+      restrict: 'A',
+      require : "ngModel",
+      scope : { otherModelValue: "=compareTo" },
+      link: function(scope, element, attributes,ngModel) {
+        ngModel.$validators.compareTo = function(modelValue) {
+                    return modelValue == scope.otherModelValue;
+                };
+                scope.$watch("otherModelValue", function() {
+                    ngModel.$validate();
+                });
+      }
+  };
+}])
+
+.service('AuthService', ['store',  '$location',function(store ,$location) {
+    var user_login = store.get('user_login');
+      if (user_login) {
+        this.isAuthenticated = user_login;
+      } else {
+        this.isAuthenticated = false;
+      }
+      console.log( this.isAuthenticated);
+  }
+])
+
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    controller: 'logincontroller'
   })
 
   .state('app.search', {
@@ -59,7 +86,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
         }
       }
     })
+  .state('app.login', {
+      cache:false,
+      url:'/login',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/login.html',
+          controller : 'logincontroller'
+        }
+      }
+    })
+
   .state('app.playlists', {
+    cache : false,
     url: '/playlists',
     views: {
       'menuContent': {
@@ -69,16 +108,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
     }
   })
 
-  .state('app.login', {
-      url: '/login',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/login.html',
-          controller : 'logincontroller'
-        }
-      }
-    })
 
+  .state('app.register', {
+    url: '/register',
+    views: {
+      'menuContent': {
+      templateUrl: 'templates/register.html',
+      controller : 'logincontroller'      
+    }
+    }
+    })
   .state('app.dax', {
     url: '/dax/:playlistId',
     views: {

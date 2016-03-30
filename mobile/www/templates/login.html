@@ -7,16 +7,18 @@
           </label>
       </div>
       <h4 style="margin-top:15px;text-align: center;">----- OR -----</h4>
-      <div class="list list-inset">
-          <label class="item">
-              <input type="text" placeholder="Email" ng-model="data.Email" style="width: 100%;" />
-          </label>
-          <label class="item">
-              <input type="password" placeholder="Password" ng-model="data.password" style="width: 100%;" />
-          </label>
-      </div>
-      <button class="button button-block button-calm">Login</button>
-      <div style="text-align: center;"><label class="padding">Don't have an account yet?</label></div>
+      <form name="loginForm"  ng-submit="loginForm.$valid && login(data)" novalidate>
+        <div class="list list-inset">
+            <label class="item">
+                <input type="text" placeholder="Email" ng-model="data.user_email" style="width: 100%;" required/>
+            </label>
+            <label class="item">
+                <input type="password" placeholder="Password" ng-model="data.user_password" style="width: 100%;" required/>
+            </label>
+        </div>
+        <button class="button button-block button-calm">Login</button>
+      </form>
+      <div style="text-align: center;"><a ng-href="#/app/register">Don't have an account yet?</a></div>
       <div style="text-align: center;"><h4>Sign Up</h4></div>
       <div style="text-align: center;"><label class="padding">Forgot Password?</label></div>
   </ion-content>

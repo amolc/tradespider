@@ -1,9 +1,12 @@
 <ion-view view-title="1 MINUTE" data-ng-init="daxData('period60')">
 	<ion-content scroll="true" has-bouncing="true">
     <div class="list">
-      <div class="row item item-divider" data-ng-if="dax_1_average">
-        <div>ACCURACY: {{dax_1_average | limitTo: 5}}%</div>
+      <div class="row item item-divider" data-ng-if="dax_1_average != null || dax_1_average != undefined">
+        <div class="col-50 padding">ACCURACY: {{dax_1_average | limitTo: 5}}%</div>
+        <div class="col-50"><ion-toggle style="background-color: #F5F5F5;" ng-model="pushNotification.checked">Start Notify</ion-toggle></
+        </div>
       </div>
+    </div>      
     <div class="list">
       <div class="row item item-divider">
         <div class="col">Time</div>
