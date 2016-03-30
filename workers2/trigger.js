@@ -78,7 +78,7 @@ var signalData = {
       if(metaData.fiveSignal === '' && metaData.fifteenSignal === '' && metaData.hourSignal === '' && metaData.dailySignal === '' && metaData.monthlySignal === ''){
         return 'not-enough-data';
       }else {
-        collection.findAndModify({ query: { _id: data[0]._id }, update: { $set: metadata }, new: true}, function(err, doc, lastErrorObject) {
+        collection.findAndModify({ query: { _id: data[0]._id }, update: { $set: metaData }, new: true}, function(err, doc, lastErrorObject) {
           if(err) return err;
           async.each(signalData, function (signal, callback) {
             signal.insert(signal);
