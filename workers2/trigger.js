@@ -80,8 +80,8 @@ var signalData = {
       }else {
         collection.findAndModify({ query: { _id: data[0]._id }, update: { $set: metaData }, new: true}, function(err, doc, lastErrorObject) {
           if(err) return err;
-          async.each(signalData, function (signal, callback) {
-            signal.insert(signal);
+          async.each(signalData, function (signals, callback) {
+            signal.insert(signals);
             callback();
           }, function (err) {
             if(err) return callback(err);
