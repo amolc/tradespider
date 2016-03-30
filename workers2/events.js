@@ -73,8 +73,8 @@ var events = {
 
       var options = {
         gateway: 'gateway.sandbox.push.apple.com',
-        cert: '../assets/TradeSP2Cert.pem',
-        key:  '../assets/TradeSP2Key.pem',
+        cert: '/home/tradealert/tradespider/assets/TradeSP2Cert.pem',
+        key:  '/home/tradealert/tradespider/assets/TradeSP2Key.pem',
         passphrase: 'ferrari1234',
         errorCallback: callback,
         port: 2195,
