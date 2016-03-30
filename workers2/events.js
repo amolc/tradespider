@@ -84,7 +84,7 @@ var events = {
 
       var apnsConnection = new apn.Connection(options);
 
-      apnsConnection.pushNotification(notification, device);
+      apnsConnection.pushNotification(notification, notification.device);
 
       var callback = function(errorNum, notification){
         console.log('Error is: %s', errorNum);
