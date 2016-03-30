@@ -98,6 +98,8 @@ var signalData = {
       if(err) return callback(err);
       async.each(signalRecords, function (signalRecord, callback) {
         signalData.createAlertEvent(signalRecord, function (err, result) {
+          console.log(err);
+          console.log(result);
           callback();
         });
       }, function (err) {
