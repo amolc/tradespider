@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('logincontroller', function($scope, $state, $http, store, AuthService, $timeout, $ionicSideMenuDelegate, $rootScope) {
+.controller('logincontroller', function($scope, $state, $http, store, AuthService, $timeout, $ionicSideMenuDelegate, $rootScope, $cordovaOauth) {
 
 	$scope.init = function(){
 		$rootScope.islogin = store.get('user_login') || false;
@@ -62,6 +62,26 @@ angular.module('starter.controllers')
 		});
   	}
 
+  			$scope.facebookLogin = function() {
+    		$cordovaOauth.facebook("1623378827912092", ["email"]).then(function(result) {
+		      	if( result.access_token ) {
+		        	$http.get("https://graph.facebook.com/v2.2/me", {
+		          		params: {
+		            		access_token: result.access_token,
+		            		fields: "id,name,email,gender,first_name,last_name,location,website,picture,relationship_status",
+		            		format: "json"
+		          		}
+		        	}).then(function(result) {
+		          		console.log(result);
+		        	}, function(error) {
+		            	console.log("There was a problem getting your profile.  Check the logs for details.");
+		        	});
+		      	}
+		    },function(error) {
+		        console.log(error);
+		    });
+
+		};
 
 
   $scope.logout = function(){
