@@ -47,7 +47,7 @@ var events = {
     },
 
     iosPushEvent: function(){
-      jobCollection.find({ "type":"iosPush", "status":"open" }, function (err, jobs) {
+      jobCollection.find({ "type":"iosPush", "status":"created" }, function (err, jobs) {
         if(err) console.log('async ios push event', err);
 
         async.each(jobs, function (job, callback) {
