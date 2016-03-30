@@ -5,6 +5,7 @@ var trigger = require('./trigger');
 var events = require('./events');
 
 var usFuture = cron.job('0 * * * * *', function() {
+  console.log('Cron Started');
   var link = "http://www.investing.com/indices/nq-100-futures";
   var market = "usFuture";
   spiderData.spider(link, market);
