@@ -16,7 +16,7 @@ var usFuture = cron.job('0 * * * * *', function() {
   // });
 
   // trigger.compareUserSignal();
-  events.androidPushEvent();
+  // events.androidPushEvent();
   events.iosPushEvent();
 });
 
