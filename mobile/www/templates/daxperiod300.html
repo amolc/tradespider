@@ -2,7 +2,9 @@
 	<ion-content scroll="true" has-bouncing="true">
     <div class="list">
       <div class="row item item-divider" data-ng-if="dax_5_average">
-        <div>ACCURACY: {{dax_5_average | limitTo: 5}}%</div>
+        <div class="col-50">ACCURACY: {{dax_5_average | limitTo: 5}}%</div>
+        <div class="col-50"><ion-toggle style="background-color: #F5F5F5;" ng-model="pushNotification.checked">Start Notify</ion-toggle></
+        </div>
       </div>
       <div class="row item item-divider">
         <div class="col">Time</div>
