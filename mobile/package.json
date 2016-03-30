@@ -27,15 +27,7 @@
       }
     },
     "cordova-plugin-device",
-    "ionic-plugin-keyboard",
-    {
-      "id": "phonegap-facebook-plugin",
-      "locator": "C:\\xampp\\htdocs\\phonegap-facebook-plugin",
-      "variables": {
-        "APP_ID": "227183420967954",
-        "APP_NAME": "Tradealert"
-      }
-    }
+    "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
     "android"
