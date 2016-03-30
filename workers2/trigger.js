@@ -72,20 +72,20 @@ var signalData = {
           });
         }
       }else {
-        return callback('not-enough-data');
+        return 'not-enough-data';
       }
 
       if(metaData.fiveSignal === '' && metaData.fifteenSignal === '' && metaData.hourSignal === '' && metaData.dailySignal === '' && metaData.monthlySignal === ''){
-        return callback('not-enough-data');
+        return 'not-enough-data';
       }else {
         collection.findAndModify({ query: { _id: data[0]._id }, update: { $set: metadata }, new: true}, function(err, doc, lastErrorObject) {
-          if(err) return callback(err);
+          if(err) return err;
           async.each(signalData, function (signal, callback) {
             signal.insert(signal);
             callback();
           }, function (err) {
             if(err) return callback(err);
-            callback(err, 'done');
+            return 'done';
           });
         });
       }

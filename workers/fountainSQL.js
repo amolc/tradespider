@@ -27,7 +27,6 @@ var fountainjs = {
       "market": "dax",
       "period": "five",
       "status": "alive"
-
     });
     UserAlerts.insert({
       "userId": "2",
