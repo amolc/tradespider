@@ -5,6 +5,7 @@ mongoose.connect('mongodb://localhost:27017/tradespider1');
 
 require('../schema/table.schema');
 require('../schema/tableNotificationSchema');
+require('../schema/tableUserSchema');
 
 var config = module.exports = {};
 

@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="false" ng-init="init()">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button>
@@ -23,11 +23,14 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-href="#/app/login" >
+        <ion-item ng-if="!islogin" menu-close ng-href="#/app/login" >
           Login
         </ion-item>
         <ion-item menu-close ng-href="#/app/playlists">
-          Playlists
+          List<br>
+        </ion-item>
+        <ion-item ng-if="islogin" ng-click="logout()">
+          Logout
         </ion-item>
       </ion-list>
     </ion-content>
