@@ -98,8 +98,6 @@ var signalData = {
       if(err) return callback(err);
       async.each(signalRecords, function (signalRecord, callback) {
         signalData.createAlertEvent(signalRecord, function (err, result) {
-          console.log(err);
-          console.log(result);
           callback();
         });
       }, function (err) {
@@ -114,6 +112,7 @@ var signalData = {
     var payload = signalRecord.market + " " + signalRecord.period + "  " + signalRecord.signal;
     var jobs = [];
     alerts.find({ "market": signal.market, "period": signal.period }).sort({ "_id": -1 }, function(err, users) {
+      console.log('117', users.length);
       if(err) return callback(err);
       async.each(users, function(user, callback){
         if(user.type == "ios"){
