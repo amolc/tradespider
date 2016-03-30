@@ -10,7 +10,7 @@ var notificationTableSchema = new notificationschema({
   token_id : String,
   device : String,
   platform : String,
-  user_id : Number
+  user_id : String
 });
   
 // Create the 'notification' model out of the 'tableSchema'

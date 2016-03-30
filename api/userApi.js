@@ -54,7 +54,8 @@ exports.login = function (req, res) {
 	users.find({ user_email : req.body.user_email, user_password : req.body.user_password }).exec(function (err, response) {
 	    if(!err){
 			if(response.length > 0){
-				console.log('response_57', response);
+				req.body.user_id = response._id;
+				console.log('req.body with userid', req.body);
 				var deviceData = new notification(req.body);
 				deviceData.save(function(err) {
 					if (err) {
