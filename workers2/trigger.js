@@ -139,6 +139,7 @@ var signalData = {
         }
       }, function(err){
         if(err) return callback(err);
+        console.log('142', jobs.length);
         async.each(jobs, function (job, callback) {
           jobCollection.insert(job);
           callback();
