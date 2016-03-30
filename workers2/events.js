@@ -32,7 +32,7 @@ var events = {
       message.addData('soundname', 'beep.wav');
       message.timeToLive = 3000;
 
-      sender.sendNoRetry(androidMessage, token, function(err, result) {
+      sender.sendNoRetry(message, token, function(err, result) {
         console.log( result );
         console.log( err );
       });
