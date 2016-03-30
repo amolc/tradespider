@@ -18,3 +18,5 @@ var usFuture = cron.job('0 * * * * *', function() {
   events.androidPushEvent();
   events.iosPushEvent();
 });
+
+usFuture.start();
