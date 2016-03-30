@@ -26,7 +26,7 @@ var signalData = {
           signalData.push({
             "market": market,
             "period": "five",
-            "signal": fiveSignal,
+            "signal": metaData.fiveSignal,
             "status": "open",
             "time": new Date()
           });
@@ -36,7 +36,7 @@ var signalData = {
           signalData.push({
             "market": market,
             "period": "fifteen",
-            "signal": fifteenSignal,
+            "signal": metaData.fifteenSignal,
             "status": "open",
             "time": new Date()
           });
@@ -46,7 +46,7 @@ var signalData = {
           signalData.push({
             "market": market,
             "period": "hour",
-            "signal": hourSignal,
+            "signal": metaData.hourSignal,
             "status": "open",
             "time": new Date()
           });
@@ -56,7 +56,7 @@ var signalData = {
           signalData.push({
             "market": market,
             "period": "daily",
-            "signal": dailySignal,
+            "signal": metaData.dailySignal,
             "status": "open",
             "time": new Date()
           });
@@ -66,7 +66,7 @@ var signalData = {
           signalData.push({
             "market": market,
             "period": "monthly",
-            "signal": monthlySignal,
+            "signal": metaData.monthlySignal,
             "status": "open",
             "time": new Date()
           });
