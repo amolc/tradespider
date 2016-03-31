@@ -93,6 +93,7 @@ exports.facebookLogin = function (req, res) {
 	    if( !err ){
 			if( response.length > 0 ){
 				if( response.length == 1 && response.isActive == 1 ){
+					req.body.user_id = response[0]._id;
 					add_device( req.body, function(response){
 							if(response.status == 1){
 								var response = {
@@ -128,6 +129,7 @@ exports.facebookLogin = function (req, res) {
 					if (err) {
 						console.log(err);
 					} else {
+						req.body.user_id = result._id;
 						add_device( req.body, function(response){
 							if(response.status == 1){
 								var resdata = {
