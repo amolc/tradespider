@@ -94,8 +94,8 @@ exports.facebookLogin = function (req, res) {
 			if( response.length > 0 ){
 				if( response.length == 1 && response[0].isActive == true ){
 					req.body.user_id = response[0]._id;
-					add_device( req.body, function(res){
-							if(res.status == 1){
+					add_device( req.body, function(resCall){
+							if(resCall.status == 1){
 								var resdata = {
 									status : 1,
 									userdata : response[0],
@@ -162,16 +162,16 @@ exports.facebookLogin = function (req, res) {
 		var deviceData = new notification(req_data);
 		deviceData.save(function(err) {
 			if (err) {
-				var res = {
+				var resCall = {
 					status: 0,
 					err : err
 				}
 				callback(res);
 			} else {
-				var res = {
+				var resCall = {
 					status: 1
 				}
-				callback(res); 	
+				callback(resCall); 	
 			}
 		});
 	}	
