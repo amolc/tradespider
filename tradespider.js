@@ -42,6 +42,8 @@ app.post('/user/addDevice', user.addDevice);
 app.post('/user/register', user.register);
 app.post('/user/login', user.login);
 app.post('/user/facebookLogin', user.facebookLogin);
+app.post('/user/googleLogin', user.googleLogin);
+
 
 // // ***************************************** Dax Cron Jobs *****************************************
 var oneMinuteDaxCron = cron.job('0 * * * * *', function () {

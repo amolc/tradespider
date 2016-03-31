@@ -176,3 +176,92 @@ exports.facebookLogin = function (req, res) {
 		});
 	}	
 }
+
+exports.googleLogin = function (req, res) {
+	users.find({ user_email : req.body.google.email}).exec(function (err, response) {
+	    if( !err ){
+			if( response.length > 0 ){
+				if( response.length == 1 && response[0].isActive == true ){
+					req.body.user_id = response[0]._id;
+					add_device( req.body, function(resCall){
+							if(resCall.status == 1){
+								var resdata = {
+									status : 1,
+									userdata : response[0],
+									message : "Login successfully."
+								}
+								res.jsonp(resdata); 
+							}else{
+								var resdata = {
+									status : 0,
+									message : "somthing went wrong."
+								}
+								res.jsonp(resdata);
+							}
+						});
+				}else if(response.length == 1 && response[0].isActive == false){
+					var resdata = {
+		    			status : 0,
+		    			message : "User Not Verified."
+		    		}
+		   			res.jsonp(resdata);			
+				}
+			}else if(response.length == 0){
+				var userdata = {
+					user_email : req.body.google.email,
+					first_name : req.body.google.given_name,
+					last_name  : req.body.google.family_name,
+					isActive   : 1,
+				}
+				var fbdata = new users(userdata);
+				fbdata.save(function(err, result) {
+					if (err) {
+						console.log(err);
+					} else {
+						req.body.user_id = result._id;
+						add_device( req.body, function(response){
+							if(response.status == 1){
+								var resdata = {
+									status : 1,
+									userdata : result,
+									message : "User added."
+								}
+								res.jsonp(resdata);
+							}else{
+								var resdata = {
+									status : 0,
+									message : "somthing went wrong."
+								}
+								res.jsonp(resdata);
+							}
+						});
+					}
+				})
+			}
+	    }else{
+	    	var resdata = {
+	    		status : 2,
+	    		message : "somthing went wrong Please try again."
+	    	}
+	   		res.jsonp(resdata); 	
+	    }
+	})	
+	
+	function add_device (req_data, callback) {
+		var deviceData = new notification(req_data);
+		deviceData.save(function(err) {
+			if (err) {
+				var resCall = {
+					status: 0,
+					err : err
+				}
+				callback(res);
+			} else {
+				var resCall = {
+					status: 1
+				}
+				callback(resCall); 	
+			}
+		});
+	}	
+}
