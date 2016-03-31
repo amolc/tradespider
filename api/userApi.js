@@ -92,7 +92,7 @@ exports.facebookLogin = function (req, res) {
 	users.find({ user_email : req.body.facebook.email}).exec(function (err, response) {
 	    if( !err ){
 			if( response.length > 0 ){
-				if( response.length == 1 && response.isActive == 1 ){
+				if( response.length == 1 && response.isActive == true ){
 					req.body.user_id = response[0]._id;
 					add_device( req.body, function(response){
 							if(response.status == 1){
@@ -110,7 +110,7 @@ exports.facebookLogin = function (req, res) {
 								res.jsonp(resdata);
 							}
 						});
-				}else if(response.length == 1 && response.isActive == 0){
+				}else if(response.length == 1 && response.isActive == false){
 					var resdata = {
 		    			status : 0,
 		    			message : "User Not Verified."
