@@ -39,7 +39,7 @@ var Step2Usersignal = cron.job('0 * * * * *', function() {
 
 var Step3Notify = cron.job('0 * * * * *', function() {
   //fountainjs.doandroidPushEvent();
-  fountainjs.doiosPushEvent();
+  // fountainjs.doiosPushEvent();
 });
 
 //hse.start();
