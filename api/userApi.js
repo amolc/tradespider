@@ -116,7 +116,7 @@ exports.facebookLogin = function (req, res) {
 		    		}
 		   			res.jsonp(resdata);			
 				}
-			}else if(val.length == 0){
+			}else if(response.length == 0){
 				var userdata = {
 					user_email : req.body.facebook.email,
 					first_name : req.body.facebook.first_name,
