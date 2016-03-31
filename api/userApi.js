@@ -124,7 +124,7 @@ exports.facebookLogin = function (req, res) {
 					isActive   : 1,
 				}
 				var fbdata = new users(userdata);
-				userdata.save(function(err, result) {
+				fbdata.save(function(err, result) {
 					if (err) {
 						console.log(err);
 					} else {
