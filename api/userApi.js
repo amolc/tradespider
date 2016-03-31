@@ -96,12 +96,12 @@ exports.facebookLogin = function (req, res) {
 					req.body.user_id = response[0]._id;
 					add_device( req.body, function(res){
 							if(res.status == 1){
-								var response = {
+								var resdata = {
 									status : 1,
 									userdata : response[0],
 									message : "Login successfully."
 								}
-								res.jsonp(response); 
+								res.jsonp(resdata); 
 							}else{
 								var resdata = {
 									status : 0,
@@ -162,16 +162,16 @@ exports.facebookLogin = function (req, res) {
 		var deviceData = new notification(req_data);
 		deviceData.save(function(err) {
 			if (err) {
-				var response = {
+				var res = {
 					status: 0,
 					err : err
 				}
-				callback(response);
+				callback(res);
 			} else {
-				var response = {
+				var res = {
 					status: 1
 				}
-				callback(response); 	
+				callback(res); 	
 			}
 		});
 	}	
