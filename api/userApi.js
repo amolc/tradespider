@@ -17,6 +17,7 @@ exports.addDevice = function (req, res) {
 };
 
 exports.register = function (req, res) {
+	req.body.isActive = 1;
 	var userdata = new users(req.body);
 	users.find({ user_email : req.body.user_email }).sort('-created_on').limit(1).exec(function (err, response) {
 	    if(!err){
@@ -27,7 +28,7 @@ exports.register = function (req, res) {
 		    	}
 	   		res.jsonp(response);							
 			}else{
-				userdata.save(function(err) {
+				userdata.save(function(err, result) {
 				  if (err) {
 				    console.log(err);
 				  } else {
@@ -85,4 +86,91 @@ exports.login = function (req, res) {
 	   		res.jsonp(resdata); 	
 	    }
 	})	
+}
+
+exports.facebookLogin = function (req, res) {
+	users.find({ user_email : req.body.facebook.email}).exec(function (err, response) {
+	    if( !err ){
+			if( response.length > 0 ){
+				if( response.length == 1 && response.isActive == 1 ){
+					add_device( req.body, function(response){
+							if(response.status == 1){
+								var response = {
+									status : 1,
+									userdata : response[0],
+									message : "Login successfully."
+								}
+								res.jsonp(response); 
+							}else{
+								var resdata = {
+									status : 0,
+									message : "somthing went wrong."
+								}
+								res.jsonp(resdata);
+							}
+						});
+				}else if(response.length == 1 && response.isActive == 0){
+					var resdata = {
+		    			status : 0,
+		    			message : "User Not Verified."
+		    		}
+		   			res.jsonp(resdata);			
+				}
+			}else if(val.length == 0){
+				var userdata = {
+					user_email : req.body.facebook.email,
+					first_name : req.body.facebook.first_name,
+					last_name  : req.body.facebook.last_name,
+					isActive   : 1,
+				}
+				var fbdata = new users(userdata);
+				userdata.save(function(err, result) {
+					if (err) {
+						console.log(err);
+					} else {
+						add_device( req.body, function(response){
+							if(response.status == 1){
+								var resdata = {
+									status : 1,
+									userdata : result,
+									message : "User added."
+								}
+								res.jsonp(resdata);
+							}else{
+								var resdata = {
+									status : 0,
+									message : "somthing went wrong."
+								}
+								res.jsonp(resdata);
+							}
+						});
+					}
+				})
+			}
+	    }else{
+	    	var resdata = {
+	    		status : 2,
+	    		message : "somthing went wrong Please try again."
+	    	}
+	   		res.jsonp(resdata); 	
+	    }
+	})	
+	
+	function add_device (req_data, callback) {
+		var deviceData = new notification(req_data);
+		deviceData.save(function(err) {
+			if (err) {
+				var response = {
+					status: 0,
+					err : err
+				}
+				callback(response);
+			} else {
+				var response = {
+					status: 1
+				}
+				callback(response); 	
+			}
+		});
+	}	
 }

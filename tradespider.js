@@ -41,6 +41,7 @@ app.post('/seng/get_seng_data', seng.get_seng_data);
 app.post('/user/addDevice', user.addDevice);
 app.post('/user/register', user.register);
 app.post('/user/login', user.login);
+app.post('/user/facebookLogin', user.facebookLogin);
 
 // // ***************************************** Dax Cron Jobs *****************************************
 var oneMinuteDaxCron = cron.job('0 * * * * *', function () {

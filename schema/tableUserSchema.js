@@ -12,6 +12,7 @@ var userLoginSchema = new userLogin({
 	user_profileimage : String,	
 	first_name : String,
 	last_name : String,
+	isActive : Boolean,
 	created_on : {
 		type : Date,
 		// Create a default 'created' value
