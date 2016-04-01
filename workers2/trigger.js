@@ -95,14 +95,24 @@ var signalData = {
 
   compareUserSignal: function(){
     signal.find({ "status":"open" }).sort({ "_id": -1 }, function(err, signalRecords) {
+      console.log('signalRecords_98', signalRecords);
       if(err) return callback(err);
       async.each(signalRecords, function (signalRecord, callback) {
         signalData.createAlertEvent(signalRecord, function (err, result) {
-          callback();
+          signal.findAndModify({ query: { _id: signalRecord._id }, update: { $set: { "status": "close"}}, new: true}, function(err, doc) {
+            if (err){
+              console.log(err);
+              callback();
+            }else{
+              callback();
+            } 
+          });
         });
       }, function (err) {
-        if(err) return callback(err);
-        console.log('comapare-done');
+        if(err) {return callback(err);}else{
+          console.log('comapare-done');
+        }
+        
       });
     });
   },
@@ -138,6 +148,7 @@ var signalData = {
       }, function(err){
         if(err) return callback(err);
         async.each(jobs, function (job, callback) {
+          console.log('job', job);
           jobCollection.insert(job);
           callback();
         }, function (err) {
