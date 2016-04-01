@@ -37,6 +37,7 @@ app.use('/template', express.static(__dirname + '/startbootstrap'));
 app.post('/dax/get_dax_data', dax.get_dax_data);
 app.post('/dow/get_dow_data', dow.get_dow_data);
 app.post('/usfuture/get_usfuture_data', usfuture.get_usfuture_data);
+app.post('/usfuture/subscribe', usfuture.subscribe);
 app.post('/seng/get_seng_data', seng.get_seng_data);
 app.post('/user/addDevice', user.addDevice);
 app.post('/user/register', user.register);
