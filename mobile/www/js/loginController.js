@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('logincontroller', function($scope, $state, $http, store, AuthService, $timeout, $ionicSideMenuDelegate, $rootScope, $cordovaOauth) {
+.controller('logincontroller', function($scope, $state, $http, store, AuthService, $timeout, $ionicSideMenuDelegate, $rootScope, $cordovaOauth, $ionicHistory) {
 
 	$scope.init = function(){
 		$rootScope.islogin = store.get('user_login') || false;
@@ -44,8 +44,8 @@ angular.module('starter.controllers')
   		console.log(loginData);
 		$http.post( socketUrl + '/user/login', loginData).success(function (res, req) {
 			console.log(res);
-			var user = res.userdata[0];
 			if(res.status == 1){
+				var user = res.userdata[0];
 				AuthService.isAuthenticated = true;
 				store.set('user_login', true);
 				store.set('user_id',user._id);
@@ -54,7 +54,9 @@ angular.module('starter.controllers')
 				store.set('last_name', user.last_name);
 				$scope.init();
 				$timeout(function() {
-					$state.go('app.playlists');
+					$ionicHistory.clearCache().then(function() {
+						$state.go('app.playlists');
+					});
 				}, 2000);
 			}
 		}).error(function (err) {
@@ -80,19 +82,21 @@ angular.module('starter.controllers')
 					}
 					$http.post( socketUrl + '/user/facebookLogin', loginData).success(function (res, req) {
 						console.log(res);
-						// var user = res.userdata[0];
-						// if(res.status == 1){
-						// AuthService.isAuthenticated = true;
-						// store.set('user_login', true);
-						// store.set('user_id',user._id);
-						// store.set('user_email', user.user_email);
-						// store.set('first_name', user.first_name);
-						// store.set('last_name', user.last_name);
-						// $scope.init();
-						// $timeout(function() {
-						// $state.go('app.playlists');
-						// }, 2000);
-						// }
+						var user = res.userdata;
+						if(res.status == 1){
+							AuthService.isAuthenticated = true;
+							store.set('user_login', true);
+							store.set('user_id',user._id);
+							store.set('user_email', user.user_email);
+							store.set('first_name', user.first_name);
+							store.set('last_name', user.last_name);
+							$scope.init();
+							$timeout(function() {
+								$ionicHistory.clearCache().then(function() {
+									$state.go('app.playlists');
+								});
+							}, 2000);
+						}
 					}).error(function (err) {
 						console.log('Internet Connection Is Not Available.');
 					});
@@ -106,6 +110,51 @@ angular.module('starter.controllers')
 	};
 
 
+			/**
+		 * [Google Login]
+		 * @return {[type]} [description]
+		 */
+
+		$scope.googlelogin = function(){
+			$cordovaOauth.google("593949264491-spkoftetj1fc78lkpgdj8s4kca52rumo.apps.googleusercontent.com", ["https://www.googleapis.com/auth/userinfo.profile", "email"]).then(function(result) {
+		      	$http.get("https://www.googleapis.com/oauth2/v1/userinfo", { params: { access_token: result.access_token, format: "json" }}).then(function(response) {
+		        	var data = {
+		          		google : response.data
+		        	};
+		        	var loginData = {
+						google : response.data,
+						platform : store.get('platform'),
+						device : store.get('deviceid'),
+						token_id : window.localStorage.getItem("token_id")
+					}
+					$http.post( socketUrl + '/user/googleLogin', loginData).success(function (res, req) {
+						console.log(res);
+						var user = res.userdata;
+						if(res.status == 1){
+							AuthService.isAuthenticated = true;
+							store.set('user_login', true);
+							store.set('user_id',user._id);
+							store.set('user_email', user.user_email);
+							store.set('first_name', user.first_name);
+							store.set('last_name', user.last_name);
+							$scope.init();
+							$timeout(function() {
+								$ionicHistory.clearCache().then(function() {
+									$state.go('app.playlists');
+								});
+							}, 2000);
+						}
+					}).error(function (err) {
+						console.log('Internet Connection Is Not Available.');
+					});
+		      	});
+		    }, function(error) {
+		        console.log(error);
+		    });
+
+		};
+
+
   $scope.logout = function(){
     AuthService.isAuthenticated = false;
     store.remove('user_login');
@@ -117,4 +166,5 @@ angular.module('starter.controllers')
     $ionicSideMenuDelegate.toggleLeft();
     $state.go('app.playlists');
   }
+
 })

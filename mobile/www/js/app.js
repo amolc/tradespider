@@ -162,7 +162,54 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
         templateUrl: 'templates/daxperiod3600.html'
       }
     }
-  });  
+  })
+  
+  .state('app.usfeature', {
+    url: '/usfeature/:playlistId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/usfeature.html',
+        controller: 'daxController'
+      }
+    }
+  })
+
+  .state('app.usfeature.usfeatureperiod60', {
+    url: '/usfeatureperiod60',
+    views: {
+      'app-usfeature-usfeatureperiod60': {
+        templateUrl: 'templates/usfeatureperiod60.html'
+      }
+    }
+  })
+
+  .state('app.usfeature.usfeatureperiod300', {
+    url: '/usfeatureperiod300',
+    views: {
+      'app-usfeature-usfeatureperiod300': {
+        templateUrl: 'templates/usfeatureperiod300.html'
+      }
+    }
+  })
+
+  .state('app.usfeature.usfeatureperiod900', {
+    url: '/usfeatureperiod900',
+    views: {
+      'app-usfeature-usfeatureperiod900': {
+        templateUrl: 'templates/usfeatureperiod900.html'
+      }
+    }
+  })
+
+  .state('app.usfeature.usfeatureperiod3600', {
+    url: '/usfeatureperiod3600',
+    views: {
+      'app-usfeature-usfeatureperiod3600': {
+        templateUrl: 'templates/usfeatureperiod3600.html'
+      }
+    }
+  })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
 })

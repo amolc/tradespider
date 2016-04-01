@@ -21,16 +21,16 @@ angular.module('starter.controllers', [])
 
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
-    { title: 'DAX', id: 1 },
-    { title: 'DOW', id: 2 },
-    { title: 'US FEATURES', id: 3 },
-    { title: 'HSE', id: 4 },
-    { title: 'BIST 100', id: 4 },
-    { title: 'CHINA A50', id: 4 },
-    { title: 'HANG SENG', id: 4 },
-    { title: 'NIFTY 50', id: 4 },
-    { title: 'NASDAQ', id: 4 },
-    { title: 'CAC 40', id: 4 },
+    { title: 'DAX', id: 1, key:"dax" },
+    { title: 'DOW', id: 2, key:"dax" },
+    { title: 'US FEATURES', id: 3, key:"usfeature"  },
+    { title: 'HSE', id: 4, key:"dax"  },
+    { title: 'BIST 100', id: 4, key:"dax" },
+    { title: 'CHINA A50', id: 4, key:"dax" },
+    { title: 'HANG SENG', id: 4 , key:"dax" },
+    { title: 'NIFTY 50', id: 4, key:"dax" },
+    { title: 'NASDAQ', id: 4, key:"dax" },
+    { title: 'CAC 40', id: 4, key:"dax" },
   ];
  
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
