@@ -99,14 +99,15 @@ var signalData = {
       if(err) return callback(err);
       async.each(signalRecords, function (signalRecord, callback) {
         signalData.createAlertEvent(signalRecord, function (err, result) {
-          signal.findAndModify({ query: { _id: signalRecord._id }, update: { $set: { "status": "close"}}, new: true}, function(err, doc) {
-            if (err){
-              console.log(err);
-              callback();
-            }else{
-              callback();
-            } 
-          });
+          // signal.findAndModify({ query: { _id: signalRecord._id }, update: { $set: { "status": "close"}}, new: true}, function(err, doc) {
+          //   if (err){
+          //     console.log(err);
+          //     callback();
+          //   }else{
+          //     callback();
+          //   } 
+          // });
+          callback();
         });
       }, function (err) {
         if(err) {return callback(err);}else{
