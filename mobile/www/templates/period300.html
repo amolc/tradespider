@@ -1,8 +1,8 @@
-<ion-view view-title="5 MINUTE">
-	<ion-content scroll="true" has-bouncing="true">
+<ion-view view-title="{{marketTitle}}">
+	<ion-content scroll="true" has-bouncing="true" ng-init="init();">
     <div class="list">
       <div class="row item item-divider">
-        <div class="col-50" ng-if="islogin"><ion-toggle style="background-color: #F5F5F5;"  ng-change="subscribe(strtNotify, 'one')" ng-model="strtNotify">Start Notify</ion-toggle></
+        <div class="col-50" ng-if="islogin"><ion-toggle style="background-color: #F5F5F5;"  ng-change="subscribe(strtNotifyfive, 'five')" ng-model="strtNotifyfive">Start Notify</ion-toggle></
         </div>
       </div>
     </div>      

@@ -2,18 +2,60 @@ angular.module('starter.controllers')
 
 .controller('marketController', function($scope, $state, $http, $stateParams, store, $ionicLoading, socket) {
 
-  $scope.marketlist_Data = [
-    { title: 'DAX', id: 1, key:"dax" },
-    { title: 'DOW', id: 2, key:"dax" },
-    { title: 'US FEATURES', id: 3, key:"usfeature"  },
-    { title: 'HSE', id: 4, key:"dax"  },
-    { title: 'BIST 100', id: 4, key:"dax" },
-    { title: 'CHINA A50', id: 4, key:"dax" },
-    { title: 'HANG SENG', id: 4 , key:"dax" },
-    { title: 'NIFTY 50', id: 4, key:"dax" },
-    { title: 'NASDAQ', id: 4, key:"dax" },
-    { title: 'CAC 40', id: 4, key:"dax" },
-  ];
+  $scope.init = function(){
+    $scope.marketlist_Data = [
+      { title: 'DAX', id: 1, key:"dax" },
+      { title: 'DOW', id: 2, key:"dax" },
+      { title: 'US FEATURES', id: 3, key:"usfeature"  },
+      { title: 'HSE', id: 4, key:"dax"  },
+      { title: 'BIST 100', id: 4, key:"dax" },
+      { title: 'CHINA A50', id: 4, key:"dax" },
+      { title: 'HANG SENG', id: 4 , key:"dax" },
+      { title: 'NIFTY 50', id: 4, key:"dax" },
+      { title: 'NASDAQ', id: 4, key:"dax" },
+      { title: 'CAC 40', id: 4, key:"dax" },
+    ];    
+    
+    for (var i = 0; i < $scope.marketlist_Data.length; i++) {
+      if(parseInt($stateParams.marketlistId) == $scope.marketlist_Data[i].id){
+        $scope.marketTitle = $scope.marketlist_Data[i].title;
+        // console.log($state.current.name);
+        if($state.current.name == 'app.marketdetail.period60'){
+          var key = $scope.marketlist_Data[i].key+'one'
+          if(store.get(key) == true){
+              $scope.strtNotifyone = true; 
+            }else{
+              store.set(key,false);
+              $scope.strtNotifyone = false; 
+          }
+        }else if($state.current.name == 'app.marketdetail.period300'){
+          var key = $scope.marketlist_Data[i].key+'five'
+            if(store.get(key) == true){
+              $scope.strtNotifyfive = true; 
+            }else{
+              store.set(key,false);
+              $scope.strtNotifyfive = false; 
+            }
+        }else if($state.current.name == 'app.marketdetail.period900'){
+          var key = $scope.marketlist_Data[i].key+'fifteen'
+          if(store.get(key) == true){
+              $scope.strtNotifyfifteen = true; 
+            }else{
+              store.set(key,false);
+              $scope.strtNotifyfifteen = false; 
+            }
+        }else if($state.current.name == 'app.marketdetail.period3600'){
+          var key = $scope.marketlist_Data[i].key+'hour'
+          if(store.get(key) == true){
+              $scope.strtNotifyhour = true; 
+            }else{
+              store.set(key,false);
+              $scope.strtNotifyhour = false; 
+            }
+        }
+      }
+    };
+  }
 
   function strengthAccuracy(data) {
     var correctStrength = 0, changeCount = 0;
@@ -72,7 +114,8 @@ angular.module('starter.controllers')
         console.log(res);
         for (var i = 0; i < $scope.marketlist_Data.length; i++) {
           if( parseInt($stateParams.marketlistId) == $scope.marketlist_Data[i].id){
-            console.log($scope.marketlist_Data[i]);
+            console.log($scope.marketlist_Data[i].key);
+            store.set($scope.marketlist_Data[i].key+period , strtNotify);
           }
         };
         $scope.message = res.message;
