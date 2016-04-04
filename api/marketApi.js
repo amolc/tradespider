@@ -15,7 +15,7 @@ exports.getMarket = function (req, res) {
 		var tableName = usfuture; 
 	}
 
-    tableName.find().toArray(function(err, response) {
+    tableName.find().sort('-_id').limit(30).toArray(function(err, response) {
       if (err) {
         // If an error occurs send the error message
         return res.status(400).send({

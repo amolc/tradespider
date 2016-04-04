@@ -48,6 +48,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
   };
 }])
 
+.constant('$ionicLoadingConfig', {
+  template: '<ion-spinner class="spinner-positive"></ion-spinner>'
+})
+  
 .service('AuthService', ['store',  '$location',function(store ,$location) {
     var user_login = store.get('user_login');
       if (user_login) {

@@ -1,16 +1,20 @@
 angular.module('starter.controllers')
 
-.controller('marketController', function($scope, $state, $http, $stateParams, store, socket) {
+.controller('marketController', function($scope, $state, $http, $stateParams, store, $ionicLoading, socket) {
 
   $scope.getMarket = function (page) {
+    $ionicLoading.show();
     $http.post( socketUrl + '/market/getMarket', $stateParams).success(function (res, req) {
       if(res.status === 0){
+        $ionicLoading.hide();
         console.log('Error While Executing the query for: '+ $state.current.name);
       }else {
-        console.log(res);
+        $ionicLoading.hide();
         $scope.marketData = res;
+        console.log($scope.marketData);
       }
     }).error(function (err) {
+      $ionicLoading.hide();
       console.log('Internet Connection Is Not Available.');
     });
   };
@@ -33,7 +37,6 @@ angular.module('starter.controllers')
     }
     console.log(data);
     $http.post( socketUrl + '/usfuture/subscribe', data).success(function (res, req) {
-      console.log(res);
       if(res.status == 1){
         $scope.message = res.message;
       }else{
