@@ -1,0 +1,31 @@
+<ion-view view-title="1 MINUTE">
+	<ion-content scroll="true" has-bouncing="true">
+    <div class="list">
+      <div class="row item item-divider">
+        <div class="col-50" ng-if="islogin"><ion-toggle style="background-color: #F5F5F5;"  ng-change="subscribe(strtNotify, 'one')" ng-model="strtNotify">Start Notify</ion-toggle></
+        </div>
+      </div>
+    </div>      
+    <div class="list">
+      <div class="row item item-divider">
+        <div class="col">change</div>
+        <div class="col">Summary</div>
+        <div class="col">Value</div>
+        <div class="col">oneyearreturn</div>
+      </div>
+      <div class="row item"  data-ng-repeat="market in marketData | orderBy: '_id' : 'reverse'">
+        <div class="col"> {{market.change}}</div>
+        <div class="col">
+          <span  class="positive">{{market.five | uppercase}}</span>
+        </div>
+        <div class="col">
+          <span data-ng-if="market.presentvalue">{{market.presentvalue}}</span>
+        </div>
+        <div class="col">
+          <span>{{market.oneyearreturn}}</span>
+        </div>
+      </div>
+    </div>
+	</ion-content>
+</ion-view>
+

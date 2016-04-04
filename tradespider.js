@@ -21,6 +21,7 @@ var dow = require('./api/dow');
 var usfuture = require('./api/usfuture');
 var seng = require('./api/seng');
 var user = require('./api/userApi'); 
+var market = require('./api/marketApi');
 
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -44,6 +45,8 @@ app.post('/user/register', user.register);
 app.post('/user/login', user.login);
 app.post('/user/facebookLogin', user.facebookLogin);
 app.post('/user/googleLogin', user.googleLogin);
+app.post('/market/getMarket', market.getMarket);
+
 
 
 // // ***************************************** Dax Cron Jobs *****************************************

@@ -69,23 +69,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
     controller: 'logincontroller'
   })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
   .state('app.login', {
       cache:false,
       url:'/login',
@@ -97,13 +80,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
       }
     })
 
-  .state('app.playlists', {
+  .state('app.marketlist', {
     cache : false,
-    url: '/playlists',
+    url: '/marketlist',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlists.html',
-        controller: 'PlaylistsCtrl'
+        templateUrl: 'templates/marketList.html',
+        controller: 'marketlistController'
       }
     }
   })
@@ -113,105 +96,60 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io', '
     url: '/register',
     views: {
       'menuContent': {
-      templateUrl: 'templates/register.html',
-      controller : 'logincontroller'      
+        templateUrl: 'templates/register.html',
+        controller : 'logincontroller'      
+      }
     }
-    }
-    })
-  .state('app.dax', {
-    url: '/dax/:playlistId',
+  })
+    
+  .state('app.marketdetail', {
+    url: '/marketdetail/:marketlistId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/dax.html',
-        controller: 'daxController'
+        templateUrl: 'templates/marketDetails.html',
+        controller: 'marketController'
+      }
+    }
+  })  
+
+  .state('app.marketdetail.period60', {
+    url: '/period60',
+    views: {
+      'app-marketdetail-period60': {
+        templateUrl: 'templates/period60.html'
       }
     }
   })
 
-  .state('app.dax.daxperiod60', {
-    url: '/daxperiod60',
+  .state('app.marketdetail.period300', {
+    url: '/period300',
     views: {
-      'app-dax-daxperiod60': {
-        templateUrl: 'templates/daxperiod60.html'
+      'app-marketdetail-period300': {
+        templateUrl: 'templates/period300.html'
       }
     }
   })
 
-  .state('app.dax.daxperiod300', {
-    url: '/daxperiod300',
+  .state('app.marketdetail.period900', {
+    url: '/period900',
     views: {
-      'app-dax-daxperiod300': {
-        templateUrl: 'templates/daxperiod300.html'
+      'app-marketdetail-period900': {
+        templateUrl: 'templates/period900.html'
       }
     }
   })
 
-  .state('app.dax.daxperiod900', {
-    url: '/daxperiod900',
+  .state('app.marketdetail.period3600', {
+    url: '/period3600',
     views: {
-      'app-dax-daxperiod900': {
-        templateUrl: 'templates/daxperiod900.html'
-      }
-    }
-  })
-
-  .state('app.dax.daxperiod3600', {
-    url: '/daxperiod3600',
-    views: {
-      'app-dax-daxperiod3600': {
-        templateUrl: 'templates/daxperiod3600.html'
-      }
-    }
-  })
-  
-  .state('app.usfeature', {
-    url: '/usfeature/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/usfeature.html',
-        controller: 'daxController'
-      }
-    }
-  })
-
-  .state('app.usfeature.usfeatureperiod60', {
-    url: '/usfeatureperiod60',
-    views: {
-      'app-usfeature-usfeatureperiod60': {
-        templateUrl: 'templates/usfeatureperiod60.html'
-      }
-    }
-  })
-
-  .state('app.usfeature.usfeatureperiod300', {
-    url: '/usfeatureperiod300',
-    views: {
-      'app-usfeature-usfeatureperiod300': {
-        templateUrl: 'templates/usfeatureperiod300.html'
-      }
-    }
-  })
-
-  .state('app.usfeature.usfeatureperiod900', {
-    url: '/usfeatureperiod900',
-    views: {
-      'app-usfeature-usfeatureperiod900': {
-        templateUrl: 'templates/usfeatureperiod900.html'
-      }
-    }
-  })
-
-  .state('app.usfeature.usfeatureperiod3600', {
-    url: '/usfeatureperiod3600',
-    views: {
-      'app-usfeature-usfeatureperiod3600': {
-        templateUrl: 'templates/usfeatureperiod3600.html'
+      'app-marketdetail-period3600': {
+        templateUrl: 'templates/period3600.html'
       }
     }
   })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/marketlist');
 })
 
 // SOCKET Config for the DEVELOPMENT instance

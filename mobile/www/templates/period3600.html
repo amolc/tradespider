@@ -1,8 +1,7 @@
-<ion-view view-title="1 MINUTE" data-ng-init="usfeatureData('period60')">
+<ion-view view-title="1 HOUR">
 	<ion-content scroll="true" has-bouncing="true">
     <div class="list">
-      <div class="row item item-divider" data-ng-if="usfeature_1_average != null || usfeature_1_average != undefined">
-        <div class="col-50 padding">ACCURACY: {{usfeature_1_average | limitTo: 5}}%</div>
+      <div class="row item item-divider">
         <div class="col-50" ng-if="islogin"><ion-toggle style="background-color: #F5F5F5;"  ng-change="subscribe(strtNotify, 'one')" ng-model="strtNotify">Start Notify</ion-toggle></
         </div>
       </div>
@@ -14,19 +13,18 @@
         <div class="col">Value</div>
         <div class="col">oneyearreturn</div>
       </div>
-      <div class="row item"  data-ng-repeat="usfeature_1 in usfeature_1s | orderBy: '_id' : 'reverse'">
-        <div class="col"> {{usfeature_1.change}}</div>
+      <div class="row item"  data-ng-repeat="market in marketData | orderBy: '_id' : 'reverse'">
+        <div class="col"> {{market.change}}</div>
         <div class="col">
-          <span  class="positive">{{usfeature_1.five | uppercase}}</span>
+          <span  class="positive">{{market.hour | uppercase}}</span>
         </div>
         <div class="col">
-          <span data-ng-if="usfeature_1.presentvalue">{{usfeature_1.presentvalue}}</span>
+          <span data-ng-if="market.presentvalue">{{market.presentvalue}}</span>
         </div>
         <div class="col">
-          <span>{{usfeature_1.oneyearreturn}}</span>
+          <span>{{market.oneyearreturn}}</span>
         </div>
       </div>
     </div>
 	</ion-content>
 </ion-view>
-

@@ -15,12 +15,12 @@ angular.module('starter.controllers', [])
     store.remove('last_name');
     $scope.init();
     $ionicSideMenuDelegate.toggleLeft();
-    $state.go('app.playlists');
+    $state.go('app.marketlist');
   }
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
+.controller('marketlistController', function($scope) {
+  $scope.marketlist_Data = [
     { title: 'DAX', id: 1, key:"dax" },
     { title: 'DOW', id: 2, key:"dax" },
     { title: 'US FEATURES', id: 3, key:"usfeature"  },

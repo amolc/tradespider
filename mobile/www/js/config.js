@@ -1,4 +1,4 @@
-var instance = "dev";
+var instance = "local";
 
 if (instance == "dev"){
 	var socketUrl = 'http://tradealert.fountaintechies.com:5555';

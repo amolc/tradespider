@@ -4,7 +4,6 @@ angular.module('starter.controllers')
 
 	$scope.init = function(){
 		$rootScope.islogin = store.get('user_login') || false;
-		console.log($scope.islogin);
 	}
 
 	$scope.saveToken = function (page) {
@@ -55,7 +54,7 @@ angular.module('starter.controllers')
 				$scope.init();
 				$timeout(function() {
 					$ionicHistory.clearCache().then(function() {
-						$state.go('app.playlists');
+						$state.go('app.marketlist');
 					});
 				}, 2000);
 			}
@@ -93,7 +92,7 @@ angular.module('starter.controllers')
 							$scope.init();
 							$timeout(function() {
 								$ionicHistory.clearCache().then(function() {
-									$state.go('app.playlists');
+									$state.go('app.marketlist');
 								});
 							}, 2000);
 						}
@@ -140,7 +139,7 @@ angular.module('starter.controllers')
 							$scope.init();
 							$timeout(function() {
 								$ionicHistory.clearCache().then(function() {
-									$state.go('app.playlists');
+									$state.go('app.marketlist');
 								});
 							}, 2000);
 						}
@@ -164,7 +163,7 @@ angular.module('starter.controllers')
     store.remove('last_name');
     $scope.init();
     $ionicSideMenuDelegate.toggleLeft();
-    $state.go('app.playlists');
+    $state.go('app.marketlist');
   }
 
 })
