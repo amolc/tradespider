@@ -46,7 +46,7 @@ app.post('/user/login', user.login);
 app.post('/user/facebookLogin', user.facebookLogin);
 app.post('/user/googleLogin', user.googleLogin);
 app.post('/market/getMarket', market.getMarket);
-
+app.post('/market/subscribe', market.subscribe);
 
 
 // // ***************************************** Dax Cron Jobs *****************************************
