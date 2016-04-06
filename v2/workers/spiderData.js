@@ -27,6 +27,7 @@ var db = new Db('tradespider', new Server('localhost', 27017));
 var spiderData =  {
 
 spider: function(link,market,err,callback) {
+  console.log('market_30', market);
 
 var metadata= '';
 
@@ -89,7 +90,7 @@ var URL = {
 
               });
 
-              // console.log(metadata);
+              console.log('metadata_92', metadata);
 
 
     }

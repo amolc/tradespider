@@ -4,20 +4,21 @@ var spiderData = require('./spiderData');
 var trigger = require('./trigger');
 var events = require('./events');
 
-var usFuture = cron.job('0 * * * * *', function() {
+var dow = cron.job('0 * * * * *', function() {
   console.log('Cron Started');
-  var link = "http://www.investing.com/indices/nq-100-futures";
-  var market = "usFuture";
+  // var link = "http://www.investing.com/indices/nq-100-futures";
+  link = "http://www.investing.com/indices/us-30-futures";
+  var market = "dow";
   spiderData.spider(link, market);
 
   trigger.calculateSignal(market, function (err, result) {
-    console.log(err);
-    console.log(result);
+    console.log('err_15', err);
+    console.log("result_16", result);
   });
 
   trigger.compareUserSignal();
-  events.androidPushEvent();
+  // events.androidPushEvent();
   // events.iosPushEvent();
 });
 
-usFuture.start();
+dow.start();
