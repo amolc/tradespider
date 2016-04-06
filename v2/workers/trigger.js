@@ -4,7 +4,6 @@ var db = mongojs('tradespider');
 var signal = db.collection("signal");
 var alerts = db.collection("userAlerts");
 var jobCollection = db.collection("jobs");
-
 var async = require('async');
 
 var signalData = {

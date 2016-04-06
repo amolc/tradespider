@@ -1,6 +1,5 @@
 var cheerio = require('cheerio');
 var request = require('request');
-
 var builder = require('mongo-sql');
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');

@@ -2,7 +2,6 @@ var mongojs = require('mongojs');
 var gcm = require('node-gcm');
 var apn = require('apn');
 var async = require('async');
-
 var db = mongojs('tradespider');
 var jobCollection = db.collection("jobs");
 

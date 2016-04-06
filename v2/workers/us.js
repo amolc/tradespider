@@ -14,6 +14,7 @@ var dow = cron.job('0 * * * * *', function() {
   trigger.calculateSignal(market, function (err, result) {
     console.log('err_15', err);
     console.log("result_16", result);
+    
   });
 
   trigger.compareUserSignal();
