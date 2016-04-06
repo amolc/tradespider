@@ -4,8 +4,8 @@ var builder = require('mongo-sql');
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 
-  // Connection URL
-var url = 'mongodb://root:ferrari@localhost:27017/tradealert';
+//   // Connection URL
+// var url = 'mongodb://root:ferrari@localhost:27017/tradealert';
 
 var Db = require('mongodb').Db,
   MongoClient = require('mongodb').MongoClient,

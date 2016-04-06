@@ -4,11 +4,10 @@ var spiderData = require('./spiderData');
 var trigger = require('./trigger');
 var events = require('./events');
 
-var dow = cron.job('0 * * * * *', function() {
+var ftsemib = cron.job('0 * * * * *', function() {
   console.log('Cron Started');
-  // var link = "http://www.investing.com/indices/nq-100-futures";
-  link = "http://www.investing.com/indices/us-30-futures";
-  var market = "dow";
+  var link = "http://www.investing.com/indices/italy-40-futures";
+  var market = "ftsemib";
   spiderData.spider(link, market);
 
   trigger.calculateSignal(market, function (err, result) {
@@ -22,4 +21,6 @@ var dow = cron.job('0 * * * * *', function() {
   // events.iosPushEvent();
 });
 
-dow.start();
+ftsemib.start();
+
+module.exports = ftsemib;
