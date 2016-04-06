@@ -4,6 +4,10 @@ var http = require("http").createServer(app);
 var bodyParser = require('body-parser');
 var cron = require('cron');
 
+app.use(bodyParser.json({limit: '50mb'}));
+app.use('/', express.static(__dirname + '/public'));
+app.use('/admin', express.static(__dirname + '/public/admin'));
+
   var dow = require('./workers/dow');
   var sp500 = require('./workers/sp500');
   var nasdaq = require('./workers/nasdaq');
