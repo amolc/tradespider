@@ -195,7 +195,7 @@ exports.facebookLogin = function (req, res) {
 		console.log('req_data_195', req_data);
 		db.open(function(err, db) {
 			notificationdata = {
-				user_id  : req_data._id,
+				user_id  : req_data.user_id,
 				device   : req_data.device,
 				token_id : req_data.token_id,
 				platform : req_data.platform
