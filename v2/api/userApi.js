@@ -121,7 +121,7 @@ exports.login = function (req, res) {
 }
 
 exports.facebookLogin = function (req, res) {
-	users.find({ user_email : req.body.facebook.email}).exec(function (err, response) {
+	users.find({ 'user_email' : req.body.facebook.email}, function (err, response) {
 	    if( !err ){
 			if( response.length > 0 ){
 				if( response.length == 1 && response[0].isActive == true ){
@@ -191,26 +191,34 @@ exports.facebookLogin = function (req, res) {
 	})	
 	
 	function add_device (req_data, callback) {
-		var deviceData = new notification(req_data);
-		deviceData.save(function(err) {
-			if (err) {
-				var resCall = {
-					status: 0,
-					err : err
-				}
-				callback(res);
-			} else {
-				var resCall = {
-					status: 1
-				}
-				callback(resCall); 	
+
+		db.open(function(err, db) {
+			notificationdata = {
+				user_id  : req_data._id,
+				device   : req_data.device,
+				token_id : req_data.token_id,
+				platform : req_data.platform
 			}
+			notification.insert(notificationdata, function(err, result){
+				if (err) {
+					var resCall = {
+						status: 0,
+						err : err
+					}
+					callback(res);
+				} else {
+					var resCall = {
+						status: 1
+					}
+					callback(resCall); 	
+				}
+			});
 		});
 	}	
 }
 
 exports.googleLogin = function (req, res) {
-	users.find({ user_email : req.body.google.email}).exec(function (err, response) {
+	users.find({ 'user_email' : req.body.google.email}, function (err, response) {
 	    if( !err ){
 			if( response.length > 0 ){
 				if( response.length == 1 && response[0].isActive == true ){
