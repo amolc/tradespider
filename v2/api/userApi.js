@@ -192,7 +192,6 @@ exports.facebookLogin = function (req, res) {
 	})	
 	
 	function add_device (req_data, callback) {
-		console.log('req_data_195', req_data);
 		db.open(function(err, db) {
 			notificationdata = {
 				user_id  : req_data.user_id,
@@ -201,7 +200,6 @@ exports.facebookLogin = function (req, res) {
 				platform : req_data.platform
 			}
 			notification.insert(notificationdata, function(err, result){
-				console.log("result_204", result);
 				if (err) {
 					var resCall = {
 						status: 0,
@@ -290,20 +288,27 @@ exports.googleLogin = function (req, res) {
 	})	
 	
 	function add_device (req_data, callback) {
-		var deviceData = new notification(req_data);
-		deviceData.save(function(err) {
-			if (err) {
-				var resCall = {
-					status: 0,
-					err : err
-				}
-				callback(res);
-			} else {
-				var resCall = {
-					status: 1
-				}
-				callback(resCall); 	
+		db.open(function(err, db) {
+			notificationdata = {
+				user_id  : req_data.user_id,
+				device   : req_data.device,
+				token_id : req_data.token_id,
+				platform : req_data.platform
 			}
+			notification.insert(notificationdata, function(err, result){
+				if (err) {
+					var resCall = {
+						status: 0,
+						err : err
+					}
+					callback(res);
+				} else {
+					var resCall = {
+						status: 1
+					}
+					callback(resCall); 	
+				}
+			});
 		});
 	}	
 }

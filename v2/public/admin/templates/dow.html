@@ -1,0 +1,58 @@
+<table class="table" data-ng-init="getData('dow')">
+  <thead>
+    <tr>
+      <th>
+        CHANGE
+      </th>
+      <th>
+        FIVE
+      </th>
+      <th>
+        FIFTEEN
+      </th>
+      <th>
+        HOUR
+      </th>
+      <th>
+        PRESENT VALUE
+      </th>
+      <th>
+        PREVIOUS VALUE
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="active" data-ng-repeat="market in marketData | orderBy: 'created_on' : 'reverse'">
+      <th>
+        {{market.change}}
+      </th>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="market.five == 'Buy'">{{market.five | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="market.five == 'Strong Buy'">{{market.five | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="market.five == 'Sell'">{{market.five | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="market.five == 'Strong Sell'">{{market.five | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="market.five == 'Neutral'">{{market.five | uppercase}}</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="market.fifteen == 'Buy'">{{market.fifteen | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="market.fifteen == 'Strong Buy'">{{market.fifteen | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="market.fifteen == 'Sell'">{{market.fifteen | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="market.fifteen == 'Strong Sell'">{{market.fifteen | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="market.fifteen == 'Neutral'">{{market.fifteen | uppercase}}</button>
+      </td>
+      <td>
+
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="market.hour == 'Buy'">{{market.hour | uppercase}}</button>
+        <button type="button" class="btn btn-success btn-xs" data-ng-if="market.hour == 'Strong Buy'">{{market.hour | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="market.hour == 'Sell'">{{market.hour | uppercase}}</button>
+        <button type="button" class="btn btn-danger btn-xs" data-ng-if="market.hour == 'Strong Sell'">{{market.hour | uppercase}}</button>
+        <button type="button" class="btn btn-default btn-xs" data-ng-if="market.hour == 'Neutral'">{{market.hour | uppercase}}</button>
+      </td>
+      <td>
+        <span>{{market.presentvalue}}</span>
+      </td>
+      <td>
+        <span>{{market.previousclose}}</span>
+      </td>
+  </tbody>
+</table>

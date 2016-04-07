@@ -19,6 +19,22 @@ SuperadminApplicationModule
     controller : "homeController"
   })
 
+  .state('markets', {
+    url: "/markets",
+    templateUrl: "templates/markets.html",
+    controller : "marketsController"
+  })
+
+  .state('markets.dax', {
+    url: "/dax",
+    templateUrl: "templates/dax.html"
+  })
+
+  .state('markets.dow', {
+    url: "/dow",
+    templateUrl: "templates/dow.html"
+  })
+
   $urlRouterProvider.otherwise('/home');
 
 })

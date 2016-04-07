@@ -29,6 +29,8 @@ app.use('/admin', express.static(__dirname + '/public/admin'));
    sensex = require('./workers/sensex');
 
 var user = require('./api/userApi');
+var markets = require('./api/marketsApi');
+
 
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -43,6 +45,7 @@ app.post('/user/register', user.register);
 app.post('/user/login', user.login);
 app.post('/user/facebookLogin', user.facebookLogin);
 app.post('/user/googleLogin', user.googleLogin);
+app.post('/markets/getMarket', markets.getMarket);
 
 http.listen(5555);
 console.log("listening to port 5555");
