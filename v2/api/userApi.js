@@ -201,6 +201,7 @@ exports.facebookLogin = function (req, res) {
 				platform : req_data.platform
 			}
 			notification.insert(notificationdata, function(err, result){
+				console.log("result_204", result);
 				if (err) {
 					var resCall = {
 						status: 0,

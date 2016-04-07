@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-storage', 'ngCordova', 'ngMessages'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaDevice, store) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +20,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    ionic.Platform.ready(function(){
+    // will execute when device is ready, or immediately if the device is already ready.
+      var currentPlatform = ionic.Platform.platform();
+      var uuid = $cordovaDevice.getUUID();
+      store.set('platform',currentPlatform);
+      store.set('deviceid',uuid);
+    });
   });
 })
 
@@ -100,4 +108,49 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   }else{
     $urlRouterProvider.otherwise('/login');
   }
-});
+})
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        var push = PushNotification.init({
+            "android": {
+                "senderID": "419937285756"
+            },
+            "ios": {"alert": "true", "badge": "true", "sound": "true"},
+            "windows": {}
+        });
+
+        push.on('registration', function(data) {
+            window.localStorage.setItem("token_id", data.registrationId);
+        });
+
+        push.on('notification', function(data) {
+          console.log("notification event");
+            console.log(JSON.stringify(data));
+            push.finish(function () {
+                console.log('finish successfully called');
+            });
+        });
+
+        push.on('error', function(e) {
+            console.log("push error");
+        });
+    }
+};
+
+app.initialize();
