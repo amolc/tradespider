@@ -156,9 +156,10 @@ exports.facebookLogin = function (req, res) {
 					last_name  : req.body.facebook.last_name,
 					isActive   : 1,
 				}
-				var fbdata = new users(userdata);
-				fbdata.save(function(err, result) {
-					if (err) {
+
+						db.open(function(err, db) {
+			users.insert(userdata, function(err, result){
+				if (err) {
 						console.log(err);
 					} else {
 						req.body.user_id = result._id;
@@ -179,7 +180,8 @@ exports.facebookLogin = function (req, res) {
 							}
 						});
 					}
-				})
+			});
+		});
 			}
 	    }else{
 	    	var resdata = {
