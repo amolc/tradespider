@@ -41,6 +41,8 @@ app.all('*', function(req, res, next) {
 app.post('/user/addDevice', user.addDevice);
 app.post('/user/register', user.register);
 app.post('/user/login', user.login);
+app.post('/user/facebookLogin', user.facebookLogin);
+app.post('/user/googleLogin', user.googleLogin);
 
 http.listen(5555);
 console.log("listening to port 5555");
