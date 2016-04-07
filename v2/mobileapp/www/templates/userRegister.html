@@ -1,0 +1,43 @@
+<ion-view view-title='TRADEALERT'>
+  <ion-content class="padding">
+  <h4 style="margin-top:15px;text-align: center;">Register</h4>
+    <form name="signupForm"  ng-submit="signupForm.$valid && register(data)" novalidate>
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">First Name</span>
+          <input type="text" name="first_name" ng-model="data.first_name" placeholder="First Name" required/>
+          <div data-ng-messages="signupForm.$submitted && signupForm.first_name.$error" role="alert">
+            <div class="assertive" ng-message="required">Enter First Name
+            </div>
+          </div>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Last Name</span>
+          <input type="text" name="last_name" ng-model="data.last_name" placeholder="Last Name" required/>
+          <div data-ng-messages="signupForm.$submitted && signupForm.last_name.$error" role="alert">
+          <div class="assertive" ng-message="required">Enter Last Name
+          </div>
+        </div>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Email</span>
+          <input type="text" name="user_email" ng-pattern='/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i' ng-model="data.user_email" placeholder="Email" required/>
+          <div class="assertive" data-ng-messages="signupForm.$submitted && signupForm.user_email.$error" role="alert">
+            <div ng-message="required">Enter Email</div>
+            <div ng-message="pattern">Enter Valid Email</div>
+          </div>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Password</span>
+          <input type="password" name="password" ng-model="data.user_password" placeholder="Password" required/>
+          <div data-ng-messages="signupForm.$submitted && signupForm.password.$error" role="alert">
+          <div class="assertive" ng-message="required">Enter Password
+          </div>
+        </div>
+        </label>
+      </div>
+      <div class="assertive">{{errmsg}}</div>
+      <button class="button button-block button-calm">Register</button>
+    </form>
+  </ion-content>
+</ion-view>

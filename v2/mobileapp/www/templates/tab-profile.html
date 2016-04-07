@@ -1,0 +1,13 @@
+<ion-view view-title="Profile" ng-init="init()">
+      <ion-content has-header="true">
+      <div id="profile-bg"></div>
+      <div id="content">
+        <div id="profile-info">
+          <img id="profile-image" ng-src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/12235072_965175596877174_1994230002115159760_n.jpg?oh=e187ced3edb3ad34ceeb678e1d12abc3&oe=578CAD39&__gda__=1467543176_9f9f4e49512cab3c2d7a7b16a85cf117">
+          <h3 id="profile-name">{{userdata.first_name | uppercase}}&nbsp;{{userdata.last_name | uppercase}}</h3>
+          <span>{{userdata.user_email}}
+          </span>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>

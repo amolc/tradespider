@@ -84,12 +84,12 @@ exports.login = function (req, res) {
 			if(response.length > 0){
 				db.open(function(err, db) {
 					notificationdata = {
+						user_id  : response[0]._id,
 						device   : req.body.device,
 						token_id : req.body.token_id,
-						user_id  : response[0]._id,
 						platform : req.body.platform
 					}
-					notification.insert(req.body, function(err, result){
+					notification.insert(notificationdata, function(err, result){
 							if (err) {
 							console.log(err);
 						} else {
