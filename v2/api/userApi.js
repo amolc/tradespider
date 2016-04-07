@@ -156,32 +156,31 @@ exports.facebookLogin = function (req, res) {
 					last_name  : req.body.facebook.last_name,
 					isActive   : 1,
 				}
-
-						db.open(function(err, db) {
-			users.insert(userdata, function(err, result){
-				if (err) {
-						console.log(err);
-					} else {
-						req.body.user_id = result._id;
-						add_device( req.body, function(response){
-							if(response.status == 1){
-								var resdata = {
-									status : 1,
-									userdata : result,
-									message : "User added."
+				db.open(function(err, db) {
+					users.insert(userdata, function(err, result){
+						if (err) {
+							console.log(err);
+						} else {
+							req.body.user_id = result._id;
+							add_device( req.body, function(response){
+								if(response.status == 1){
+									var resdata = {
+										status : 1,
+										userdata : result,
+										message : "User added."
+									}
+									res.jsonp(resdata);
+								}else{
+									var resdata = {
+										status : 0,
+										message : "somthing went wrong."
+									}
+									res.jsonp(resdata);
 								}
-								res.jsonp(resdata);
-							}else{
-								var resdata = {
-									status : 0,
-									message : "somthing went wrong."
-								}
-								res.jsonp(resdata);
-							}
-						});
-					}
-			});
-		});
+							});
+						}
+					});
+				});
 			}
 	    }else{
 	    	var resdata = {
@@ -193,7 +192,7 @@ exports.facebookLogin = function (req, res) {
 	})	
 	
 	function add_device (req_data, callback) {
-
+		console.log('req_data_195', req_data);
 		db.open(function(err, db) {
 			notificationdata = {
 				user_id  : req_data._id,
