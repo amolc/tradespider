@@ -24,6 +24,7 @@
     "express": "^4.13.3",
     "kerberos": "0.0.18",
     "moment": "^2.11.2",
+    "mongojs": "^2.4.0",
     "mongoose": "^4.4.2",
     "node-gcm": "^0.14.0",
     "request": "^2.67.0",

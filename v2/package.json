@@ -1,0 +1,24 @@
+{
+  "name": "tradealert",
+  "version": "0.3.0",
+  "description": "",
+  "main": "tradespider.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ftechiesnitin.amolc",
+  "license": "ISC",
+  "dependencies": {
+    "apn": "^2.1.2",
+    "async": "^2.1.4",
+    "body-parser": "^1.15.2",
+    "cheerio": "^0.22.0",
+    "cron": "^1.2.1",
+    "express": "^4.14.0",
+    "mongo-sql": "^3.0.0",
+    "mongodb": "^2.2.16",
+    "mongojs": "^2.4.0",
+    "node-gcm": "^0.14.4",
+    "request": "^2.79.0"
+  }
+}
